@@ -1,0 +1,59 @@
+Source (2)
+Các yêu cầu chính
+Nhân viên:
+- Tạo hóa đơn nhập nguyên liệu
+- Quản lý danh mục sảnh => Sảnhnh A, B
+- Quản lý danh mục bàn của mỗi sảnh.
+- Quản lý thông tin nhân viên.
+- Quản lý danh mục ca làm việc, đơn giá ca làm việc.
+- Phân công việc làm theo cho nhân viên theo ca, chấm công và tính lương.
+- Quản lý danh mục món ăn, thức uống, đơn giá món ăn thức uống theo thời gian.
+- Quản lý yêu cầu gọi món của khách hàng.
+- Quản lý việc đổi món, hủy món.
+- Quản lý hóa đơn tính tiền.
+- tìm kiếm theo danh sách món => gợi ý theo keywork chủ đề món ăn
+- Đặt bàn 
+
+Nhân viên kho.
+- Quản lý nguyên liệu, Quản lý nguyên liệu sắp hết để nhập
+- Nhập hàng theo hóa đơn nhân viên yêu cầu
+- Xuất hóa đơn nhập hàng
+- tìm kiếm theo danh sách món => gợi ý theo keywork chủ đề món ăn
+- Đặt bàn 
+
+Sếp = Admin 
+
+powerpoint + word ()
+
+Nhân viên, quản lý kho, 
+CDM => Mô hình erd
+
+
+
+
+
+Bàn 1 2  3
+ 3
+
+
+
+
+
+
+
+
+
+
+Source chính (1)
+- Quản lý danh mục sảnh
+- Quản lý danh mục bàn của mỗi sảnh.
+- Quản lý thông tin nhân viên.
+- Quản lý danh mục ca làm việc, đơn giá ca làm việc.
+- Phân công việc làm theo cho nhân viên theo ca, chấm công và tính lương.
+- Quản lý danh mục món ăn, thức uống, đơn giá món ăn thức uống theo thời gian.
+- Quản lý yêu cầu gọi món của khách hàng.
+- Quản lý việc đổi món, hủy món.
+- Quản lý hóa đơn tính tiền.
+
+
+
