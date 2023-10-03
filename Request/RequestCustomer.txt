@@ -29,21 +29,6 @@ Nhân viên, quản lý kho,
 CDM => Mô hình erd
 
 
-
-
-
-Bàn 1 2  3
- 3
-
-
-
-
-
-
-
-
-
-
 Source chính (1)
 - Quản lý danh mục sảnh
 - Quản lý danh mục bàn của mỗi sảnh.
