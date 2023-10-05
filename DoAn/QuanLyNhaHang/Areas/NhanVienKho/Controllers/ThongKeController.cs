@@ -16,7 +16,7 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
             ViewBag.NguyenLieu = db.NguyenLieus.Count();
             ViewBag.XuatKho = db.XuatKhoes.Count();
             ViewBag.HoanTra = db.HoanTras.Count();
-            ViewBag.PhieuNhap = db.PhieuNhaps.Count();
+            ViewBag.PhieuNhapCount = db.PhieuNhaps.Count();
             ViewBag.NhaCungCap = db.NhaCCs.Count();
 
             ViewBag.HoaDon = db.HoaDons.OrderByDescending(n => n.MaHoaDon).ToList();
