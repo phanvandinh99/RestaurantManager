@@ -193,15 +193,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     {
                         // lấy ra nguyên liệu tương ứng
                         var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
-                        // kiểm tra số lượng dùng <= số lượng hiện còn trong kho k
-                        //if (nguyenLieu.SoLuongHienCon >= (item.SoLuongDung * soLuongOrder)) // đáp ứng
-                        //{
                         nguyenLieu.SoLuongHienCon = (nguyenLieu.SoLuongHienCon - (item.SoLuongDung * soLuongOrder));
-                        //}
-                        //else // k đáp ứng
-                        //{
-                        //    return RedirectToAction("KhoKhongDapUng", "ERROR");
-                        //}
                     }
                     db.SaveChanges();
 
@@ -212,10 +204,10 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     db.XuatKhoes.Add(xk);
                     db.SaveChanges();
                     // lưu nguyên liệu vào nguyên liệu xuất
-                    var listNguyenLieu = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn);
+                    //var listNguyenLieu = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn);
                     // lấy mã xuất kho
                     var xuatKho = db.XuatKhoes.OrderByDescending(n => n.MaXuatKho).FirstOrDefault();
-                    foreach (var item in listNguyenLieu)
+                    foreach (var item in listChitietSanPham)
                     {
                         // lấy ra nguyên liệu tương ứng => tìm đc đơn giá
                         var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
@@ -225,7 +217,6 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                         nlx.SoLuongXuat = item.SoLuongDung;
                         db.NguyenLieuXuats.Add(nlx);
                     }
-                    db.SaveChanges();
                     db.SaveChanges();
                     #endregion
 
@@ -258,15 +249,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     {
                         // lấy ra nguyên liệu tương ứng
                         var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
-                        // kiểm tra số lượng dùng <= số lượng hiện còn trong kho k
-                        //if (nguyenLieu.SoLuongHienCon >= (item.SoLuongDung * soLuongOrder)) // đáp ứng
-                        //{
                         nguyenLieu.SoLuongHienCon = (nguyenLieu.SoLuongHienCon - item.SoLuongDung * soLuongOrder);
-                        //}
-                        //else // k đáp ứng
-                        //{
-                        //    return RedirectToAction("KhoKhongDapUng", "ERROR");
-                        //}
                     }
                     db.SaveChanges();
 
@@ -290,7 +273,6 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                         nlx.SoLuongXuat = item.SoLuongDung;
                         db.NguyenLieuXuats.Add(nlx);
                     }
-                    db.SaveChanges();
                     db.SaveChanges();
                     #endregion
 
@@ -371,10 +353,10 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                         db.XuatKhoes.Add(xk);
                         db.SaveChanges();
                         // lưu nguyên liệu vào nguyên liệu xuất
-                        var listNguyenLieu = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn);
+                        //var listNguyenLieu = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn);
                         // lấy mã xuất kho
                         var xuatKho = db.XuatKhoes.OrderByDescending(n => n.MaXuatKho).FirstOrDefault();
-                        foreach (var item in listNguyenLieu)
+                        foreach (var item in listChitietSanPham)
                         {
                             // lấy ra nguyên liệu tương ứng => tìm đc đơn giá
                             var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
@@ -384,7 +366,6 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                             nlx.SoLuongXuat = item.SoLuongDung;
                             db.NguyenLieuXuats.Add(nlx);
                         }
-                        db.SaveChanges();
                         db.SaveChanges();
                         #endregion
                     }
@@ -454,6 +435,31 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             ls.MaHoaDon_id = iMaHoaDon;
             ls.MaMonAn_id = iMaMonAn;
             db.LichSuGoiMons.Add(ls);
+
+            #region Tạo hoàn trả
+            // tạo phiếu Hoàn Trả
+            double? tongTien = 0;
+            HoanTra ht = new HoanTra();
+            ht.NgayHoanTra = DateTime.Now;
+            db.HoanTras.Add(ht);
+            db.SaveChanges();
+
+            var hoanTra = db.HoanTras.OrderByDescending(n => n.MaHoanTra).FirstOrDefault();
+            // Lọc danh sách món ăn và trừ số lượng tương ứng
+            var chiTietSanPham = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == iMaMonAn && n.Tru == 1).ToList();
+            foreach (var item in chiTietSanPham)
+            {
+                // lấy ra nguyên liệu trả tương ứng
+                var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                NguyenLieuTra nlt = new NguyenLieuTra();
+                nlt.MaHoanTra_id = hoanTra.MaHoanTra;
+                nlt.MaNguyenLieu_id = item.MaNguyenLieu_id;
+                nlt.SoLuongTra = item.SoLuongDung * monAn.SoLuongMua;
+                db.NguyenLieuTras.Add(nlt);
+            }
+            db.SaveChanges();
+            #endregion
+
             db.ChiTietHoaDons.Remove(monAn);
             db.SaveChanges();
             return Redirect(strURL);
@@ -714,7 +720,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     }
                     #endregion
                 }
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
             return RedirectToAction("Index", "Home");
         }

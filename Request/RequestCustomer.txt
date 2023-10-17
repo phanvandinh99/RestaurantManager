@@ -1,25 +1,59 @@
-Source (2)
-Các yêu cầu chính
-Nhân viên:
-- Tạo hóa đơn nhập nguyên liệu
-- Quản lý danh mục sảnh => Sảnhnh A, B
-- Quản lý danh mục bàn của mỗi sảnh.
-- Quản lý thông tin nhân viên.
-- Quản lý danh mục ca làm việc, đơn giá ca làm việc.
-- Phân công việc làm theo cho nhân viên theo ca, chấm công và tính lương.
+~============================= YÊU CẦU CHỨC NĂNG KHÁCH HÀNG =============================~
+
+Các tác nhân: Nhân Viên, Nhân Viên Kho, Khách Hàng Và Admin.
+
+NHÂN VIÊN:
+- Quản lý danh mục (Tầng) => Tầng 1, 2, 3...
+	Chỉ cần hiển thị danh sách các tầng 
+	=> Xong
+- Quản lý danh mục bàn của mỗi tầng.
+	CRUD thành công
+	=> Xong
+- Quản lý thông tin nhân viên (Nhân viên có thể quản lý nhân viên)
+	Đây chính là nhân viên bán hàng hoặc là thu ngân nên có thể quản lý thông tin nhân viên phục vụ
+	Xong
+- Quản lý vị trí làm việc và tính lương cho nhân viên
+	Đang gặp lỗi
 - Quản lý danh mục món ăn, thức uống, đơn giá món ăn thức uống theo thời gian.
+	CRUD Thành công
+	Xong
 - Quản lý yêu cầu gọi món của khách hàng.
+	Xem được lịch sử gọi món của khách hàng (Thời gian gọi món, thời gian hủy món của khách hàng)
+	Xong
 - Quản lý việc đổi món, hủy món.
+	Hủy món ăn. Đặc biệt là món ăn chế biến (TH này giả sử món ăn chế biến đầu bếp đã làm thì k được hủy)
+	Vì không có tác nhân đầu bếp tham gia nên việc xác nhận món ăn chế biến hay chưa chỉ phụ thuộc trao đổi miệng trực tiếp giữa nhân viên và đầu bếp
+	chế biến món ăn đó
+	Xong
 - Quản lý hóa đơn tính tiền.
+	Thêm và Hủy hóa đơn. Vì liên quan đến thống kê nên không thể xóa hóa đơn đã tồn tại => sai số thống kê
+	Xong
 - tìm kiếm theo danh sách món => gợi ý theo keywork chủ đề món ăn
-- Đặt bàn 
+	tìm kiếm theo từ khóa
+- Đặt bàn
+	Đặt bàn trực tiếp
+	Xong
 
 Nhân viên kho.
-- Quản lý nguyên liệu, Quản lý nguyên liệu sắp hết để nhập
-- Nhập hàng theo hóa đơn nhân viên yêu cầu
+- Quản lý nguyên liệu
+	CRUD Nguyên liệu (Nhiều nguyên liệu để tạo nên món ăn)
+	Xong
+- Nhập hàng (Nhập nguyên liệu)
+	Tạo mới nhập nguyên liệu
 - Xuất hóa đơn nhập hàng
 - tìm kiếm theo danh sách món => gợi ý theo keywork chủ đề món ăn
-- Đặt bàn 
+
+
+Khách hàng:
++ Đặt món
++ Xem danh sách món đã đặt
++ Tạo chatbot cho khách hàng
+
+
+Admin
+
+
+
 
 Sếp = Admin 
 
