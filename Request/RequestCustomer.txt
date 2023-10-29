@@ -46,11 +46,17 @@ Nhân viên kho.
 
 Khách hàng:
 + Đặt món
+	Khách hàng đặt món theo bàn của mình (Bằng cách nhập số điện thoại xác nhận theo số điện thoại đặt bàn. Mỗi bàn ( = tất là mỗi hóa đơn) chỉ chứa một 
+	số điện thoại nhất định)
++ yêu cầu thanh toán: (bổ sung)
+	Gửi thông báo đến Nhân viên bán hàng (Nhân viên bán hàng chỉ nhận yêu cầu thanh toán từ khách hàng chứ chưa thanh toán online)
 + Xem danh sách món đã đặt
 + Tạo chatbot cho khách hàng
 
 
-Admin
+Admin: 
++ Quản lý tài khoản thành viên\
++ Xem doanh thu (Tháng, quý, năm)
 
 
 
@@ -76,3 +82,4 @@ Source chính (1)
 
 
 
+Link: https://preview.themeforest.net/item/cafeu-food-restaurant-html5-template/full_screen_preview/35682422?_ga=2.109707398.2029117526.1698132779-1809524429.1696778541
