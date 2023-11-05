@@ -125,57 +125,57 @@
                     {
                         using (Html.BeginForm("ThanhToan", "HoaDon", new { @iMaHoaDon = Model.MaHoaDon }))
                         {
-                    <div class="mb-4">
-                        <div class="mb-2">
-                            <p class="text-alternate text-muted mb-1">Hóa Đơn: @Model.MaHoaDon</p>
-                        </div>
-                        <div class="mb-2">
-                            <p class="text-alternate text-muted mb-1">Giờ Vào: @string.Format("{0:hh:mm:ss tt}", Model.NgayTao)</p>
-                        </div>
-                        <div class="mb-2">
-                            <p class="text-alternate text-muted mb-1">SL Món Ăn: @ViewBag.SoLuongMonAn </p>
-                        </div>
-                        @if (Model.Ban.Vip == 1)
-                        {
-                            <div class="mb-2">
-                                <label class="text-alternate text-muted mb-1">Phí Phòng Vip (%)</label>
-                                <input type="number" min="0" max="100" class="form-control mask-currency" value="10" readonly="readonly">
-                            </div>
-                        }
-                        @if (Model.TongHoaDon >= 5)
-                        {
-                            <div class="mb-2">
-                                <label class="text-alternate text-muted mb-1">Khách Hàng Thành Viên (5HD)</label>
-                                <input type="number" min="0" class="form-control mask-currency" value="0" name="txtGiamGiaKhachHang" id="txtGiamGiaKhachHang">
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="mb-2">
-                                <label class="text-alternate text-muted mb-1">Khách Hàng Thành Viên (5HD)</label>
-                                <input type="number" min="0" class="form-control mask-currency" value="0" name="txtGiamGiaKhachHang" id="txtGiamGiaKhachHang" readonly="readonly">
-                            </div>
-                        }
+                            <div class="mb-4">
+                                <div class="mb-2">
+                                    <p class="text-alternate text-muted mb-1">Mã Hóa Đơn: <b style="color:red">@Model.MaHoaDon</b></p>
+                                </div>
+                                <div class="mb-2">
+                                    <p class="text-alternate text-muted mb-1">Giờ Vào: @string.Format("{0:hh:mm:ss tt}", Model.NgayTao)</p>
+                                </div>
+                                <div class="mb-2">
+                                    <p class="text-alternate text-muted mb-1">SL Món Ăn: @ViewBag.SoLuongMonAn </p>
+                                </div>
+                                @if (Model.Ban.Vip == 1)
+                                {
+                                    <div class="mb-2">
+                                        <label class="text-alternate text-muted mb-1">Phí Phòng Vip (%)</label>
+                                        <input type="number" min="0" max="100" class="form-control mask-currency" value="10" readonly="readonly">
+                                    </div>
+                                }
+                                @if (Model.TongHoaDon >= 5)
+                                {
+                                    <div class="mb-2">
+                                        <label class="text-alternate text-muted mb-1">Khách Hàng Thành Viên (5HD)</label>
+                                        <input type="number" min="0" class="form-control mask-currency" value="0" name="txtGiamGiaKhachHang" id="txtGiamGiaKhachHang">
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="mb-2">
+                                        <label class="text-alternate text-muted mb-1">Khách Hàng Thành Viên (5HD)</label>
+                                        <input type="number" min="0" class="form-control mask-currency" value="0" name="txtGiamGiaKhachHang" id="txtGiamGiaKhachHang" readonly="readonly">
+                                    </div>
+                                }
 
-                        <div class="mb-2">
-                            <label class="text-alternate text-muted mb-1">Giảm Giá (vnđ)</label>
-                            <input type="number" min="0" class="form-control mask-currency" value="0" name="txtGiamGiaVND" id="txtGiamGias">
-                        </div>
-                        <div class="mb-2">
-                            <label class="text-alternate text-muted mb-1">Giảm Giá (%)</label>
-                            <input type="number" min="0" max="100" class="form-control mask-currency" value="0" name="txtGiamGiaPhanTram" id="txtGiamGiaPhanTram">
-                        </div>
+                                <div class="mb-2">
+                                    <label class="text-alternate text-muted mb-1">Giảm Giá (vnđ)</label>
+                                    <input type="number" min="0" class="form-control mask-currency" value="0" name="txtGiamGiaVND" id="txtGiamGias">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="text-alternate text-muted mb-1">Giảm Giá (%)</label>
+                                    <input type="number" min="0" max="100" class="form-control mask-currency" value="0" name="txtGiamGiaPhanTram" id="txtGiamGiaPhanTram">
+                                </div>
 
-                        <div class="mb-2">
-                            <p class="text-alternate text-muted mb-1">Tổng Tiền:</p>
-                            <div class="cta-2">
-                                <span>
-                                    <input style="display:none" id="TongTienMonAn" value="@ViewBag.TongTienMonAn" />
-                                    <span id="TongTienMonAn" class="text-alternate text-muted cta-2">@string.Format("{0:0,0}", ViewBag.TongTienMonAn) vnđ</span>
-                                </span>
+                                <div class="mb-2">
+                                    <p class="text-alternate text-muted mb-1">Tổng Tiền:</p>
+                                    <div class="cta-2">
+                                        <span>
+                                            <input style="display:none" id="TongTienMonAn" value="@ViewBag.TongTienMonAn" />
+                                            <span id="TongTienMonAn" class="text-alternate text-muted cta-2">@string.Format("{0:0,0}", ViewBag.TongTienMonAn) vnđ</span>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
                             <button class="btn btn-icon btn-icon-end btn-primary w-100" type="submit">
                                 <span>THANH TOÁN</span>

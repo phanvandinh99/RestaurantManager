@@ -69,6 +69,13 @@ Nhân viên, quản lý kho,
 CDM => Mô hình erd
 
 
+
+Dạ thiếu bước đăng nhập có tài khoảng
+Với in doanh thu theo ngày, tháng, năm…
+
+
+
+
 Source chính (1)
 - Quản lý danh mục sảnh
 - Quản lý danh mục bàn của mỗi sảnh.

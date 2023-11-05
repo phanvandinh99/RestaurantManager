@@ -298,7 +298,14 @@
                         <div class="mb-2">
                             <p class="text-small text-muted mb-1">Tổng Tiền Hóa Đơn</p>
                             <p>
-                                <span class="text-alternate">@string.Format("{0:0,0}", ViewBag.Thongke) vnđ</span>
+                                @if (ViewBag.ThongKe != 0)
+                                {
+                                    <span class="text-alternate">@string.Format("{0:0,0}", ViewBag.Thongke) vnđ</span>
+                                }
+                                else
+                                {
+                                    <span class="text-alternate">0 vnđ</span>
+                                }
                             </p>
                         </div>
                     </div>
@@ -306,7 +313,14 @@
                         <div class="mb-2">
                             <p class="text-small text-muted mb-1">Tổng Tiền Nhập Kho</p>
                             <p>
-                                <span class="text-alternate">@string.Format("{0:0,0}", ViewBag.ThongKePhieuNhap) vnđ</span>
+                                @if (ViewBag.ThongKePhieuNhap != 0)
+                                {
+                                    <span class="text-alternate">@string.Format("{0:0,0}", ViewBag.ThongKePhieuNhap) vnđ</span>
+                                }
+                                else
+                                {
+                                    <span class="text-alternate">0 vnđ</span>
+                                }
                             </p>
                         </div>
                     </div>
@@ -314,7 +328,14 @@
                         <div class="mb-2">
                             <p class="text-small text-muted mb-1">Kết quả (Tổng hóa đơn - Tổng Phiếu nhập)</p>
                             <p>
-                                <span class="text-alternate">@string.Format("{0:0,0}", ViewBag.SUM) vnđ</span>
+                                @if (ViewBag.ThongKePhieuNhap != 0)
+                                {
+                                    <span class="text-alternate">@string.Format("{0:0,0}", ViewBag.SUM) vnđ</span>
+                                }
+                                else
+                                {
+                                    <span class="text-alternate">0 vnđ</span>
+                                }
                                 <span style="font-weight:bold; color:red">@ViewBag.Loi</span>
                             </p>
                         </div>

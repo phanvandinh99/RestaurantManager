@@ -59,7 +59,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         public ActionResult DangXuat()
         {
             Session["TaiKhoan"] = null;
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("DangNhap", "DangNhap");
         }
     }
 }

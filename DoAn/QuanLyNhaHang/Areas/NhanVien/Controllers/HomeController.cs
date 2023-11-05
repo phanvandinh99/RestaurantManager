@@ -19,8 +19,9 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             ViewBag.SumMonAn = db.MonAns.Count();
             ViewBag.SumNhanVien = db.NhanViens.Count();
             ViewBag.SumBan = db.Bans.Count();
+            ViewBag.Tang = db.Tangs.Count();
             // Món Ăn Bán Chạy
-            ViewBag.BanChay = db.MonAns.Where(n => n.MaLMA_id != 10 & n.MaMonAn != 1).ToList().OrderBy(n => n.SoLuongDaBan);
+            ViewBag.BanChay = db.MonAns.Where(n => n.MaLMA_id != 10 & n.MaMonAn != 1).ToList().OrderByDescending(n => n.SoLuongDaBan);
             // Hóa đơn
             //var list = db.HoaDons.ToList().Where(n =>n.NgayTao.Value.ToString("dd/MM/yyyy")== time2).FirstOrDefault();
             //ViewBag.HoaDOn = list;
