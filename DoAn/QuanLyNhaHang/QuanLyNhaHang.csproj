@@ -300,6 +300,7 @@
     <Content Include="Assets\KhachHang\assets\img\feature\feature.png" />
     <Content Include="Assets\KhachHang\assets\img\feature\feature2.png" />
     <Content Include="Assets\KhachHang\assets\img\feature\feature3.png" />
+    <Content Include="Assets\KhachHang\assets\img\footer-bg.png" />
     <Content Include="Assets\KhachHang\assets\img\icon\1.png" />
     <Content Include="Assets\KhachHang\assets\img\icon\2.png" />
     <Content Include="Assets\KhachHang\assets\img\icon\3-1.png" />
