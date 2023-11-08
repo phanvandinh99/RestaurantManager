@@ -339,6 +339,7 @@
     <Content Include="Assets\KhachHang\assets\img\logo\logo-3.png" />
     <Content Include="Assets\KhachHang\assets\img\logo\logo-white.png" />
     <Content Include="Assets\KhachHang\assets\img\logo\logo.png" />
+    <Content Include="Assets\KhachHang\assets\img\page-ban-bg.png" />
     <Content Include="Assets\KhachHang\assets\img\partner\1.png" />
     <Content Include="Assets\KhachHang\assets\img\partner\2.png" />
     <Content Include="Assets\KhachHang\assets\img\partner\3.png" />
@@ -375,6 +376,7 @@
     <Content Include="Assets\KhachHang\assets\img\slider\banner-7.png" />
     <Content Include="Assets\KhachHang\assets\img\slider\banner-8.png" />
     <Content Include="Assets\KhachHang\assets\img\slider\banner-9.png" />
+    <Content Include="Assets\KhachHang\assets\img\slider\banner-bg.jpg" />
     <Content Include="Assets\KhachHang\assets\img\slider\first-slider.png" />
     <Content Include="Assets\KhachHang\assets\img\team\1.png" />
     <Content Include="Assets\KhachHang\assets\img\team\2.png" />
@@ -477,6 +479,8 @@
     <Content Include="Areas\KhachHang\Views\web.config" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\KhachHang\Views\Home\Index.cshtml" />
+    <Content Include="Areas\KhachHang\Views\Shared\_LayoutKhachHang.cshtml" />
+    <Content Include="Areas\KhachHang\Views\SanPham\XemChiTiet.cshtml" />
     <None Include="Assets\js\Ajax\jquery-1.8.0.intellisense.js" />
     <Content Include="Assets\js\Ajax\jquery-1.8.0.js" />
     <Content Include="Assets\js\Ajax\jquery-1.8.0.min.js" />
@@ -490,6 +494,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\KhachHang\Controllers\HomeController.cs" />
+    <Compile Include="Areas\KhachHang\Controllers\SanPhamController.cs" />
     <Compile Include="Areas\KhachHang\KhachHangAreaRegistration.cs" />
     <Compile Include="Areas\NhanVienKho\Controllers\CTPhieuNhapController.cs" />
     <Compile Include="Areas\NhanVienKho\Controllers\ErrorController.cs" />
@@ -584,7 +589,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\KhachHang\Data\" />
-    <Folder Include="Areas\KhachHang\Views\Shared\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

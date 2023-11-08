@@ -60,9 +60,11 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         public ActionResult XemChiTiet(int iMaMonAn)
         {
             var monAn = db.MonAns.Find(iMaMonAn);
+
             // lấy m ón ăn cùng loại
             var monAnCungLoai = db.MonAns.Where(n => n.MaLMA_id == monAn.MaLMA_id).ToList().Take(5);
             ViewBag.MonAnCungLoai = monAnCungLoai;
+
             // lấy chi tiết món ăn
             var chiTietMonAn = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == iMaMonAn).ToList().OrderByDescending(n => n.Tru);
             ViewBag.ChiTietMonAn = chiTietMonAn;

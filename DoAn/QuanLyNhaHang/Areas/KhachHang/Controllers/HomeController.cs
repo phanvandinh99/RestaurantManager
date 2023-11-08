@@ -1,4 +1,5 @@
 ﻿using QuanLyNhaHang.Models;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace QuanLyNhaHang.Areas.KhachHang.Controllers
@@ -10,7 +11,8 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
         // Hiển thị trang danh sách khách hàng
         public ActionResult Index()
         {
-            return View();
+            var listSanPham = db.MonAns.ToList();
+            return View(listSanPham);
         }
     }
 }

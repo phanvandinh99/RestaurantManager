@@ -1,10 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using QuanLyNhaHang.Models
+@model List<MonAn>
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Chủ</title>
+    <title>@ViewBag.title</title>
     <!-- ==============favicon=============== -->
     <link rel="shortcut icon" type="image/png" href="~/Assets/KhachHang/assets/img/log.png">
 
@@ -97,6 +100,7 @@
             <!-- nav end -->
         </header>
         <!-- header end  -->
+        <!-- #region NỘI DUNG -->
         <!-- dr-sidebar-information-area-start -->
         <div class="dr-sidebar-info side-info">
             <div class="dr-sidebar-logo-wrapper mb-25">
@@ -160,14 +164,14 @@
                                                     <div class="text-inner">
                                                         <span class="sm-title mb-0">Best In Cafeu</span>
                                                         <h1 class="banner-title">
-                                                            BBQ Chicken <a href="">Salad</a> with Creamy Avocado
+                                                            <a href="#">Shashimi</a> Nguyên Liệu Tươi Ngon Tuyệt Vời
                                                         </h1>
-                                                        <p class="banner-des">Lorem ipsum dolor sit amet, conscetur adipiscing elit, sed do eimod <br> tempor incididunt ut labore et dolore magna aliqua Quis</p>
+                                                        <p class="banner-des">SALAD trộn. Với nguyên liệu được đảm bảo vệ sinh an toàn tuyệt đối <br> Tạo nên món ăn hài hòa & ngon miệng</p>
 
                                                         <div class="banner-btn-sec mt-3">
-                                                            <a href="" class="custom-btn">Order Now</a>
+                                                            <a href="" class="custom-btn">Đặt Ngay</a>
                                                             <div class="watch">
-                                                                <a href="#" class="video-btn play-video"><span class="icofont-ui-play"></span> </a> <span class="wc-btn">Watch Video</span>
+                                                                <a href="#" class="video-btn play-video"><span class="icofont-ui-play"></span> </a> <span class="wc-btn">Xem Video</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -187,14 +191,14 @@
                                                     <div class="text-inner">
                                                         <span class="sm-title mb-0">Best In Cafeu</span>
                                                         <h1 class="banner-title">
-                                                            Asian Lettuce Wrap <a href="">Chicken</a> Chopped Salad
+                                                            Sường Nướng Nguyên Mảng Bò <a href=""> KOBE</a> Nhật Bản Tươi Ngon
                                                         </h1>
-                                                        <p class="banner-des">Lorem ipsum dolor sit amet, conscetur adipiscing elit, sed do eimod <br> tempor incididunt ut labore et dolore magna aliqua Quis</p>
+                                                        <p class="banner-des">Với thịt bò KOBE nhiều dinh dưỡng <br> kèm với rau cũ giúp hương vị hài hòa quyến rũ</p>
 
                                                         <div class="banner-btn-sec mt-3">
-                                                            <a href="" class="custom-btn">Order Now</a>
+                                                            <a href="" class="custom-btn">Đặt Ngay</a>
                                                             <div class="watch">
-                                                                <a href="#" class="video-btn play-video"><span class="icofont-ui-play"></span> </a> <span class="wc-btn">Watch Video</span>
+                                                                <a href="#" class="video-btn play-video"><span class="icofont-ui-play"></span> </a> <span class="wc-btn">Xem Video</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -216,14 +220,14 @@
                                                     <div class="text-inner">
                                                         <span class="sm-title mb-0">Best In Cafeu</span>
                                                         <h1 class="banner-title">
-                                                            Different <a href="">Spice</a> For A Different Taste
+                                                            <a href="">Gia Vị</a> Khác Nhau Cho Hương Vị Khác Nhau
                                                         </h1>
-                                                        <p class="banner-des">Lorem ipsum dolor sit amet, conscetur adipiscing elit, sed do eimod <br> tempor incididunt ut labore et dolore magna aliqua Quis</p>
+                                                        <p class="banner-des">Linh hồn của món ăn không nằm ở nguyên liệu <br> mà nó quyết định bởi hương thơm đặc trưng từng món ăn</p>
 
                                                         <div class="banner-btn-sec mt-3">
-                                                            <a href="" class="custom-btn">Order Now</a>
+                                                            <a href="" class="custom-btn">Đặt Ngay</a>
                                                             <div class="watch">
-                                                                <a href="#" class="video-btn play-video"><span class="icofont-ui-play"></span> </a> <span class="wc-btn">Watch Video</span>
+                                                                <a href="#" class="video-btn play-video"><span class="icofont-ui-play"></span> </a> <span class="wc-btn">Xem Video</span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -279,9 +283,9 @@
                                     </div>
                                 </div>
                                 <div class="feature-details" data-background="~/Assets/KhachHang/assets/img/icon/f-bg.png">
-                                    <h3 class="feature-name"><a href="service-details.html.htm">100% Swiss Quality</a></h3>
-                                    <p class="feature-des">Lorem ipsum dol consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore dolore magna aliqua</p>
-                                    <a href="service-details.html.htm" class="discover-bt">Discover More</a>
+                                    <h3 class="feature-name"><a href="#">NGUYÊN LIỆU</a></h3>
+                                    <p class="feature-des">Việc nguyên liệu tươi ngon được nhà hàng chú trọng hàng đầu. Không tồn tại thực phẩm không rõ nguồn gốc...</p>
+                                    <a href="" class="discover-bt">Xem thêm</a>
                                 </div>
                             </div>
                         </div>
@@ -293,9 +297,9 @@
                                     </div>
                                 </div>
                                 <div class="feature-details" data-background="~/Assets/KhachHang/assets/img/icon/f-bg.png">
-                                    <h3 class="feature-name"><a href="service-details.html.htm">Organic Production</a></h3>
-                                    <p class="feature-des">Lorem ipsum dol consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore dolore magna aliqua</p>
-                                    <a href="service-details.html.htm" class="discover-bt">Discover More</a>
+                                    <h3 class="feature-name"><a href="service-details.html.htm">ĐẦU BẾP</a></h3>
+                                    <p class="feature-des">Với lượng đội ngũ đầu bếp 5* chất lượng sẽ cho ra món ăn phù hợp với mọi khách hàng trong và ngoài nước...</p>
+                                    <a href="#" class="discover-bt">Xem thêm</a>
                                 </div>
                             </div>
                         </div>
@@ -308,9 +312,9 @@
                                     </div>
                                 </div>
                                 <div class="feature-details" data-background="~/Assets/KhachHang/assets/img/icon/f-bg.png">
-                                    <h3 class="feature-name"><a href="service-details.html.htm">Food Law Certified</a></h3>
-                                    <p class="feature-des">Lorem ipsum dol consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore dolore magna aliqua</p>
-                                    <a href="service-details.html.htm" class="discover-bt">Discover More</a>
+                                    <h3 class="feature-name"><a href="service-details.html.htm">THỨC UỐNG</a></h3>
+                                    <p class="feature-des">Với đa dạng thức uống được nhập từ nhiều quốc gia khác nhau giúp quý khách có thể thưởng thức phù hợp</p>
+                                    <a href="service-details.html.htm" class="discover-bt">Xem thêm</a>
                                 </div>
                             </div>
                         </div>
@@ -323,9 +327,9 @@
                                     </div>
                                 </div>
                                 <div class="feature-details" data-background="~/Assets/KhachHang/assets/img/icon/f-bg.png">
-                                    <h3 class="feature-name"><a href="service-details.html.htm">Food Law Certified</a></h3>
-                                    <p class="feature-des">Lorem ipsum dol consectetur adipiscing elit, sed eiusmod tempor incididunt ut labore dolore magna aliqua</p>
-                                    <a href="service-details.html.htm" class="discover-bt">Discover More</a>
+                                    <h3 class="feature-name"><a href="service-details.html.htm">THỰC PHẨM</a></h3>
+                                    <p class="feature-des">Với thực phẩm được trồng từ phân bón hữu cơ, không sử dụng thuốc bảo vệ giúp an toàn hơn về vệ sinh thực phẩm...</p>
+                                    <a href="service-details.html.htm" class="discover-bt">Xem thêm</a>
                                 </div>
                             </div>
                         </div>
@@ -335,42 +339,92 @@
                 <!-- container end  -->
             </div>
             <!-- ======feature end===== -->
-            <!-- =========== Subscribe =========== -->
+            <!-- ========Product section========= -->
             <section>
-                <!-- subscribe wrapper  -->
-                <div class="subscribe-wrapper subscribe-wrapper-1" data-background="~/Assets/KhachHang/assets/img/image/ad-ban-bg.png">
-                    <!-- subscribe  -->
-                    <div class="subscribe">
+                <div class="all-product all-product-1">
+                    <!-- product inner  -->
+                    <div class="product-inner cpy-8" data-background="~/Assets/KhachHang/assets/img/product/bg.jpg">
                         <!-- container  -->
                         <div class="container">
                             <!-- row  -->
                             <div class="row">
-                                <div class="col-md-6 my-2" data-aos="fade-right" data-aos-duration="1000">
-                                    <h4 class="subs-title">
-                                        Stay Informed About Special Offers
-                                    </h4>
-                                    <p class="subs-des mb-0">For Exclusive Deals, Coupons, News and More!</p>
-                                </div>
-                                <div class="col-md-6 my-2" data-aos="fade-left" data-aos-duration="1000">
-                                    <div class="hero-text">
-                                        <form class="hero-form" action="#">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" placeholder="Enter Your Email">
-                                                <button type="submit" class="input-group-text custom-btn">Subscribe</button>
-                                            </div>
-                                        </form>
+                                <div class="section-head text-center">
+                                    <span class="sm-title ">MENU</span>
+                                    <h2 class="sec-title">
+                                        LOẠI MÓN ĂN
+                                    </h2>
+                                    <div class="product-cat mb-40">
+                                        <div class="controls">
+                                            <ul class="cat-menu">
+                                                <li class="cat-menu-li " data-filter="all">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/7.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">All</span>
+                                                </li>
+                                                <li class="cat-menu-li " data-filter=".pizza">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/1.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">KhaiVi</span>
+                                                </li>
+                                                <li class="cat-menu-li" data-filter=".asian">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/2.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">Cơm</span>
+                                                </li>
+                                                <li class="cat-menu-li" data-filter=".burger">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/3.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">Burger</span>
+                                                </li>
+                                                <li class="cat-menu-li" data-filter=".salad">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/4.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">Salad</span>
+                                                </li>
+                                                <li class="cat-menu-li" data-filter=".bakery">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/5.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">Bakery</span>
+                                                </li>
+                                                <li class="cat-menu-li" data-filter=".Thức_Uống">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/6.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">Thức Uống</span>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- row end  -->
+                            <!-- #region Phần Hiển Thị Danh Sách Món Ăn -->
+                            <div class="row" data-aos="fade-up" data-aos-duration="1000">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-4 mix @item.LoaiMonAn.TenLMA.Replace(' ', '_')">
+                                        <div class="product-card">
+                                            <div class="product-img">
+                                                <a href="/KhachHang/SanPham/XemChiTiet?iMaMonAn=@item.MaMonAn"><img src="~/Assets/img/AnhMonAn/@item.HinhAnh" alt="image not found" style="max-height:366px"></a>
+                                            </div>
+                                            <div class="product-details">
+                                                <a href="/KhachHang/SanPham/XemChiTiet?iMaMonAn=@item.MaMonAn" class="product-name">@item.TenMonAn</a>
+                                                @*<p class="product-sm-des">@item.ThongTin</p>*@
+                                                <div class="cart-price-wishlist">
+                                                    <p class="delivery-text">@string.Format("{0:0,0}", item.DonGia) vnđ</p>
+                                                    <div class="cart-wishlist">
+                                                        <a href="wishlist.html.htm" class="sm-custom-btn wishlist-btn"><span class="icofont-plus"></span></a>
+                                                        <a href="cart.html.htm" class="sm-custom-btn cart-btn"><span class="icofont-cart-alt"></span></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="product-price">
+                                                @string.Format("{0:0,0}", item.DonGia) vnđ
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <!-- #endregion -->
                         </div>
                         <!-- container end  -->
                     </div>
-                    <!-- subscribe end  -->
+                    <!-- product inner end  -->
                 </div>
-                <!-- subscribe wrapper end  -->
             </section>
-            <!-- =========== Subscribe end=========== -->
+            <!-- ========Product section end========= -->
             <!-- =========About====== -->
             <section>
                 <div class="about about-1 cpy-8">
@@ -387,7 +441,7 @@
                             <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-left" data-aos-duration="1000">
                                 <div class="h-100 d-flex align-items-center pl-40">
                                     <div class="about-details">
-                                        <span class="sm-title">About Us</span>
+                                        <span class="sm-title">Về Chúng Tôi</span>
                                         <h2 class="about-title mb-3">
                                             Why We Are The Best
                                         </h2>
@@ -434,238 +488,6 @@
                 </div>
             </section>
             <!-- =========About end====== -->
-            <!-- ========Product section========= -->
-            <section>
-                <div class="all-product all-product-1">
-                    <!-- product inner  -->
-                    <div class="product-inner cpy-8" data-background="~/Assets/KhachHang/assets/img/product/bg.jpg">
-                        <!-- container  -->
-                        <div class="container">
-                            <!-- row  -->
-                            <div class="row">
-                                <div class="section-head text-center">
-                                    <span class="sm-title ">Special Menu</span>
-                                    <h2 class="sec-title">
-                                        Our Specials Menu
-                                    </h2>
-                                    <div class="product-cat mb-40">
-                                        <div class="controls">
-                                            <ul class="cat-menu">
-                                                <li class="cat-menu-li " data-filter="all">
-                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/7.png" alt="" class="cat-icon">
-                                                    <span class="cat-name">All</span>
-                                                </li>
-                                                <li class="cat-menu-li " data-filter=".pizza">
-                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/1.png" alt="" class="cat-icon">
-                                                    <span class="cat-name">Pizza</span>
-                                                </li>
-                                                <li class="cat-menu-li" data-filter=".asian">
-                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/2.png" alt="" class="cat-icon">
-                                                    <span class="cat-name">Asian</span>
-                                                </li>
-                                                <li class="cat-menu-li" data-filter=".burger">
-                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/3.png" alt="" class="cat-icon">
-                                                    <span class="cat-name">Burger</span>
-                                                </li>
-                                                <li class="cat-menu-li" data-filter=".salad">
-                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/4.png" alt="" class="cat-icon">
-                                                    <span class="cat-name">Salad</span>
-                                                </li>
-                                                <li class="cat-menu-li" data-filter=".bakery">
-                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/5.png" alt="" class="cat-icon">
-                                                    <span class="cat-name">Bakery</span>
-                                                </li>
-                                                <li class="cat-menu-li" data-filter=".drink">
-                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/6.png" alt="" class="cat-icon">
-                                                    <span class="cat-name">Drink</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row end  -->
-                            <!-- row  -->
-                            <div class="row" data-aos="fade-up" data-aos-duration="1000">
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-4 mix pizza">
-                                    <div class="product-card">
-                                        <div class="product-img">
-                                            <a href="shop.html.htm"><img src="~/Assets/KhachHang/assets/img/product/1.png" alt="image not found"></a>
-                                        </div>
-                                        <div class="product-details">
-                                            <a href="shop.html.htm" class="product-name">Grilled Fingerlings Pizza</a>
-                                            <p class="product-sm-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tellus turpis</p>
-                                            <div class="cart-price-wishlist">
-                                                <p class="delivery-text">Delivery Fee : $10</p>
-                                                <div class="cart-wishlist">
-                                                    <a href="wishlist.html.htm" class="sm-custom-btn wishlist-btn"><span class="icofont-plus"></span></a>
-                                                    <a href="cart.html.htm" class="sm-custom-btn cart-btn"><span class="icofont-cart-alt"></span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="product-price">
-                                            $34 - $40
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-4 mix asian">
-                                    <div class="product-card">
-                                        <div class="product-img">
-                                            <a href="shop.html.htm"><img src="~/Assets/KhachHang/assets/img/product/2.png" alt="image not found"></a>
-                                        </div>
-                                        <div class="product-details">
-                                            <a href="shop.html.htm" class="product-name">Roadside Dine Asian</a>
-                                            <p class="product-sm-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tellus turpis</p>
-                                            <div class="cart-price-wishlist">
-                                                <p class="delivery-text">Delivery Fee : $10</p>
-                                                <div class="cart-wishlist">
-                                                    <a href="wishlist.html.htm" class="sm-custom-btn wishlist-btn"><span class="icofont-plus"></span></a>
-                                                    <a href="cart.html.htm" class="sm-custom-btn cart-btn"><span class="icofont-cart-alt"></span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="product-price">
-                                            $55 - $45
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-4 mix burger">
-                                    <div class="product-card">
-                                        <div class="product-img">
-                                            <a href="shop.html.htm"><img src="~/Assets/KhachHang/assets/img/product/3.png" alt="image not found"></a>
-                                        </div>
-                                        <div class="product-details">
-                                            <a href="shop.html.htm" class="product-name">Roadside Pickups Burger</a>
-                                            <p class="product-sm-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tellus turpis</p>
-                                            <div class="cart-price-wishlist">
-                                                <p class="delivery-text">Delivery Fee : $10</p>
-                                                <div class="cart-wishlist">
-                                                    <a href="wishlist.html.htm" class="sm-custom-btn wishlist-btn"><span class="icofont-plus"></span></a>
-                                                    <a href="cart.html.htm" class="sm-custom-btn cart-btn"><span class="icofont-cart-alt"></span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="product-price">
-                                            $44 - $36
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-4 mix salad">
-                                    <div class="product-card">
-                                        <div class="product-img">
-                                            <a href="shop.html.htm"><img src="~/Assets/KhachHang/assets/img/product/4.png" alt="image not found"></a>
-                                        </div>
-                                        <div class="product-details">
-                                            <a href="shop.html.htm" class="product-name">Chicken Teriyaki Salad</a>
-                                            <p class="product-sm-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tellus turpis</p>
-                                            <div class="cart-price-wishlist">
-                                                <p class="delivery-text">Delivery Fee : $10</p>
-                                                <div class="cart-wishlist">
-                                                    <a href="wishlist.html.htm" class="sm-custom-btn wishlist-btn"><span class="icofont-plus"></span></a>
-                                                    <a href="cart.html.htm" class="sm-custom-btn cart-btn"><span class="icofont-cart-alt"></span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="product-price">
-                                            $60 - $50
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-4 mix bakery">
-                                    <div class="product-card">
-                                        <div class="product-img">
-                                            <a href="shop.html.htm"><img src="~/Assets/KhachHang/assets/img/product/5.png" alt="image not found"></a>
-                                        </div>
-                                        <div class="product-details">
-                                            <a href="shop.html.htm" class="product-name">Grilled Salmon Bakery</a>
-                                            <p class="product-sm-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tellus turpis</p>
-                                            <div class="cart-price-wishlist">
-                                                <p class="delivery-text">Delivery Fee : $10</p>
-                                                <div class="cart-wishlist">
-                                                    <a href="wishlist.html.htm" class="sm-custom-btn wishlist-btn"><span class="icofont-plus"></span></a>
-                                                    <a href="cart.html.htm" class="sm-custom-btn cart-btn"><span class="icofont-cart-alt"></span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="product-price">
-                                            $20 - $15
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-4 mix drink">
-                                    <div class="product-card">
-                                        <div class="product-img">
-                                            <a href="shop.html.htm"><img src="~/Assets/KhachHang/assets/img/product/6.png" alt="image not found"></a>
-                                        </div>
-                                        <div class="product-details">
-                                            <a href="shop.html.htm" class="product-name">Baked Mushrooms Drink</a>
-                                            <p class="product-sm-des">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tellus turpis</p>
-                                            <div class="cart-price-wishlist">
-                                                <p class="delivery-text">Delivery Fee : $10</p>
-                                                <div class="cart-wishlist">
-                                                    <a href="wishlist.html.htm" class="sm-custom-btn wishlist-btn"><span class="icofont-plus"></span></a>
-                                                    <a href="cart.html.htm" class="sm-custom-btn cart-btn"><span class="icofont-cart-alt"></span></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="product-price">
-                                            $60 - $50
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row end  -->
-                        </div>
-                        <!-- container end  -->
-                    </div>
-                    <!-- product inner end  -->
-                </div>
-            </section>
-            <!-- ========Product section end========= -->
-            <!-- =======app section ======= -->
-
-            <section>
-                <!-- app section  -->
-                <div class="app-section app-section-1 cpy-8">
-                    <!-- container  -->
-                    <div class="container">
-                        <!-- app inner  -->
-                        <div class="app-inner" data-background="~/Assets/KhachHang/assets/img/app/app-bg.png">
-                            <!-- row  -->
-                            <div class="row">
-                                <div class="col-lg-7 col-md-9" data-aos="fade-right" data-aos-duration="1000">
-                                    <div class="app-feature">
-                                        <h2 class="app-title mb-0">Simple Way to Order <br> Your Food Faster</h2>
-                                        <p class="des my-4 my-md-2">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eius- <br> mod tempor incididunt ut labore et dolore magna aliqua. Q ipsum <br> suspendisse ultrices gravida. Risus commodo viverra maeceas
-                                            <br> accumsan lacus vel facilisis
-                                        </p>
-                                        <div class="app-store">
-                                            <a href="" class="store">
-                                                <img src="~/Assets/KhachHang/assets/img/app/play-store.png" alt="" class="store-logo">
-                                            </a>
-                                            <a href="" class="store">
-                                                <img src="~/Assets/KhachHang/assets/img/app/apple.png" alt="" class="store-logo">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 col-md-3" data-aos="fade-left" data-aos-duration="1000">
-                                    <div class="app-img">
-                                        <img src="~/Assets/KhachHang/assets/img/app/app-2.png" class="app-one" alt="">
-                                        <img src="~/Assets/KhachHang/assets/img/app/app-1.png" class="app-tow" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- row end  -->
-                        </div>
-                        <!-- app inner end  -->
-                    </div>
-                    <!-- container end  -->
-                </div>
-                <!-- app section end  -->
-            </section>
-            <!-- =======app section end ======= -->
             <!-- ======check section======== -->
             <section>
                 <div class="availability mb-120" data-background="~/Assets/KhachHang/assets/img/subscribe-bg.png">
@@ -681,44 +503,51 @@
                                         <div class="available-content">
                                             <a href="#" class="video-btn play-video"><span class="icofont-ui-play"></span></a>
                                             <h2 class="available-head">
-                                                We Have Excellent Of Quality <br> Japanese Food
+                                                NHÀ HÀNG TẠI CẦN THƠ
                                             </h2>
-                                            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed <br> do eiusmod tempor incididunt ut labore et dolore</p>
+                                            <p class="mb-0">Ẩm thực tại Cần Thơ là một trong những điểm đến ăn uống hấp dẫn tại thành phố. Với nhiều món ăn đặc trưng và đa dạng, ẩm thực tại Cần Thơ cung cấp cho khách hàng trải nghiệm ăn uống tuyệt vời. Nổi bật với những món ăn ngon, độc đáo và đầy màu sắc, ẩm thực tại Cần Thơ là điểm đến không thể bỏ qua cho những ai thích ăn uống tại đây.</p>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-xl-4 col-lg-5 my-2" data-aos="fade-left" data-aos-duration="1000">
                                         <div class="avail-inner">
                                             <div class="available-note">
                                                 <div class="note-head">
-                                                    <span class="sm-title mb-0">Opening Times</span>
-                                                    <h2 class="note-title mb-0">Check Availability</h2>
+                                                    <span class="sm-title mb-0">Thời gian mỏ cửa</span>
                                                 </div>
                                                 <ul class="note-ul">
                                                     <li class="note-li">
-                                                        <p class="day">Sunday to Tuesday</p>
-                                                        <p class="time">09:00 - 06:00</p>
+                                                        <p class="day">Thứ 2</p>
+                                                        <p class="time">13:00 - 23:00</p>
                                                     </li>
                                                     <li class="note-li">
-                                                        <p class="day">Friday to Sunday</p>
-                                                        <p class="time">06:00 - 09:00</p>
+                                                        <p class="day">Thứ 3</p>
+                                                        <p class="time">13:00 - 23:00</p>
                                                     </li>
                                                     <li class="note-li">
-                                                        <p class="day">Sunday to Tuesday</p>
-                                                        <p class="time">09:00 - 06:00</p>
+                                                        <p class="day">Thứ 4</p>
+                                                        <p class="time">13:00 - 23:00</p>
                                                     </li>
                                                     <li class="note-li">
-                                                        <p class="day">Monday to Friday</p>
-                                                        <p class="time">06:00 - 09:00</p>
+                                                        <p class="day">Thứ 5</p>
+                                                        <p class="time">13:00 - 23:00</p>
                                                     </li>
                                                     <li class="note-li">
-                                                        <p class="day">Monday to Saturday</p>
-                                                        <p class="time">06:00 - 09:00</p>
+                                                        <p class="day">Thứ 6</p>
+                                                        <p class="time">13:00 - 23:00</p>
+                                                    </li>
+                                                    <li class="note-li">
+                                                        <p class="day">Thứ 7</p>
+                                                        <p class="time">08:00 - 23:00</p>
+                                                    </li>
+                                                    <li class="note-li">
+                                                        <p class="day">Chủ Nhật</p>
+                                                        <p class="time">08:00 - 23:00</p>
                                                     </li>
                                                 </ul>
 
                                                 <div class="note-footer">
-                                                    <h4 class="note-footer-text">Call Us Now</h4>
-                                                    <a class="note-footer-text" href="tel:+993240-765230">+993240-765230</a>
+                                                    <h4 class="note-footer-text">Liên Hệ</h4>
+                                                    <a class="note-footer-text" href="tel:+84346923002">0346.923.002</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -1046,16 +875,15 @@
                                         <li>
                                             <span class="icofont-email"></span>
                                             <div class="address-inner">
-                                                <p class="address-info"><a href="mailto:nfo@example.com">nfo@example.com</a></p>
-                                                <p class="address-info"><a href="mailto:test@example.com">test@example.com</a></p>
+                                                <p class="address-info"><a href="mailto:nfo@example.com">cafeu@gmail.com</a></p>
                                             </div>
                                         </li>
 
                                         <li>
                                             <span class="icofont-ui-call"> </span>
                                             <div class="address-inner">
-                                                <p class="address-info"><a href="tel:+123456679123">+123 456 679 123</a></p>
-                                                <p class="address-info"><a href="tel:+123456789">+123 456 789</a></p>
+                                                <p class="address-info"><a href="tel:+123456679123">0346923002</a></p>
+                                                @*<p class="address-info"><a href="tel:+123456789">+123 456 789</a></p>*@
                                             </div>
                                         </li>
                                     </ul>
@@ -1065,16 +893,14 @@
                             <div class="col-lg-3 col-md-6 col-sm-6 my-2 padleft40" data-aos="fade-up" data-aos-duration="1500">
                                 <div class="footer-content-wrapper">
                                     <div class="footer-sec-head mb-4">
-                                        <h4 class="footer-widget-title">Quick links</h4>
+                                        <h4 class="footer-widget-title">Menu</h4>
                                     </div>
                                     <ul class="qu-link">
-                                        <li class="foot-list"><a href="menu.html.htm" class="footer-link">Pizza</a></li>
-                                        <li class="foot-list"><a href="menu.html.htm" class="footer-link">Burger</a></li>
-                                        <li class="foot-list"><a href="menu.html.htm" class="footer-link">Cake</a></li>
-                                        <li class="foot-list"><a href="menu.html.htm" class="footer-link">Chocolate</a></li>
-                                        <li class="foot-list"><a href="menu.html.htm" class="footer-link">Ice Cream</a></li>
-                                        <li class="foot-list"><a href="menu.html.htm" class="footer-link">Pizza</a></li>
-                                        <li class="foot-list"><a href="menu.html.htm" class="footer-link">Burger</a></li>
+                                        <li class="foot-list"><a href="#" class="footer-link">Trang Chủ</a></li>
+                                        <li class="foot-list"><a href="#" class="footer-link">Không Gian</a></li>
+                                        <li class="foot-list"><a href="#" class="footer-link">Đặt Bàn</a></li>
+                                        <li class="foot-list"><a href="#" class="footer-link">Sự Kiện</a></li>
+                                        <li class="foot-list"><a href="#" class="footer-link">Liên Hệ</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -1110,16 +936,16 @@
                             <div class="col-lg-3 col-md-6 col-sm-6 my-2" data-aos="fade-up" data-aos-duration="2500">
                                 <div class="footer-content-wrapper">
                                     <div class="footer-sec-head mb-4">
-                                        <h4 class="footer-widget-title">Subscribe</h4>
+                                        <h4 class="footer-widget-title">Nhận Thông Báo</h4>
                                     </div>
 
                                     <p class="subscribe-des">
-                                        Lorem ipsum dolor si consectetur adipisicing elit, sed eiusmotempor incididunt ut labore et
+                                        Nhập thông tin email bên dưới để biết chương trình khuyến mãi của chúng tôi
                                     </p>
 
                                     <form class="hero-form" action="#">
                                         <div class="input-group mb-3">
-                                            <input type="text" class="form-control subscribtion-input" placeholder="Enter Your Email">
+                                            <input type="text" class="form-control subscribtion-input" placeholder="Nhập email">
                                             <button type="submit" class="custom-btn"><span class="icofont-location-arrow"></span></button>
                                         </div>
                                     </form>
@@ -1146,23 +972,13 @@
                         <!-- row end  -->
                     </div>
                     <!-- container end  -->
-                    <!-- last footer  -->
-                    <div class="last-footer">
-                        <div class="container">
-                            <div class="row">
-                                <div class="text-center">
-                                    <p class="copyright-text">© Copyright Cafeu. 2022 All Right Reserved</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- last footer end  -->
                 </div>
                 <!-- footer section end  -->
             </footer>
             <!-- ========================Footer end============= -->
         </div>
         <!-- =======================body wrapper end========= -->
+        <!-- #endregion -->
 
     </div>
     <!-- ====main wrapper end == -->
@@ -1184,8 +1000,6 @@
     <script src="~/Assets/KhachHang/assets/js/app.js"></script>
     <!-- ========mixitup init========= -->
     <script src="~/Assets/KhachHang/assets/js/mixitup.js"></script>
-
-
 </body>
 
 </html>
