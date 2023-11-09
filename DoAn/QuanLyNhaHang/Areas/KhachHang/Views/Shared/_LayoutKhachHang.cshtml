@@ -36,59 +36,49 @@
                     <!-- header inner -->
                     <div class="header-inner">
                         <div class="logo">
-                            <a href="index.html.htm"><img src="~/Assets/KhachHang/assets/img/logo/logo.png" alt="Logo not found" class="logo-img"></a>
+                            <a href="/KhachHang/Home/Index"><img src="~/Assets/KhachHang/assets/img/logo/logo.png" alt="Logo not found" class="logo-img"></a>
                         </div>
                         <div class="header-right">
                             <div class="header-menu d-none d-lg-block">
                                 <nav class="cf-header-menu" id="header-menu">
                                     <ul>
+                                        <li><a href="/KhachHang/Home/Index">Trang Chủ</a></li>
                                         <li class="has-submenu">
-                                            <a href="index.html.htm">Home</a>
+                                            <a href="#">Thực Đơn</a>
                                             <ul class="submenu">
-                                                <li><a href="index.html.htm">Home 1</a></li>
-                                                <li><a href="home-2.html.htm">Home 2</a></li>
-                                                <li><a href="home-3.html.htm">Home 3</a></li>
-                                                <li><a href="home-4.html.htm">Home 4</a></li>
-                                                <li><a href="home-5.html.htm">Home 5</a></li>
+                                                <li><a href="#">Thực Đơn 1</a></li>
+                                                <li><a href="#">Thực Đơn 2</a></li>
+                                                <li><a href="#">Thực Đơn 3</a></li>
+                                                <li><a href="#">Thực Đơn 4</a></li>
+                                                <li><a href="#">Thực Đơn 5</a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="about.html.htm">About Us</a></li>
-                                        <li><a href="menu.html.htm">Menu</a></li>
-                                        <li class="has-submenu">
-                                            <a href="blog.html.htm">Blog</a>
-                                            <ul class="submenu">
-                                                <li><a href="blog.html.htm">Blog</a></li>
-                                                <li><a href="blog-grid.html.htm">Blog Grid</a></li>
-                                                <li><a href="singel-post.html.htm">Blog Details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="#">Pages</a>
-                                            <ul class="submenu">
-                                                <li><a href="faq.html.htm">FAQs</a></li>
-                                                <li><a href="gallery.html.htm">Gallery</a></li>
-                                                <li><a href="service.html.htm">Service</a></li>
-                                                <li><a href="service-details.html.htm">Service Details</a></li>
-                                                <li><a href="project-details.html.htm">Project Details</a></li>
-                                                <li><a href="team.html.htm">Team</a></li>
-                                                <li><a href="team-view.html.htm">Team Details</a></li>
-                                                <li><a href="pricing.html.htm">Pricing</a></li>
-                                                <li><a href="shop.html.htm">Shop</a></li>
-                                                <li><a href="shop-details.html.htm">Shop Details</a></li>
-                                                <li><a href="cart.html.htm">Cart</a></li>
-                                                <li><a href="wishlist.html.htm">Wishlist</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="contact.html.htm">Contact</a></li>
+                                        <li><a href="#">Không Gian</a></li>
+                                        <li><a href="#">Đặt Bàn</a></li>
+                                        <li><a href="#">Sự Kiện</a></li>
+                                        <li><a href="#">Liên Hệ</a></li>
                                     </ul>
                                 </nav>
                             </div>
                             <div class="header-right-search-phone d-none d-lg-block ml-35">
                                 <a href="#" class="header-search" id="search"><span class="icofont-search-1"></span></a>
-                                <a href="tel:+880123456789" class="header-phone"><img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> +880 123 456 789</a>
-
+                                @if (Request.Cookies["UserCookie"] != null)
+                                {
+                                    var username = Request.Cookies["UserCookie"]["user"];
+                                    var phone = Request.Cookies["UserCookie"]["phone"];
+                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@phone" class="header-phone">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> @username
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="/KhachHang/DangNhap/DangNhap" class="header-phone">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> Đăng Nhập
+                                    </a>
+                                }
                             </div>
                             <div class="d-lg-none dr-navbar-mobile-sign side-toggle">
+                                <!-- <span class="headeer-navigaiton"><i class="icofont-navigation-menu"></i></span> -->
                                 <div class="dr-navbar-sign menu-tab">
                                     <span class="dr-line-1"></span>
                                     <span class="dr-line-2"></span>

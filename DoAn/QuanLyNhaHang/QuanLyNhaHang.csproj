@@ -55,12 +55,23 @@
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.IdentityModel.Logging, Version=1.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Logging.1.1.2\lib\net451\Microsoft.IdentityModel.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Tokens, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.Tokens.5.1.2\lib\net451\Microsoft.IdentityModel.Tokens.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.1.2\lib\net451\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -100,6 +111,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Twilio, Version=6.15.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Twilio.6.15.0\lib\net451\Twilio.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -481,6 +495,10 @@
     <Content Include="Areas\KhachHang\Views\Home\Index.cshtml" />
     <Content Include="Areas\KhachHang\Views\Shared\_LayoutKhachHang.cshtml" />
     <Content Include="Areas\KhachHang\Views\SanPham\XemChiTiet.cshtml" />
+    <Content Include="Areas\KhachHang\Views\DangNhap\DangNhap.cshtml" />
+    <Content Include="Areas\KhachHang\Views\DangNhap\SendSmsAuthentication.cshtml" />
+    <Content Include="Areas\KhachHang\Views\Error\HoaDonTrong.cshtml" />
+    <Content Include="Areas\KhachHang\Views\MonAn\HoaDon.cshtml" />
     <None Include="Assets\js\Ajax\jquery-1.8.0.intellisense.js" />
     <Content Include="Assets\js\Ajax\jquery-1.8.0.js" />
     <Content Include="Assets\js\Ajax\jquery-1.8.0.min.js" />
@@ -493,7 +511,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\KhachHang\Controllers\DangNhapController.cs" />
+    <Compile Include="Areas\KhachHang\Controllers\DatBanController.cs" />
+    <Compile Include="Areas\KhachHang\Controllers\ErrorController.cs" />
     <Compile Include="Areas\KhachHang\Controllers\HomeController.cs" />
+    <Compile Include="Areas\KhachHang\Controllers\MonAnController.cs" />
     <Compile Include="Areas\KhachHang\Controllers\SanPhamController.cs" />
     <Compile Include="Areas\KhachHang\KhachHangAreaRegistration.cs" />
     <Compile Include="Areas\NhanVienKho\Controllers\CTPhieuNhapController.cs" />
@@ -519,6 +541,7 @@
     <Compile Include="Areas\NhanVien\Controllers\NhanVienController.cs" />
     <Compile Include="Areas\NhanVien\Controllers\TangController.cs" />
     <Compile Include="Areas\NhanVien\NhanVienAreaRegistration.cs" />
+    <Compile Include="Common\SmsService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -589,6 +612,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\KhachHang\Data\" />
+    <Folder Include="Areas\KhachHang\Views\DatBan\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

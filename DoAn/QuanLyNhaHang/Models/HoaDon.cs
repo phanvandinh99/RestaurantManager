@@ -36,6 +36,12 @@ namespace QuanLyNhaHang.Models
 
         public int? MaBan_id { get; set; }
 
+        [StringLength(6)]
+        public string Code { get; set; }
+
+        public DateTime? ThoiHan { get; set; }
+
+
         public virtual Ban Ban { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

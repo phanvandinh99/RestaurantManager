@@ -44,13 +44,13 @@
                     <!-- header inner -->
                     <div class="header-inner">
                         <div class="logo">
-                            <a href="#"><img src="~/Assets/KhachHang/assets/img/logo/logo.png" alt="Logo not found" class="logo-img"></a>
+                            <a href="/KhachHang/Home/Index"><img src="~/Assets/KhachHang/assets/img/logo/logo.png" alt="Logo not found" class="logo-img"></a>
                         </div>
                         <div class="header-right">
                             <div class="header-menu d-none d-lg-block">
                                 <nav class="cf-header-menu" id="header-menu">
                                     <ul>
-                                        <li><a href="#">Trang Chủ</a></li>
+                                        <li><a href="/KhachHang/Home/Index">Trang Chủ</a></li>
                                         <li class="has-submenu">
                                             <a href="#">Thực Đơn</a>
                                             <ul class="submenu">
@@ -70,8 +70,20 @@
                             </div>
                             <div class="header-right-search-phone d-none d-lg-block ml-35">
                                 <a href="#" class="header-search" id="search"><span class="icofont-search-1"></span></a>
-                                <a href="tel:+880123456789" class="header-phone"><img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> +880 123 456 789</a>
-
+                                @if (Request.Cookies["UserCookie"] != null)
+                                {
+                                    var username = Request.Cookies["UserCookie"]["user"];
+                                    var phone = Request.Cookies["UserCookie"]["phone"];
+                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@phone" class="header-phone">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> @username
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="/KhachHang/DangNhap/DangNhap" class="header-phone">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> Đăng Nhập
+                                    </a>
+                                }
                             </div>
                             <div class="d-lg-none dr-navbar-mobile-sign side-toggle">
                                 <!-- <span class="headeer-navigaiton"><i class="icofont-navigation-menu"></i></span> -->
@@ -328,7 +340,7 @@
                                 </div>
                                 <div class="feature-details" data-background="~/Assets/KhachHang/assets/img/icon/f-bg.png">
                                     <h3 class="feature-name"><a href="service-details.html.htm">THỰC PHẨM</a></h3>
-                                    <p class="feature-des">Với thực phẩm được trồng từ phân bón hữu cơ, không sử dụng thuốc bảo vệ giúp an toàn hơn về vệ sinh thực phẩm...</p>
+                                    <p class="feature-des">Thực phẩm được trồng từ phân hữu cơ, không sử dụng thuốc bảo vệ giúp an toàn hơn về vệ sinh thực phẩm</p>
                                     <a href="service-details.html.htm" class="discover-bt">Xem thêm</a>
                                 </div>
                             </div>
@@ -443,11 +455,10 @@
                                     <div class="about-details">
                                         <span class="sm-title">Về Chúng Tôi</span>
                                         <h2 class="about-title mb-3">
-                                            Why We Are The Best
+                                            NHÀ HÀNG CÂY BƯỞI
                                         </h2>
                                         <p class="about-des mb-4">
-                                            Quis autem vel eum iure reprehenderit qui in evoluptate velit esse qua nihil
-                                            <br> molestiae consequatur, vel illum qui dolorem eum fugiat quvoluptas nulla <br> pariatureaque ipsa quae ab illo inventore veritatis et quasi architecto <br> beatae vitae dicta sunt explicabo.
+                                            Đón hàng nghìn khách mỗi ngày có lẽ đã đủ nói lên vị trí của Nhà Hàng Cây Bưởi trong lòng người Việt và du khách bốn phương. Đặt chân đến quán, đối với thực khách lần đầu đến đây sẽ không khỏi ngỡ ngàng trước một không gian rộng rãi thoáng mát với gam màu tươi mới chủ đạo. Còn gì lý tưởng hơn khi thưởng thức hàng trăm món ngon mang đậm nét miền Tây Nam Bộ đủ đầy hương vị màu sắc trong một không gian như thế.
                                         </p>
                                         <div class="service-list">
                                             <ul class="service-ul">
@@ -456,9 +467,9 @@
                                                         <img src="~/Assets/KhachHang/assets/img/icon/5.png" alt="">
                                                     </div>
                                                     <div class="service-name-des">
-                                                        <h4 class="service-name mb-1">Buffet Service</h4>
+                                                        <h4 class="service-name mb-1">Dịch Vụ Chu Đáo</h4>
                                                         <p class="service-des">
-                                                            Qariatureaque ipsa quae a illo inventore <br> veritatis et quasi architecto
+                                                            Với đội ngũ nhân viên trẻ trung, năng động, chuyên nghiệp<br> mang đến cho qúy khách sự phục vụ chu đáo nhất
                                                         </p>
                                                     </div>
                                                 </li>
@@ -467,16 +478,16 @@
                                                         <img src="~/Assets/KhachHang/assets/img/icon/6.png" alt="">
                                                     </div>
                                                     <div class="service-name-des">
-                                                        <h4 class="service-name mb-1">Online Booking</h4>
+                                                        <h4 class="service-name mb-1">Thực Hiện Thao Tác Trực Tuyến</h4>
                                                         <p class="service-des">
-                                                            Qariatureaque ipsa quae a illo inventore <br> veritatis et quasi architecto
+                                                            Nhà hàng đã áp dụng công nghệ để phục vụ quản lý <br> ngay trên điện thoại của bạn
                                                         </p>
                                                     </div>
                                                 </li>
                                             </ul>
                                         </div>
                                         <div class="service-button-wrap mt-40">
-                                            <a href="about.html.htm" class="custom-btn">About Us</a>
+                                            <a href="#" class="custom-btn">Thông Tin Chi Tiết</a>
                                         </div>
                                     </div>
                                 </div>
@@ -501,7 +512,6 @@
                                 <div class="row">
                                     <div class="col-md-6 col-xl-8 col-lg-7 my-2" data-aos="fade-right" data-aos-duration="1000">
                                         <div class="available-content">
-                                            <a href="#" class="video-btn play-video"><span class="icofont-ui-play"></span></a>
                                             <h2 class="available-head">
                                                 NHÀ HÀNG TẠI CẦN THƠ
                                             </h2>
@@ -571,22 +581,22 @@
                     <div class="container">
                         <div class="section-head text-center " data-aos="fade-up" data-aos-duration="1000">
                             <span class="sm-title ">
-                                Our Team
+                                Đầu Bếp
                             </span>
                             <h2 class="sec-title">
-                                Meet Our Team
+                                Bếp Trưởng
                             </h2>
                         </div>
                         <div class="row mt-40">
                             <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="1000">
                                 <div class="team-card">
                                     <div class="member-img">
-                                        <a href="team-view.html.htm"><img src="~/Assets/KhachHang/assets/img/team/1.png" alt="Image not found"></a>
+                                        <a href="#"><img src="~/Assets/KhachHang/assets/img/team/1.png" alt="Image not found"></a>
                                     </div>
                                     <div class="member-details">
-                                        <a href="team-view.html.htm" class="member-name">Jimmey Aenderson</a>
+                                        <a href="#" class="member-name">Mst Cherry</a>
                                         <p class="member-title">
-                                            Chief Executive
+                                            Chuyên Viên Trang Trí
                                         </p>
                                     </div>
                                 </div>
@@ -595,12 +605,12 @@
                             <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="1500">
                                 <div class="team-card">
                                     <div class="member-img">
-                                        <a href="team-view.html.htm"><img src="~/Assets/KhachHang/assets/img/team/2.png" alt="Image not found"></a>
+                                        <a href="#"><img src="~/Assets/KhachHang/assets/img/team/2.png" alt="Image not found"></a>
                                     </div>
                                     <div class="member-details">
-                                        <a href="team-view.html.htm" class="member-name">Mike by Dooley</a>
+                                        <a href="#" class="member-name">Mr Tom</a>
                                         <p class="member-title">
-                                            Executive
+                                            Bếp Trưởng
                                         </p>
                                     </div>
                                 </div>
@@ -609,12 +619,12 @@
                             <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="2000">
                                 <div class="team-card">
                                     <div class="member-img">
-                                        <a href="team-view.html.htm"><img src="~/Assets/KhachHang/assets/img/team/3.png" alt="Image not found"></a>
+                                        <a href="#"><img src="~/Assets/KhachHang/assets/img/team/3.png" alt="Image not found"></a>
                                     </div>
                                     <div class="member-details">
-                                        <a href="team-view.html.htm" class="member-name">Alextina Jimiey</a>
+                                        <a href="#" class="member-name">Mr Bean</a>
                                         <p class="member-title">
-                                            Food Lovers
+                                            Bếp Phó
                                         </p>
                                     </div>
                                 </div>
@@ -626,149 +636,6 @@
                 <!-- team end  -->
             </section>
             <!-- ===========our team end========= -->
-
-            <section>
-                <!-- ==============Partner========== -->
-                <div class="partner cmy-8" data-background="~/Assets/KhachHang/assets/img/partner/bg.png">
-                    <!-- partner bg  -->
-                    <div class="partner-bg">
-                        <!-- container  -->
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-12" data-aos="fade-up" data-aos-duration="1000">
-                                    <div class="swiper swiper-container partner-active">
-                                        <div class="swiper-wrapper">
-                                            <div class="swiper-slide">
-                                                <div class="partner-logo">
-                                                    <img src="~/Assets/KhachHang/assets/img/partner/1.png" alt="Image not found">
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="partner-logo">
-                                                    <img src="~/Assets/KhachHang/assets/img/partner/2.png" alt="Image not found">
-                                                </div>
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="partner-logo">
-                                                    <img src="~/Assets/KhachHang/assets/img/partner/3.png" alt="Image not found">
-                                                </div>
-
-                                            </div>
-                                            <div class="swiper-slide">
-                                                <div class="partner-logo">
-                                                    <img src="~/Assets/KhachHang/assets/img/partner/4.png" alt="Image not found">
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- container end  -->
-                    </div>
-                    <!-- partner bg end  -->
-                </div>
-                <!-- ==============Partner end========== -->
-            </section>
-
-            <!-- ==================Customers========== -->
-            <section>
-                <!-- customer  -->
-                <div class="customer customer-1 cpy-8">
-                    <!-- container  -->
-                    <div class="container">
-                        <!-- section head  -->
-                        <div class="section-head text-center " data-aos="fade-up" data-aos-duration="1000">
-                            <span class="sm-title ">Happy Customers</span>
-                            <h2 class="sec-title">
-                                Our Guestbook
-                            </h2>
-                        </div>
-                        <!-- section head end  -->
-                        <div class="d-flex justify-content-center">
-                            <div class="col-12 col-sm-12 col-md-10" data-aos="fade-up" data-aos-duration="1500">
-                                <div class="swiper customer-review">
-                                    <div class="swiper-wrapper">
-                                        <div class="swiper-slide review-item">
-                                            <div class="row">
-                                                <div class="col-md-7 my-2">
-                                                    <div class="review">
-                                                        <img src="~/Assets/KhachHang/assets/img/icon/7.png" alt="" class="quotation">
-                                                        <h2 class="review-title mb-0">James Smith list <br> Specifications 2022</h2>
-                                                        <p>
-                                                            Organizations throughout the World to manage heir IT <br> with our unique approach to technology agement and <br> consultancy solutions. Provide users with priate view <br> and access permissions
-                                                        </p>
-
-                                                        <h3 class="customer-name mb-0">
-                                                            Reson Roy <span>- Tool Customar</span>
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5 my-2">
-                                                    <div class="customer-img">
-                                                        <img src="~/Assets/KhachHang/assets/img/customer/1.png" alt="Image Not found">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="swiper-slide review-item">
-                                            <div class="row">
-                                                <div class="col-md-7 my-2">
-                                                    <div class="review">
-                                                        <img src="~/Assets/KhachHang/assets/img/icon/7.png" alt="" class="quotation">
-                                                        <h2 class="review-title mb-0">James Smith list <br> Specifications 2022</h2>
-                                                        <p>
-                                                            Organizations throughout the World to manage heir IT <br> with our unique approach to technology agement and <br> consultancy solutions. Provide users with priate view <br> and access permissions
-                                                        </p>
-
-                                                        <h3 class="customer-name mb-0">
-                                                            Reson Roy <span>- Tool Customar</span>
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5 my-2">
-                                                    <div class="customer-img">
-                                                        <img src="~/Assets/KhachHang/assets/img/customer/11.png" alt="Image Not found">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="swiper-slide review-item">
-                                            <div class="row">
-                                                <div class="col-md-7 my-2">
-                                                    <div class="review">
-                                                        <img src="~/Assets/KhachHang/assets/img/icon/7.png" alt="" class="quotation">
-                                                        <h2 class="review-title mb-0">James Smith list <br> Specifications 2022</h2>
-                                                        <p>
-                                                            Organizations throughout the World to manage heir IT <br> with our unique approach to technology agement and <br> consultancy solutions. Provide users with priate view <br> and access permissions
-                                                        </p>
-
-                                                        <h3 class="customer-name mb-0">
-                                                            Reson Roy <span>- Tool Customar</span>
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-5 my-2">
-                                                    <div class="customer-img">
-                                                        <img src="~/Assets/KhachHang/assets/img/customer/12.png" alt="Image Not found">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="review-pagination"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- container end  -->
-                </div>
-                <!-- custome end  -->
-            </section>
-            <!-- ==================Customers end========== -->
             <!-- ==================Latest Blog Post================= -->
             <section>
                 <!-- latest blog  -->
@@ -778,7 +645,7 @@
                         <!-- section head  -->
                         <div class="section-head text-center " data-aos="fade-up" data-aos-duration="500">
                             <span class="sm-title ">News & Blog</span>
-                            <h2 class="sec-title">Latest News</h2>
+                            <h2 class="sec-title">Bài Viết Mới</h2>
                         </div>
                         <!-- section head end  -->
                         <!-- row  -->
@@ -786,18 +653,17 @@
                             <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4" data-aos="fade-up" data-aos-duration="1000">
                                 <div class="post-card">
                                     <div class="post-img">
-                                        <a href="singel-post.html.htm"><img src="~/Assets/KhachHang/assets/img/blog/1.png" alt="Image not found"></a>
+                                        <a href=""><img src="~/Assets/KhachHang/assets/img/blog/1.png" alt="Image not found"></a>
                                     </div>
                                     <div class="post-details">
-                                        <a href="singel-post.html.htm" class="post-title">
-                                            New Restaurant Town Our Ple Award
-                                            Contract
+                                        <a href="" class="post-title">
+                                            Gà Tây Nướng Nguyên Con
                                         </a>
-                                        <p class="post-des">Drive your business and manage ris with a global industry leader.</p>
+                                        <p class="post-des">Gà tây với hương vị châu á!!! Tại sao không???</p>
 
                                         <div class="date-view">
-                                            <p class="date mb-0">Jan 1, 2022 - Comments</p>
-                                            <a href="singel-post.html.htm" class="view-more">Read More</a>
+                                            <p class="date mb-0">10/11/2023</p>
+                                            <a href="#" class="view-more">Xem thêm</a>
                                         </div>
                                     </div>
                                 </div>
@@ -806,18 +672,17 @@
                             <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4" data-aos="fade-up" data-aos-duration="1500">
                                 <div class="post-card">
                                     <div class="post-img">
-                                        <a href="singel-post.html.htm"><img src="~/Assets/KhachHang/assets/img/blog/2.png" alt="Image not found"></a>
+                                        <a href=""><img src="~/Assets/KhachHang/assets/img/blog/2.png" alt="Image not found"></a>
                                     </div>
                                     <div class="post-details">
-                                        <a href="singel-post.html.htm" class="post-title">
-                                            Greek yogurt breakfast bowls Ple
-                                            Award Contract
+                                        <a href="" class="post-title">
+                                            Thực Phẩm Tốt Cho Người Già, Bạn Đã Biết???
                                         </a>
-                                        <p class="post-des">Drive your business and manage ris with a global industry leader.</p>
+                                        <p class="post-des">Với người lớn tuổi thường hệ tiêu hóa kém ...</p>
 
                                         <div class="date-view">
-                                            <p class="date mb-0">Jan 1, 2022 - Comments</p>
-                                            <a href="singel-post.html.htm" class="view-more">Read More</a>
+                                            <p class="date mb-0">09/11/2023</p>
+                                            <a href="#" class="view-more">Xem thêm</a>
                                         </div>
                                     </div>
                                 </div>
@@ -827,18 +692,17 @@
                             <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4" data-aos="fade-up" data-aos-duration="2000">
                                 <div class="post-card">
                                     <div class="post-img">
-                                        <a href="singel-post.html.htm"><img src="~/Assets/KhachHang/assets/img/blog/3.png" alt="Image not found"></a>
+                                        <a href=""><img src="~/Assets/KhachHang/assets/img/blog/3.png" alt="Image not found"></a>
                                     </div>
                                     <div class="post-details">
-                                        <a href="singel-post.html.htm" class="post-title">
-                                            Make Authentic Italian Marg Herita
-                                            Pizza at Home
+                                        <a href="" class="post-title">
+                                            Thực Phẩm Nào Dành Cho Người Ăn Kiêng?
                                         </a>
-                                        <p class="post-des">Drive your business and manage ris with a global industry leader.</p>
+                                        <p class="post-des">Thực phẩm đơn giản có cung cấp đủ?</p>
 
                                         <div class="date-view">
-                                            <p class="date mb-0">Jan 1, 2022 - Comments</p>
-                                            <a href="singel-post.html.htm" class="view-more">Read More</a>
+                                            <p class="date mb-0">08/11/2023</p>
+                                            <a href="#" class="view-more">Xem thêm</a>
                                         </div>
                                     </div>
                                 </div>

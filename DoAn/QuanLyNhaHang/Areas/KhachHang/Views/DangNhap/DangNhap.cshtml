@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Đăng Nhập";
+    Layout = "~/Areas/KhachHang/Views/Shared/_LayoutKhachHang.cshtml";
+}
+
+<div class="body-wrapper">
+    <!-- ===================page banner============ -->
+    <div class="page-banner" data-background="/Assets/KhachHang/assets/img/page-ban-bg.png">
+        <!-- container  -->
+        <div class="container">
+            <!-- row  -->
+            <div class="row">
+                <div class="page-ban-content">
+                    <h1 class="page-head" data-aos="fade-up" data-aos-duration="1000">Trang Đăng Nhập</h1>
+                    <div class="breadcrumb-list" data-aos="fade-up" data-aos-duration="1500">
+                        <a href="index.html.htm" class="page-route-link">Home</a>
+                        <span class="devider">/</span>
+                        <span>Đăng Nhập</span>
+
+                    </div>
+                </div>
+            </div>
+            <!-- row end  -->
+        </div>
+        <!-- container end -->
+    </div>
+    <!-- ===================page banner end============ -->
+    <!-- ===========contact============ -->
+    <div class="contact">
+        <div class="container">
+            <div class="form-inside col-4">
+                @using (Ajax.BeginForm("SendSmsAuthentication", "DangNhap", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }))
+                {
+                    <span class="sm-title ">Nhập Số Điện Thoại</span>
+                    <div class="input-group flex-nowrap">
+                        <input type="tel" class="form-control" name="phoneNumber" placeholder="+84346923002 *" required>
+                        <span class="right-input-icon"><i class="icofont-phone"></i></span>
+                    </div>
+                    <div class="ThongBao" id="ThongBao">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                    </div>
+                    <div class="submit-button-sec mt-30">
+                        <button type="submit" class="custom-btn">Đăng Nhập</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- ========================contact================== -->
+</div>

@@ -1,0 +1,139 @@
+﻿@using QuanLyNhaHang.Models
+@model HoaDon
+
+
+@{
+    ViewBag.Title = "Hóa Đơn Khách Hàng";
+    Layout = "~/Areas/KhachHang/Views/Shared/_LayoutKhachHang.cshtml";
+
+    IEnumerable<ChiTietHoaDon> listChiTietHoaDon = (IEnumerable<ChiTietHoaDon>)ViewBag.ChiTietHoaDon;
+}
+
+<!-- =======================body wrapper========= -->
+<div class="body-wrapper">
+    <!-- ===================page banner============ -->
+    <div class="page-banner" data-background="/Assets/KhachHang/assets/img/page-ban-bg.png">
+        <!-- container  -->
+        <div class="container">
+            <!-- row  -->
+            <div class="row">
+                <div class="page-ban-content">
+                    <h1 class="page-head" data-aos="fade-up" data-aos-duration="1000">Hóa Đơn</h1>
+                    <div class="breadcrumb-list" data-aos="fade-up" data-aos-duration="1500">
+                        <a href="" class="page-route-link">Home</a>
+                        <span class="devider">/</span>
+                        <span>Cart</span>
+
+                    </div>
+                </div>
+            </div>
+            <!-- row end  -->
+        </div>
+        <!-- container end -->
+    </div>
+    <!-- ===================page banner end============ -->
+    <!-- ======================cart================ -->
+    <div class="cart-section cpy-8">
+        <div class="container">
+            <div class="row" data-aos="fade-up" data-aos-duration="1000">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="product-table">
+                            <tr>
+                                <th scope="col">Ảnh</th>
+                                <th scope="col">Tên Món Ăn</th>
+                                <th scope="col">Số Lượng</th>
+                                <th scope="col">Giá Bán</th>
+                                <th scope="col">Hành Động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in listChiTietHoaDon)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="cart-pd-img">
+                                            <img src="~/Assets/img/AnhMonAn/@item.MonAn.HinhAnh" alt="@item.MonAn.TenMonAn">
+                                        </div>
+                                    </td>
+                                    <td>@item.MonAn.TenMonAn</td>
+                                    <td class="qty-td">
+                                        <form action="#">
+                                            <div class="input-group quantity">
+                                                <span class="qtyminus minus qt-btn">–</span>
+                                                <input class="qty form-control" type="text" value="@item.SoLuongMua">
+                                                <span class="qtyplus plus qt-btn">+</span>
+                                            </div>
+                                        </form>
+                                    <td>@string.Format("{0:0,0}", item.ThanhTien) vnđ</td>
+
+                                    </td>
+                                    <td>
+                                        <a href="" class="qt-btn"><span class="icofont-close"></span></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+                <div class="shopping-btn">
+                    <a href="/KhachHang/Home/Index" class="custom-btn">Tiếp Tục Xem Món</a>
+                    @*<a href="" class="custom-btn">Cập Nhật</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ======================cart end================ -->
+    <!-- ===============================Coupon code and cart total============ -->
+    <section>
+        <div class="coupon-cart cmb-7">
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-duration="1000">
+                        <div class="coupon-inside">
+                            <h2>Mã Giảm Giá</h2>
+                            <p>Nhập mã giảm giá vào ô bên dưới để được giảm giá</p>
+                            <form action="#">
+                                <div class="coupon-form">
+                                    <input type="text" class="form-control coupon-input" placeholder="mã code">
+                                    <button class="custom-btn" type="submit">Xác nhận</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-duration="1500">
+                        <div class="cart-total">
+                            <h2>Tổng Tiền</h2>
+                            <table class="table table-borderless border-top border-bottom">
+                                <tbody>
+                                    <tr>
+                                        <td>Món ăn:</td>
+                                        <td class="cart-price">@string.Format("{0:0,0}", Model.TongTien) vnđ</td>
+                                    </tr>
+                                    @*<tr>
+                                        <td>Shipping:</td>
+                                        <td class="cart-price">$5.00</td>
+                                    </tr>*@
+                                </tbody>
+                            </table>
+                            <div class="total-sum">
+                                <p>Tổng cộng:</p>
+                                <p class="sum-price">@string.Format("{0:0,0}", Model.TongTien) vnđ</p>
+                            </div>
+                            <div class="submit-cart">
+                                <p class="multiple">
+                                    Kiểm tra đầy đủ thông tin
+                                </p>
+                                @*<div class="subbit-cart-buttons mt-15">
+                                    <a href="#" class="custom-btn">Yêu Cầu Thanh Toán</a>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- =======================body wrapper end========= -->
