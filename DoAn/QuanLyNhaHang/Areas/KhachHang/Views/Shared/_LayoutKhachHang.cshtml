@@ -1,8 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using QuanLyNhaHang.Models
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Cafeu Html Template Gallery</title>
+    <title>@ViewBag.Title</title>
     <!-- ==============favicon=============== -->
     <link rel="shortcut icon" type="image/png" href="~/Assets/KhachHang/assets/img/log.png">
 
@@ -18,6 +20,10 @@
 </head>
 
 <body>
+    <!-- #region Nút gọi điện -->
+    <a href="tel:0346923002" class="call-button"><img src="~/Assets/KhachHang/assets/img/phone.gif" alt="Phone Icon" width="50" height="50"></a>
+    <!-- #endregion -->
+
     <!-- ======preloader==== -->
     <div id="preloader">
         <div class="loader3">
@@ -61,14 +67,12 @@
                                 </nav>
                             </div>
                             <div class="header-right-search-phone d-none d-lg-block ml-35">
-                                <a href="tel:+880123456789" class="header-phone"><img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> +880 123 456 789</a>
                                 <a href="#" class="header-search" id="search"><span class="icofont-search-1"></span></a>
-                                @if (Request.Cookies["UserCookie"] != null)
+                                @if (Session["KhachHang"] != null)
                                 {
-                                    var username = Request.Cookies["UserCookie"]["user"];
-                                    var phone = Request.Cookies["UserCookie"]["phone"];
-                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@phone" class="header-phone">
-                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> @username
+                                    HoaDon KH = (HoaDon)Session["KhachHang"];
+                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@KH.SDTKhachHang" class="header-phone">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> @KH.TenKhachHang
                                     </a>
                                 }
                                 else
@@ -282,6 +286,7 @@
         <!-- =======================body wrapper end========= -->
 
     </div>
+
     <!-- ====main wrapper end == -->
     <!-- ======script======= -->
     <!-- =====jquery===== -->

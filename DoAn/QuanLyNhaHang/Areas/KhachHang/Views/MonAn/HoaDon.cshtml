@@ -44,7 +44,7 @@
                                 <th scope="col">Tên Món Ăn</th>
                                 <th scope="col">Số Lượng</th>
                                 <th scope="col">Giá Bán</th>
-                                <th scope="col">Hành Động</th>
+                                @*<th scope="col">Hành Động</th>*@
                             </tr>
                         </thead>
                         <tbody>
@@ -60,17 +60,17 @@
                                     <td class="qty-td">
                                         <form action="#">
                                             <div class="input-group quantity">
-                                                <span class="qtyminus minus qt-btn">–</span>
-                                                <input class="qty form-control" type="text" value="@item.SoLuongMua">
-                                                <span class="qtyplus plus qt-btn">+</span>
+                                                @*<span class="qtyminus minus qt-btn">–</span>*@
+                                                <input class="qty form-control" type="text" value="@item.SoLuongMua" readonly>
+                                                @*<span class="qtyplus plus qt-btn">+</span>*@
                                             </div>
                                         </form>
                                     <td>@string.Format("{0:0,0}", item.ThanhTien) vnđ</td>
 
                                     </td>
-                                    <td>
-                                        <a href="" class="qt-btn"><span class="icofont-close"></span></a>
-                                    </td>
+                                    @*<td>
+                                            <a href="" class="qt-btn"><span class="icofont-close"></span></a>
+                                        </td>*@
                                 </tr>
                             }
                         </tbody>
@@ -90,7 +90,7 @@
         <div class="coupon-cart cmb-7">
             <div class="container">
                 <div class="row justify-content-between">
-                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-duration="1000" style="display:none">
                         <div class="coupon-inside">
                             <h2>Mã Giảm Giá</h2>
                             <p>Nhập mã giảm giá vào ô bên dưới để được giảm giá</p>
@@ -108,28 +108,24 @@
                             <table class="table table-borderless border-top border-bottom">
                                 <tbody>
                                     <tr>
-                                        <td>Món ăn:</td>
+                                        <td>Tổng cộng:</td>
                                         <td class="cart-price">@string.Format("{0:0,0}", Model.TongTien) vnđ</td>
                                     </tr>
-                                    @*<tr>
-                                        <td>Shipping:</td>
-                                        <td class="cart-price">$5.00</td>
-                                    </tr>*@
                                 </tbody>
                             </table>
-                            <div class="total-sum">
+                            @*<div class="total-sum">
                                 <p>Tổng cộng:</p>
                                 <p class="sum-price">@string.Format("{0:0,0}", Model.TongTien) vnđ</p>
-                            </div>
+                            </div>*@
                             <div class="submit-cart">
                                 <p class="multiple">
-                                    Kiểm tra đầy đủ thông tin
+                                    Quý khách vui lòng kiểm tra thông tin hóa đơn
                                 </p>
-                                @*<div class="subbit-cart-buttons mt-15">
-                                    <a href="#" class="custom-btn">Yêu Cầu Thanh Toán</a>
-                                </div>*@
                             </div>
                         </div>
+                    </div>
+                    <div class="shopping-btn">
+                        <a href="/KhachHang/DangNhap/DangXuat" class="custom-btn">Đăng Xuất</a>
                     </div>
                 </div>
             </div>

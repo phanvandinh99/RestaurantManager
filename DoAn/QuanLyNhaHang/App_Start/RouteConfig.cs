@@ -20,21 +20,29 @@ namespace QuanLyNhaHang
             //    defaults: new { action = "Index", id = UrlParameter.Optional }
             //);
 
-            // Nhân viên Admin
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "QuanLyNhaHang.Areas.NhanVien.Controllers" }
-            ).DataTokens.Add("area", "NhanVien");
+            // Chạy trang nhân viên Admin đầu tiên
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+            //    namespaces: new string[] { "QuanLyNhaHang.Areas.NhanVien.Controllers" }
+            //).DataTokens.Add("area", "NhanVien");
 
-            // Nhân viên kho
+            // Chạy trang nhân viên kho đầu tiên 
             //routes.MapRoute(
             //    name: "Default",
             //    url: "{controller}/{action}/{id}",
             //    defaults: new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
             //    namespaces: new string[] { "QuanLyNhaHang.Areas.NhanVienKho.Controllers" }
             //).DataTokens.Add("area", "NhanVienKho");
+
+            // Chạy trang khách hàng đầu tiên
+            routes.MapRoute(
+                name: "Default",
+                url: "{controller}/{action}/{id}",
+                defaults: new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new string[] { "QuanLyNhaHang.Areas.KhachHang.Controllers" }
+            ).DataTokens.Add("area", "KhachHang");
         }
     }
 }

@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.title</title>
+    <title>Trang Chủ</title>
     <!-- ==============favicon=============== -->
     <link rel="shortcut icon" type="image/png" href="~/Assets/KhachHang/assets/img/log.png">
 
@@ -23,7 +23,9 @@
 </head>
 
 <body>
-
+    <!-- #region Nút gọi điện -->
+    <a href="tel:0346923002" class="call-button"><img src="~/Assets/KhachHang/assets/img/phone.gif" alt="Phone Icon" width="50" height="50"></a>
+    <!-- #endregion -->
     <!-- Preloader Start -->
     <div id="preloader">
         <div class="loader3">
@@ -70,12 +72,11 @@
                             </div>
                             <div class="header-right-search-phone d-none d-lg-block ml-35">
                                 <a href="#" class="header-search" id="search"><span class="icofont-search-1"></span></a>
-                                @if (Request.Cookies["UserCookie"] != null)
+                                @if (Session["KhachHang"] != null)
                                 {
-                                    var username = Request.Cookies["UserCookie"]["user"];
-                                    var phone = Request.Cookies["UserCookie"]["phone"];
-                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@phone" class="header-phone">
-                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> @username
+                                    HoaDon KH = (HoaDon)Session["KhachHang"];
+                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@KH.SDTKhachHang" class="header-phone">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> @KH.TenKhachHang
                                     </a>
                                 }
                                 else
@@ -372,23 +373,23 @@
                                                     <img src="~/Assets/KhachHang/assets/img/category/icon/7.png" alt="" class="cat-icon">
                                                     <span class="cat-name">All</span>
                                                 </li>
-                                                <li class="cat-menu-li " data-filter=".pizza">
+                                                <li class="cat-menu-li " data-filter=".Khai_Vị">
                                                     <img src="~/Assets/KhachHang/assets/img/category/icon/1.png" alt="" class="cat-icon">
-                                                    <span class="cat-name">KhaiVi</span>
+                                                    <span class="cat-name">Khai Vị</span>
                                                 </li>
-                                                <li class="cat-menu-li" data-filter=".asian">
+                                                <li class="cat-menu-li" data-filter=".Món_Heo">
                                                     <img src="~/Assets/KhachHang/assets/img/category/icon/2.png" alt="" class="cat-icon">
                                                     <span class="cat-name">Cơm</span>
                                                 </li>
-                                                <li class="cat-menu-li" data-filter=".burger">
+                                                <li class="cat-menu-li" data-filter=".Món_Lẩu">
                                                     <img src="~/Assets/KhachHang/assets/img/category/icon/3.png" alt="" class="cat-icon">
                                                     <span class="cat-name">Burger</span>
                                                 </li>
-                                                <li class="cat-menu-li" data-filter=".salad">
+                                                <li class="cat-menu-li" data-filter=".Món_Cháo">
                                                     <img src="~/Assets/KhachHang/assets/img/category/icon/4.png" alt="" class="cat-icon">
                                                     <span class="cat-name">Salad</span>
                                                 </li>
-                                                <li class="cat-menu-li" data-filter=".bakery">
+                                                <li class="cat-menu-li" data-filter=".Trái_Cây">
                                                     <img src="~/Assets/KhachHang/assets/img/category/icon/5.png" alt="" class="cat-icon">
                                                     <span class="cat-name">Bakery</span>
                                                 </li>

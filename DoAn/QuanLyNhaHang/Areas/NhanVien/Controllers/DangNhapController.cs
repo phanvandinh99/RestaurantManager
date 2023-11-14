@@ -56,9 +56,15 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
 
             return View();
         }
-        public ActionResult DangXuat()
+        public ActionResult DangXuatNhanVien()
         {
-            Session["TaiKhoan"] = null;
+            Session["TaiKhoanNV"] = null;
+            return RedirectToAction("DangNhap", "DangNhap");
+        }
+
+        public ActionResult DangXuatNhanVienKho()
+        {
+            Session["TaiKhoanKho"] = null;
             return RedirectToAction("DangNhap", "DangNhap");
         }
     }

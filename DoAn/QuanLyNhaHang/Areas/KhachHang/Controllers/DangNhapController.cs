@@ -31,7 +31,7 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
         {
             // Convert phoneNumber thành 
             // Kiểm tra số điện thoại của bạn đã tạo bàn chưa?
-            var checkPhoneNumber = db.HoaDons.FirstOrDefault(n => n.SDTKhachHang == phoneNumber.Replace("+84", "0") & n.TrangThai == 1);
+            var checkPhoneNumber = db.HoaDons.FirstOrDefault(n => n.SDTKhachHang == phoneNumber & n.TrangThai == 1);
 
             if (checkPhoneNumber == null)
             {
@@ -46,7 +46,7 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
             db.SaveChanges();
 
             // Giả sử bạn đã tạo mã xác thực
-            var messageBody = $"Welcome to Cafeu.\nMã xác thực của bạn là: {authenticationCode}\nMã có hiệu lực trong vòng 1 phút.";
+            var messageBody = $"Welcome to Cafeu restaurant.\nMã xác thực của bạn là: {authenticationCode}\nMã có hiệu lực trong vòng 60s.";
 
             // Gửi tin nhắn SMS
             _smsService.SendSms(phoneNumber, messageBody);
@@ -74,15 +74,16 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
                 timeDifference.TotalMinutes <= 1
                )
             {
-                var userCookie = new HttpCookie("UserCookie");
-                userCookie["user"] = checkPhoneNumber.TenKhachHang;
-                userCookie["phone"] = checkPhoneNumber.SDTKhachHang;
-                userCookie.Expires = DateTime.Now.AddDays(1);
-                Response.Cookies.Add(userCookie);
-
+                Session["KhachHang"] = checkPhoneNumber;
                 return RedirectToAction("Index", "Home");
             }
             return View();
+        }
+
+        public ActionResult DangXuat()
+        {
+            Session["KhachHang"] = null;
+            return RedirectToAction("Index", "Home");
         }
 
         private string GenerateRandomCode(int length)
