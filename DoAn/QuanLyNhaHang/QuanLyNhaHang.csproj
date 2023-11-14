@@ -499,6 +499,7 @@
     <Content Include="Areas\KhachHang\Views\DangNhap\SendSmsAuthentication.cshtml" />
     <Content Include="Areas\KhachHang\Views\Error\HoaDonTrong.cshtml" />
     <Content Include="Areas\KhachHang\Views\MonAn\HoaDon.cshtml" />
+    <Content Include="Areas\KhachHang\Views\DatBan\DatBan.cshtml" />
     <None Include="Assets\js\Ajax\jquery-1.8.0.intellisense.js" />
     <Content Include="Assets\js\Ajax\jquery-1.8.0.js" />
     <Content Include="Assets\js\Ajax\jquery-1.8.0.min.js" />
@@ -612,7 +613,6 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\KhachHang\Data\" />
-    <Folder Include="Areas\KhachHang\Views\DatBan\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
