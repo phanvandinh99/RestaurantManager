@@ -503,6 +503,15 @@
     <Content Include="Areas\KhachHang\Views\DatBan\DatBan.cshtml" />
     <Content Include="Areas\KhachHang\Views\About\SuKien.cshtml" />
     <Content Include="Areas\KhachHang\Views\About\LienHe.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\DSNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\DSNhanVienKho.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\DSNhanVienPhucVu.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\ThemNhanVien.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\XemChiTiet.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\CapNhat.cshtml" />
+    <Content Include="Areas\Admin\Views\NhanVien\DSNhanVienKhoa.cshtml" />
     <None Include="Assets\js\Ajax\jquery-1.8.0.intellisense.js" />
     <Content Include="Assets\js\Ajax\jquery-1.8.0.js" />
     <Content Include="Assets\js\Ajax\jquery-1.8.0.min.js" />
@@ -515,6 +524,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NhanVienController.cs" />
     <Compile Include="Areas\KhachHang\Controllers\AboutController.cs" />
     <Compile Include="Areas\KhachHang\Controllers\DangNhapController.cs" />
     <Compile Include="Areas\KhachHang\Controllers\DatBanController.cs" />
@@ -613,9 +624,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
     <Folder Include="Areas\KhachHang\Data\" />
   </ItemGroup>
   <PropertyGroup>

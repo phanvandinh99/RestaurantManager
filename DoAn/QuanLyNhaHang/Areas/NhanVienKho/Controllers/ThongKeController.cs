@@ -1,8 +1,6 @@
 ﻿using QuanLyNhaHang.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Net.NetworkInformation;
 using System.Web.Mvc;
 
 namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
@@ -19,14 +17,13 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
             ViewBag.PhieuNhapCount = db.PhieuNhaps.Count();
             ViewBag.NhaCungCap = db.NhaCCs.Count();
 
-            ViewBag.HoaDon = db.HoaDons.OrderByDescending(n => n.MaHoaDon).ToList();
+            ViewBag.HoaDon = db.HoaDons.Where(n => n.TrangThai == 0).OrderByDescending(n => n.MaHoaDon).ToList();
             ViewBag.PhieuNhap = db.PhieuNhaps.OrderByDescending(n => n.MaPhieuNhap).ToList();
 
-            ViewBag.HoaDon = db.HoaDons.OrderBy(n => n.MaHoaDon).ToList();
-            ViewBag.ThongKe = 0; // kết quả thống kê doanh thu
+            ViewBag.ThongKe = 0;          // kết quả thống kê doanh thu
             ViewBag.ThongKePhieuNhap = 0; // kết quả thống kê phiếu nhập
-            ViewBag.listHoaDon = null;
-            ViewBag.listPhieuNhap = null;
+            ViewBag.HoaDon = null;
+            ViewBag.PhieuNhap = null;
             ViewBag.SUM = 0;
             ViewBag.Loi = null;
             return View();
@@ -44,12 +41,13 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
             ViewBag.HoanTra = db.HoanTras.Count();
             ViewBag.PhieuNhap = db.PhieuNhaps.Count();
             ViewBag.NhaCungCap = db.NhaCCs.Count();
-            if (iNgay == 0 && iThang == 0) //Thống kê theo năm
+            if (iThang == 0) // Thống kê theo năm
             {
                 ViewBag.ThongKe = DoanhThuNam(iNam);
                 ViewBag.ThongKePhieuNhap = DoanhThuNam_Nhap(iNam);
-                ViewBag.listHoaDon = db.HoaDons.Where(n => n.NgayThanhToan.Value.Year == iNam).ToList();
-                ViewBag.listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Year == iNam).ToList();
+                ViewBag.HoaDon = db.HoaDons.Where(n => n.NgayThanhToan.Value.Year == iNam &&
+                                                  n.TrangThai == 0).ToList();
+                ViewBag.PhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Year == iNam).ToList();
                 ViewBag.SUM = DoanhThuNam(iNam) - DoanhThuNam_Nhap(iNam);
                 if (DoanhThuNam(iNam) - DoanhThuNam_Nhap(iNam) > 0)
                 {
@@ -57,12 +55,15 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
                 }
                 else ViewBag.Loi = "Lỗ";
             }
-            else if (iNgay == 0) // thống kê tháng năm
+            else if (iNgay == 0 && iThang != 0) // thống kê theo tháng năm
             {
                 ViewBag.ThongKe = DoanhThuThangNam(iThang, iNam);
                 ViewBag.ThongKePhieuNhap = DoanhThuThangNam_Nhap(iThang, iNam);
-                ViewBag.listHoaDon = db.HoaDons.Where(n => n.NgayThanhToan.Value.Month == iThang & n.NgayThanhToan.Value.Year == iNam).ToList();
-                ViewBag.listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Month == iThang & n.NgayNhap.Value.Year == iNam).ToList();
+                ViewBag.HoaDon = db.HoaDons.Where(n => n.NgayThanhToan.Value.Month == iThang &&
+                                                  n.NgayThanhToan.Value.Year == iNam &&
+                                                  n.TrangThai == 0).ToList();
+                ViewBag.PhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Month == iThang &&
+                                                            n.NgayNhap.Value.Year == iNam).ToList();
                 ViewBag.SUM = DoanhThuThangNam(iThang, iNam) - DoanhThuThangNam_Nhap(iThang, iNam);
                 if (DoanhThuThangNam(iThang, iNam) - DoanhThuThangNam_Nhap(iThang, iNam) > 0)
                 {
@@ -74,8 +75,13 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
             {
                 ViewBag.ThongKe = DoanhThuNgayThangNam(iNgay, iThang, iNam);
                 ViewBag.ThongKePhieuNhap = DoanhThuNgayThangNam_Nhap(iNgay, iThang, iNam);
-                ViewBag.listHoaDon = db.HoaDons.Where(n => n.NgayThanhToan.Value.Day == iNgay & n.NgayThanhToan.Value.Month == iThang & n.NgayThanhToan.Value.Year == iNam).ToList();
-                ViewBag.listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Day == iNgay & n.NgayNhap.Value.Month == iThang & n.NgayNhap.Value.Year == iNam).ToList();
+                ViewBag.HoaDon = db.HoaDons.Where(n => n.NgayThanhToan.Value.Day == iNgay &&
+                                                  n.NgayThanhToan.Value.Month == iThang &&
+                                                  n.NgayThanhToan.Value.Year == iNam &&
+                                                  n.TrangThai == 0).ToList();
+                ViewBag.PhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Day == iNgay &&
+                                                        n.NgayNhap.Value.Month == iThang &&
+                                                        n.NgayNhap.Value.Year == iNam).ToList();
                 ViewBag.SUM = DoanhThuNgayThangNam(iNgay, iThang, iNam) - DoanhThuNgayThangNam_Nhap(iNgay, iThang, iNam);
                 if (DoanhThuNgayThangNam(iNgay, iThang, iNam) - DoanhThuNgayThangNam_Nhap(iNgay, iThang, iNam) > 0)
                 {
@@ -104,16 +110,23 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
 
             ViewBag.ThongKe = DoanhThuTuanHoaDon(iNgayBatDau, iNgayKetThuc, iThang);
             ViewBag.ThongKePhieuNhap = DoanhThuTuan(iNgayBatDau, iNgayKetThuc, iThang);
-            ViewBag.listHoaDon = db.HoaDons.Where(n => n.NgayThanhToan.Value.Day >= iNgayBatDau & n.NgayThanhToan.Value.Day<=iNgayKetThuc&n.NgayThanhToan.Value.Month==iThang).ToList();
-            ViewBag.listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Day >= iNgayBatDau & n.NgayNhap.Value.Day <= iNgayKetThuc & n.NgayNhap.Value.Month == iThang).ToList();
+            ViewBag.HoaDon = db.HoaDons.Where(n => n.NgayThanhToan.Value.Day >= iNgayBatDau &&
+                                              n.NgayThanhToan.Value.Day <= iNgayKetThuc &&
+                                              n.NgayThanhToan.Value.Month == iThang &&
+                                              n.TrangThai == 0).ToList();
+            ViewBag.PhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Day >= iNgayBatDau &&
+                                                    n.NgayNhap.Value.Day <= iNgayKetThuc &&
+                                                    n.NgayNhap.Value.Month == iThang).ToList();
 
 
             ViewBag.SUM = DoanhThuTuanHoaDon(iNgayBatDau, iNgayKetThuc, iThang) - DoanhThuTuan(iNgayBatDau, iNgayKetThuc, iThang);
+
             if (DoanhThuTuanHoaDon(iNgayBatDau, iNgayKetThuc, iThang) - DoanhThuTuan(iNgayBatDau, iNgayKetThuc, iThang) > 0)
             {
                 ViewBag.Loi = "Lãi";
             }
             else ViewBag.Loi = "Lỗ";
+
             return View();
         }
         #endregion
@@ -136,12 +149,21 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
             ViewBag.ThongKe = DoanhThuThangDenThang_HoaDon(iThangBatDau, iNamBatDau, iThangKetThuc, iNamKetThuc);
             ViewBag.ThongKePhieuNhap = DoanhThuThangDenThang(iThangBatDau, iNamBatDau, iThangKetThuc, iNamKetThuc);
 
-            ViewBag.listHoaDon = db.HoaDons.Where(n => n.NgayThanhToan.Value.Month >= iThangBatDau & n.NgayThanhToan.Value.Year >= iNamBatDau& n.NgayThanhToan.Value.Month <= iThangKetThuc & n.NgayThanhToan.Value.Year <= iNamKetThuc).ToList();
-            ViewBag.listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Month >= iThangBatDau & n.NgayNhap.Value.Year >= iNamBatDau & n.NgayNhap.Value.Month <= iThangKetThuc & n.NgayNhap.Value.Year <= iNamKetThuc).ToList();
+            ViewBag.HoaDon = db.HoaDons.Where(n => n.NgayThanhToan.Value.Month >= iThangBatDau &&
+                                              n.NgayThanhToan.Value.Year >= iNamBatDau &&
+                                              n.NgayThanhToan.Value.Month <= iThangKetThuc &&
+                                              n.NgayThanhToan.Value.Year <= iNamKetThuc &&
+                                              n.TrangThai == 0).ToList();
+            ViewBag.PhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Month >= iThangBatDau &&
+                                                    n.NgayNhap.Value.Year >= iNamBatDau &&
+                                                    n.NgayNhap.Value.Month <= iThangKetThuc &&
+                                                    n.NgayNhap.Value.Year <= iNamKetThuc).ToList();
 
 
-            ViewBag.SUM = DoanhThuThangDenThang_HoaDon(iThangBatDau, iNamBatDau, iThangKetThuc, iNamKetThuc) - DoanhThuThangDenThang(iThangBatDau, iNamBatDau, iThangKetThuc, iNamKetThuc);
-            if (DoanhThuThangDenThang_HoaDon(iThangBatDau, iNamBatDau, iThangKetThuc, iNamKetThuc) - DoanhThuThangDenThang(iThangBatDau, iNamBatDau, iThangKetThuc, iNamKetThuc) > 0)
+            ViewBag.SUM = DoanhThuThangDenThang_HoaDon(iThangBatDau, iNamBatDau, iThangKetThuc, iNamKetThuc) -
+                          DoanhThuThangDenThang(iThangBatDau, iNamBatDau, iThangKetThuc, iNamKetThuc);
+            if (DoanhThuThangDenThang_HoaDon(iThangBatDau, iNamBatDau, iThangKetThuc, iNamKetThuc) -
+                DoanhThuThangDenThang(iThangBatDau, iNamBatDau, iThangKetThuc, iNamKetThuc) > 0)
             {
                 ViewBag.Loi = "Lãi";
             }
@@ -154,46 +176,52 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         public double DoanhThuDonHang()
         {
             // doanh thu tất cả 
-            double TongDoanhThu = db.HoaDons.Sum(n => n.TongTien);
+            double TongDoanhThu = db.HoaDons.Where(n => n.TrangThai == 0).Sum(n => n.TongTien);
             return TongDoanhThu;
         }
         #region Hàm tính tổng doanh thu hóa đơn và doanh thu nhập
         public double DoanhThuThangNam(int Thang, int Nam)
         {
 
-            var listDDH = db.HoaDons.Where(n => n.NgayThanhToan.Value.Month == Thang && n.NgayThanhToan.Value.Year == Nam);
+            var listDDH = db.HoaDons.Where(n => n.NgayThanhToan.Value.Month == Thang &&
+                                           n.NgayThanhToan.Value.Year == Nam &&
+                                           n.TrangThai == 0);
             double TongTien = 0;
             foreach (var item in listDDH)
             {
-                TongTien += item.ChiTietHoaDons.Sum(n => n.ThanhTien);
+                TongTien += item.TongTien;
             }
             return TongTien;
         }
         public double DoanhThuNgayThangNam(int Ngay, int Thang, int Nam)
         {
 
-            var listDDH = db.HoaDons.Where(n => n.NgayThanhToan.Value.Day == Ngay && n.NgayThanhToan.Value.Month == Thang && n.NgayThanhToan.Value.Year == Nam);
+            var listDDH = db.HoaDons.Where(n => n.NgayThanhToan.Value.Day == Ngay &&
+                                           n.NgayThanhToan.Value.Month == Thang &&
+                                           n.NgayThanhToan.Value.Year == Nam &&
+                                           n.TrangThai == 0);
             double TongTien = 0;
             foreach (var item in listDDH)
             {
-                TongTien += item.ChiTietHoaDons.Sum(n => n.ThanhTien);
+                TongTien = TongTien + item.TongTien;
             }
             return TongTien;
         }
         public double DoanhThuNam(int Nam)
         {
-            var listDDH = db.HoaDons.Where(n => n.NgayThanhToan.Value.Year == Nam);
+            var listDDH = db.HoaDons.Where(n => n.NgayThanhToan.Value.Year == Nam && n.TrangThai == 0);
             double TongTien = 0;
             foreach (var item in listDDH)
             {
-                TongTien += item.ChiTietHoaDons.Sum(n => n.ThanhTien);
+                TongTien = TongTien + item.TongTien;
             }
             return TongTien;
         }
         public double? DoanhThuThangNam_Nhap(int Thang, int Nam)
         {
 
-            var listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Month == Thang && n.NgayNhap.Value.Year == Nam);
+            var listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Month == Thang &&
+                                                    n.NgayNhap.Value.Year == Nam);
             double? TongTien = 0;
             foreach (var item in listPhieuNhap)
             {
@@ -204,7 +232,9 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         public double? DoanhThuNgayThangNam_Nhap(int Ngay, int Thang, int Nam)
         {
 
-            var listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Day == Ngay && n.NgayNhap.Value.Month == Thang && n.NgayNhap.Value.Year == Nam);
+            var listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Day == Ngay &&
+                                                    n.NgayNhap.Value.Month == Thang &&
+                                                    n.NgayNhap.Value.Year == Nam);
             double? TongTien = 0;
             foreach (var item in listPhieuNhap)
             {
@@ -225,7 +255,9 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         // Tính tổng tiền theo tháng phiếu nhập
         public double? DoanhThuTuan(int NgayBatDau, int NgayKetThuc, int Thang)
         {
-            var listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Day >= NgayBatDau && n.NgayNhap.Value.Day <= NgayKetThuc && n.NgayNhap.Value.Month == Thang);
+            var listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Day >= NgayBatDau &&
+                                                    n.NgayNhap.Value.Day <= NgayKetThuc &&
+                                                    n.NgayNhap.Value.Month == Thang);
             double? TongTien = 0;
             foreach (var item in listPhieuNhap)
             {
@@ -236,18 +268,25 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         public double DoanhThuTuanHoaDon(int NgayBatDau, int NgayKetThuc, int Thang)
         {
 
-            var listDDH = db.HoaDons.Where(n => n.NgayThanhToan.Value.Day >= NgayBatDau && n.NgayThanhToan.Value.Day <= NgayKetThuc && n.NgayThanhToan.Value.Month == Thang);
+            var listDDH = db.HoaDons.Where(n => n.NgayThanhToan.Value.Day >= NgayBatDau &&
+                                           n.NgayThanhToan.Value.Day <= NgayKetThuc &&
+                                           n.NgayThanhToan.Value.Month == Thang &&
+                                           n.TrangThai == 0);
             double TongTien = 0;
             foreach (var item in listDDH)
             {
-                TongTien += item.ChiTietHoaDons.Sum(n => n.ThanhTien);
+                TongTien += item.TongTien;
             }
             return TongTien;
         }
         // tính tổng tiền theo tháng đến tháng của năm nào đó 
         public double? DoanhThuThangDenThang(int ThangBatDau, int NambatDau, int ThangKetThuc, int NamKetThuc)
         {
-            var listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Month >= ThangBatDau && n.NgayNhap.Value.Year >= NambatDau && n.NgayNhap.Value.Month <= ThangKetThuc && n.NgayNhap.Value.Year <= NamKetThuc);
+            var listPhieuNhap = db.PhieuNhaps.Where(n => n.NgayNhap.Value.Month >= ThangBatDau &&
+                                                    n.NgayNhap.Value.Year >= NambatDau &&
+                                                    n.NgayNhap.Value.Month <= ThangKetThuc &&
+                                                    n.NgayNhap.Value.Year <= NamKetThuc);
+
             double? TongTien = 0;
             foreach (var item in listPhieuNhap)
             {
@@ -257,12 +296,19 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         }
         public double DoanhThuThangDenThang_HoaDon(int ThangBatDau, int NambatDau, int ThangKetThuc, int NamKetThuc)
         {
+            var listDDH = db.HoaDons.Where(n => n.NgayThanhToan.Value.Month >= ThangBatDau &&
+                                           n.NgayThanhToan.Value.Year >= NambatDau &&
+                                           n.NgayThanhToan.Value.Month <= ThangKetThuc &&
+                                           n.NgayThanhToan.Value.Year <= NamKetThuc &&
+                                           n.TrangThai == 0);
 
-            var listDDH = db.HoaDons.Where(n => n.NgayThanhToan.Value.Month >= ThangBatDau && n.NgayThanhToan.Value.Year >= NambatDau && n.NgayThanhToan.Value.Month <= ThangKetThuc && n.NgayThanhToan.Value.Year <= NamKetThuc);
+            //var listDDHs = db.HoaDons.Where(n=>n.NgayThanhToan.)
+
             double TongTien = 0;
+
             foreach (var item in listDDH)
             {
-                TongTien += item.ChiTietHoaDons.Sum(n => n.ThanhTien);
+                TongTien += item.TongTien;
             }
             return TongTien;
         }

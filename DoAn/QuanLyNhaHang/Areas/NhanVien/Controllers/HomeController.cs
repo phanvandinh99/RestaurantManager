@@ -31,10 +31,10 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         public double DoanhThuDonHang()
         {
             double TongDoanhThu = 0;
-            if (0<db.HoaDons.Count())
+            if (0 < db.HoaDons.Count())
             {
                 // doanh thu tất cả 
-                TongDoanhThu = db.HoaDons.Sum(n => n.TongTien);
+                TongDoanhThu = db.HoaDons.Where(n => n.TrangThai == 0).Sum(n => n.TongTien);
                 return TongDoanhThu;
             }
             else

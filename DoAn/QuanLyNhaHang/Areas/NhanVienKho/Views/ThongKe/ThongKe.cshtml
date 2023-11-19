@@ -5,8 +5,8 @@
 }
 
 @{
-    IEnumerable<PhieuNhap> listPhieuNhap = ViewBag.listPhieuNhap as IEnumerable<PhieuNhap>;
-    IEnumerable<HoaDon> listHoaDon = ViewBag.listHoaDon as IEnumerable<HoaDon>;
+    IEnumerable<PhieuNhap> listPhieuNhap = ViewBag.PhieuNhap as IEnumerable<PhieuNhap>;
+    IEnumerable<HoaDon> listHoaDon = ViewBag.HoaDon as IEnumerable<HoaDon>;
 }
 <div class="container">
     <div class="page-title-container">
@@ -162,10 +162,10 @@
                                     <label class="form-label">Năm</label>
                                     <select class="form-select" name="Nam">
                                         <option selected value="2021">2021</option>
-                                        <option value="2021">2022</option>
-                                        <option value="2021">2023</option>
-                                        <option value="2021">2024</option>
-                                        <option value="2021">2025</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
                                     </select>
                                 </div>
                             </div>
@@ -175,7 +175,7 @@
                 </div>
             }
             <!-- #region Thống kê theo tuần -->
-            <h2 class="small-title">Thống Kê Hóa Đơn (Theo ngày a đến ngày b tháng tùy chọn)</h2>
+            <h2 class="small-title">Thống Kê Hóa Đơn (Theo ngày a đến ngày b tháng tùy chọn thuộc tất cả các năm)</h2>
             @using (Html.BeginForm("ThongKeTuan", "ThongKe"))
             {
                 <div class="card mb-5">
@@ -270,7 +270,6 @@
                                         @for (int i = 1; i <= 12; i++)
                                         {
                                             <option value="@i">@i</option>
-
                                         }
                                     </select>
                                     <label class="form-label">Của Năm</label>
@@ -278,7 +277,6 @@
                                         @for (int i = 2019; i <= 2025; i++)
                                         {
                                             <option value="@i">@i</option>
-
                                         }
                                     </select>
                                 </div>

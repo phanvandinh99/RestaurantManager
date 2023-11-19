@@ -2,6 +2,7 @@ namespace QuanLyNhaHang.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
@@ -33,7 +34,10 @@ namespace QuanLyNhaHang.Models
         [StringLength(10)]
         public string SoDienThoai { get; set; }
 
+        public int? TrangThai { get; set; }
+
         public int? MaQuyen_id { get; set; }
+
 
         public virtual Quyen Quyen { get; set; }
 

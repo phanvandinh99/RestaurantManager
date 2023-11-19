@@ -47,6 +47,11 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     Session["TaiKhoanNV"] = kh;
                     return Redirect("/NhanVien/Home/Index");
                 }
+                else if (kh.MaQuyen_id == 3) // Nhân viên admin
+                {
+                    Session["Admin"] = kh;
+                    return Redirect("/Admin/Home/Index");
+                }
                 else // nhân viên kho
                 {
                     Session["TaiKhoanKho"] = kh;
@@ -65,6 +70,12 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         public ActionResult DangXuatNhanVienKho()
         {
             Session["TaiKhoanKho"] = null;
+            return RedirectToAction("DangNhap", "DangNhap");
+        }
+
+        public ActionResult DangXuatAdmin()
+        {
+            Session["Admin"] = null;
             return RedirectToAction("DangNhap", "DangNhap");
         }
     }

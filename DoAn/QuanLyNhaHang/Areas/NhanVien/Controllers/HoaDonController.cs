@@ -30,7 +30,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
 
                 //mà bàn đang trống => hóa đơn cũng trống => tạo mới hóa đơn
                 HoaDon hd = new HoaDon();
-                hd.TenKhachHang = "Restaurant";
+                hd.TenKhachHang = "Vãng Lai Cafeu";
                 hd.SDTKhachHang = "0123456789";
                 hd.TongHoaDon = 1;
                 hd.NgayTao = DateTime.Now;
@@ -78,6 +78,11 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                 {
                     ViewBag.TongTienMonAn = TongTienOrder(hoaDonTrong.MaHoaDon, 0, 0, 0, 0);
                 }
+
+                HoaDon hoaDon = db.HoaDons.FirstOrDefault(n => n.MaHoaDon == hoaDonTrong.MaHoaDon);
+                hoaDon.TongTien = ViewBag.TongTienMonAn;
+                db.SaveChanges();
+
                 ViewBag.SoLuongMonAn = SoLuongOrder(hoaDonTrong.MaHoaDon);
 
                 return View(hoaDonTrong);
@@ -198,7 +203,6 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     db.SaveChanges();
 
                     // tạo phiếu xuất
-                    double? tongTien = 0;
                     XuatKho xk = new XuatKho();
                     xk.NgayXuat = DateTime.Now;
                     db.XuatKhoes.Add(xk);
@@ -254,7 +258,6 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     db.SaveChanges();
 
                     // tạo phiếu xuất
-                    double? tongTien = 0;
                     XuatKho xk = new XuatKho();
                     xk.NgayXuat = DateTime.Now;
                     db.XuatKhoes.Add(xk);
@@ -473,7 +476,6 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
 
             #region Tạo hoàn trả
             // tạo phiếu Hoàn Trả
-            double? tongTien = 0;
             HoanTra ht = new HoanTra();
             ht.NgayHoanTra = DateTime.Now;
             db.HoanTras.Add(ht);
@@ -766,6 +768,8 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
 
             #region Kiểm tra số điện thoại khách hàng đã tồn tại chưa
             var demSoHoaDon = db.HoaDons.Where(n => n.SDTKhachHang == dienThoai).OrderByDescending(n => n.MaHoaDon).FirstOrDefault();
+
+            // Khách hàng mới
             if (demSoHoaDon != null)
             {
                 hoaDon.TongHoaDon = demSoHoaDon.TongHoaDon + 1;
@@ -776,6 +780,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                 hoaDon.TongHoaDon = 1;
             }
             #endregion
+
             db.SaveChanges();
             return Redirect(strURL);
         }
