@@ -57,7 +57,7 @@
                                         <div class="text-muted text-body cursor-pointer sort" data-sort="TongTien">Ngày Sinh</div>
                                     </div>
                                     <div class="col-lg-2 d-flex flex-column pe-1 justify-content-center">
-                                        <div class="text-muted text-body cursor-pointer sort" data-sort="ThanhToan">SDT</div>
+                                        <div class="text-muted text-body cursor-pointer sort" data-sort="ThanhToan">Khóa</div>
                                     </div>
                                     <div class="col-lg-2 d-flex flex-column pe-1 justify-content-center">
                                         <div class="text-muted text-body cursor-pointer sort" data-sort="TongTien">Trạng thái</div>
@@ -89,7 +89,7 @@
                                                 <div class="lh-1 text-alternate NgaySinh">@string.Format("{0:dd/MM/yyyy}", item.NgaySinh)</div>
                                             </div>
                                             <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
-                                                <div class="lh-1 text-alternate SDT">@item.SoDienThoai</div>
+                                                <div class="lh-1 text-alternate SDT"><a href="/Admin/NhanVien/LockAccount?sTaiKhoanNV=@item.TaiKhoanNV"></a>Khóa</div>
                                             </div>
                                             <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
                                                 <div class="lh-1 text-alternate">

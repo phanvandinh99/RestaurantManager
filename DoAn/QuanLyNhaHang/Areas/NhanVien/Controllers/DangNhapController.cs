@@ -36,25 +36,46 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             }
             else
             {
-                var kh = db.NhanViens.SingleOrDefault(n => n.TaiKhoanNV == ssTaiKhoan & n.MatKhauNV == ssMatKhau);
+                var kh = db.NhanViens.SingleOrDefault(n => n.TaiKhoanNV == ssTaiKhoan);
+
                 if (kh == null)
                 {
                     ModelState.AddModelError("", "Tài khoản không hợp lệ !");
                     return View();
                 }
+
+                if (kh != null)
+                {
+                    if (kh.MatKhauNV != ssMatKhau)// Không đúng mật khẩu
+                    {
+                        kh.TrangThai = kh.TrangThai + 1;
+                        db.SaveChanges();
+                        ModelState.AddModelError("", "Bạn nhập sai mật khẩu !");
+                    }
+                }
+
+                if (kh.TrangThai == 4)
+                {
+                    ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa !");
+                }
+
                 else if (kh.MaQuyen_id == 1) // nhân viên thu ngân
                 {
+
                     Session["TaiKhoanNV"] = kh;
+                    kh.TrangThai = 0;
                     return Redirect("/NhanVien/Home/Index");
                 }
                 else if (kh.MaQuyen_id == 3) // Nhân viên admin
                 {
                     Session["Admin"] = kh;
+                    kh.TrangThai = 0;
                     return Redirect("/Admin/Home/Index");
                 }
                 else // nhân viên kho
                 {
                     Session["TaiKhoanKho"] = kh;
+                    kh.TrangThai = 0;
                     return Redirect("/NhanVienKho/Home/Index");
                 }
             }

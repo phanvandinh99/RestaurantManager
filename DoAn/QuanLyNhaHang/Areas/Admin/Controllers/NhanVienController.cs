@@ -37,24 +37,37 @@ namespace QuanLyNhaHang.Areas.Admin.Controllers
             return View(list);
         }
 
+        // Mở/Khóa tài khoản
         public ActionResult LockAccount(string sTaiKhoanNV)
         {
             var nhanvien = db.NhanViens.FirstOrDefault(n => n.TaiKhoanNV == sTaiKhoanNV);
-            if(nhanvien.TrangThai == 4) // Đang bị khóa
+            if (nhanvien.TrangThai == 4) // Đang bị khóa
             {
                 nhanvien.TrangThai = 0;
+                db.SaveChanges();
+
+                if (nhanvien.MaQuyen_id == 1)
+                {
+                    return RedirectToAction("DSNhanVien", "Nhanvien");
+
+                }
+                else if (nhanvien.MaQuyen_id == 2)
+                {
+                    return RedirectToAction("DSNhanVienKho", "Nhanvien");
+                }
+                //else
+                //{
+                //    return RedirectToAction("DSNhanVienKho", "Nhanvien");
+                //}
             }
             else // Chưa khóa 
             {
+                db.SaveChanges();
                 nhanvien.TrangThai = 4;
             }
-            db.SaveChanges();
 
             return RedirectToAction("DSNhanVienKhoa", "Nhanvien");
         }
-
-        // Mở/Khóa tài khoản
-
 
         // Thêm mới nhân vien
         public ActionResult ThemNhanVien()
