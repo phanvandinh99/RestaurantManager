@@ -12,14 +12,14 @@ namespace QuanLyNhaHang.Areas.Admin.Controllers
         // Hiển thị danh sách nhân viên 
         public ActionResult DSNhanVien()
         {
-            var list = db.NhanViens.Where(n => n.MaQuyen_id == 1).ToList();
+            var list = db.NhanViens.Where(n => n.MaQuyen_id == 1 && n.TrangThai != 4).ToList();
             return View(list);
         }
 
         // Hiển thị danh sách nhân viên kho
         public ActionResult DSNhanVienKho()
         {
-            var list = db.NhanViens.Where(n => n.MaQuyen_id == 2).ToList();
+            var list = db.NhanViens.Where(n => n.MaQuyen_id == 2 && n.TrangThai != 4).ToList();
             return View(list);
         }
 
@@ -62,8 +62,8 @@ namespace QuanLyNhaHang.Areas.Admin.Controllers
             }
             else // Chưa khóa 
             {
-                db.SaveChanges();
                 nhanvien.TrangThai = 4;
+                db.SaveChanges();
             }
 
             return RedirectToAction("DSNhanVienKhoa", "Nhanvien");
