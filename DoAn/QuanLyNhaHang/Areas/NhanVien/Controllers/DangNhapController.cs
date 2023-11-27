@@ -43,20 +43,23 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     ModelState.AddModelError("", "Tài khoản không hợp lệ !");
                     return View();
                 }
-
-                if (kh != null)
+                else if (kh != null)
                 {
-                    if (kh.MatKhauNV != ssMatKhau)// Không đúng mật khẩu
+                    if (kh.MatKhauNV != ssMatKhau && kh.TrangThai != 4) // Không đúng mật khẩu
                     {
                         kh.TrangThai = kh.TrangThai + 1;
+                        int? LuotDangNhap = 3;
+                        LuotDangNhap = LuotDangNhap - kh.TrangThai;
                         db.SaveChanges();
-                        ModelState.AddModelError("", "Bạn nhập sai mật khẩu !");
+                        ModelState.AddModelError("", "Bạn nhập sai mật khẩu !,\nCòn " + LuotDangNhap + " Lượt");
+                        return View();
                     }
                 }
 
                 if (kh.TrangThai == 4)
                 {
                     ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa !");
+                    return View();
                 }
 
                 else if (kh.MaQuyen_id == 1) // nhân viên thu ngân

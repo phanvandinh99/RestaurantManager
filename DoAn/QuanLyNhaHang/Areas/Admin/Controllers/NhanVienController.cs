@@ -30,7 +30,7 @@ namespace QuanLyNhaHang.Areas.Admin.Controllers
             return View(list);
         }
 
-        // Danh sách nhân viên có tài khoản bị khóa 
+        // Danh sách nhân viên có tài khoản bị khóa
         public ActionResult DSNhanVienKhoa()
         {
             var list = db.NhanViens.Where(n => n.TrangThai == 4).ToList();
