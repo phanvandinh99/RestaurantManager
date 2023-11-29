@@ -1,8 +1,9 @@
-﻿using QuanLyNhaHang.Models;
+﻿using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using QuanLyNhaHang.Models;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace QuanLyNhaHang.Areas.NhanVien.Controllers
@@ -614,6 +615,80 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             var listHoaDon = db.HoaDons.OrderByDescending(n => n.MaHoaDon).ToList();
             return View(listHoaDon);
         }
+
+        // Xuất excel danh sách hóa đơn
+        public ActionResult XuatExcel()
+        {
+            var listHoaDon = db.HoaDons.Where(n => n.TrangThai == 0).OrderByDescending(n => n.MaHoaDon).ToList();
+
+            ExcelPackage excel = new ExcelPackage();
+
+            // name of the sheet 
+            var workSheet = excel.Workbook.Worksheets.Add("Sheet1");
+
+            // setting the properties 
+            // of the work sheet  
+            workSheet.TabColor = System.Drawing.Color.Black;
+            workSheet.DefaultRowHeight = 12;
+
+            // Setting the properties 
+            // of the first row 
+            workSheet.Row(1).Height = 20;
+            workSheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            workSheet.Row(1).Style.Font.Bold = true;
+
+            // Header of the Excel sheet 
+            workSheet.Cells[1, 1].Value = "STT";
+            workSheet.Cells[1, 2].Value = "Mã Hóa Đơn";
+            workSheet.Cells[1, 3].Value = "Tên Khách Hàng";
+            workSheet.Cells[1, 4].Value = "Số Điện Thoại";
+            workSheet.Cells[1, 5].Value = "Ngày Vào";
+            workSheet.Cells[1, 6].Value = "Ngày Ra";
+            workSheet.Cells[1, 7].Value = "Bàn";
+            workSheet.Cells[1, 8].Value = "Tổng Tiền (VNĐ)";
+
+            // Inserting the article data into excel 
+            // sheet by using the for each loop 
+            // As we have values to the first row  
+            // we will start with second row 
+            int recordIndex = 2;
+
+            foreach (var item in listHoaDon)
+            {
+                workSheet.Cells[recordIndex, 1].Value = (recordIndex - 1).ToString();
+                workSheet.Cells[recordIndex, 2].Value = item.MaHoaDon;
+                workSheet.Cells[recordIndex, 3].Value = item.TenKhachHang;
+                workSheet.Cells[recordIndex, 4].Value = item.SDTKhachHang;
+                workSheet.Cells[recordIndex, 5].Value = item.NgayTao.ToString();
+                workSheet.Cells[recordIndex, 6].Value = item.NgayThanhToan.ToString();
+                workSheet.Cells[recordIndex, 7].Value = item.Ban.TenBan;
+                workSheet.Cells[recordIndex, 8].Value = string.Format("{0:0,0}", item.TongTien);
+                recordIndex++;
+            }
+
+            workSheet.Column(1).AutoFit();
+            workSheet.Column(2).AutoFit();
+            workSheet.Column(3).AutoFit();
+            workSheet.Column(4).AutoFit();
+            workSheet.Column(5).AutoFit();
+            workSheet.Column(6).AutoFit();
+            workSheet.Column(7).AutoFit();
+            workSheet.Column(8).AutoFit();
+            string excelName = "DSHoaDon";
+            using (var memoryStream = new MemoryStream())
+            {
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment; filename=" + excelName + ".xlsx");
+                excel.SaveAs(memoryStream);
+                memoryStream.WriteTo(Response.OutputStream);
+                Response.Flush();
+                Response.End();
+            }
+
+            return null;
+        }
+
+
         // xem chi tiết
         public ActionResult ChiTietHoaDon(int iMaHoaDon)
         {

@@ -353,10 +353,6 @@
 // Phần JS Khung chat
 var predefinedQuestions = [
     {
-        question: 'Tôi muốn hỗ trợ.',
-        answer: 'Liên hệ: <a href="tel:0346923002">0346923002</a> để đặt bàn'
-    },
-    {
         question: 'Tại sao tôi không thể đăng nhập?',
         answer: 'Bạn phải đặt bàn để thao tác chức năng đăng nhập'
     },

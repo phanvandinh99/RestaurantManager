@@ -171,3 +171,10 @@ C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\obj\Debu
 C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\obj\Debug\QuanLyNhaHang.csproj.CopyComplete
 C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\obj\Debug\QuanLyNhaHang.dll
 C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\obj\Debug\QuanLyNhaHang.pdb
+C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\EPPlus.dll
+C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\EPPlus.Interfaces.dll
+C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\EPPlus.System.Drawing.dll
+C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\System.ComponentModel.Annotations.dll
+C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\EPPlus.xml
+C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\Microsoft.IO.RecyclableMemoryStream.xml
