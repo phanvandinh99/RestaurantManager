@@ -333,6 +333,7 @@
     <Content Include="Assets\KhachHang\assets\img\icon\8.png" />
     <Content Include="Assets\KhachHang\assets\img\icon\9.png" />
     <Content Include="Assets\KhachHang\assets\img\icon\call.png" />
+    <Content Include="Assets\KhachHang\assets\img\icon\chat.gif" />
     <Content Include="Assets\KhachHang\assets\img\icon\close.png" />
     <Content Include="Assets\KhachHang\assets\img\icon\offer.png" />
     <Content Include="Assets\KhachHang\assets\img\icon\rest.png" />

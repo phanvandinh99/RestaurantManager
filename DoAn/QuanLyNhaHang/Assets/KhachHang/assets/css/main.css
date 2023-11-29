@@ -1,4 +1,4 @@
-/*========================================
+﻿/*========================================
 Author Name:   Codebasket
 Template Type: Restaurant Management
 Brand Color:   #cc3333, #79a1bb, #FBB217
@@ -6245,4 +6245,66 @@ a.call-button {
     justify-content: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 999;
+}
+
+/* CSS phần khung chat*/
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.chat-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    color: black;
+}
+
+.chat-icon {
+    cursor: pointer;
+}
+
+    .chat-icon img {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+    }
+
+.chat-box {
+    display: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.chat-header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chat-body {
+    padding: 10px;
+}
+
+.chat-footer {
+    display: flex;
+    padding: 10px;
+}
+
+#userInput {
+    flex: 1;
+    margin-right: 10px;
+}
+
+/* Thêm lớp CSS để ẩn hình ảnh */
+.hidden {
+    display: none;
 }
