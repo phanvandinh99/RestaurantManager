@@ -582,18 +582,18 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         // Tổng tiền gồm có: phí phòng vip, giảm giá vnd, giảm giá phần trăm, 
         private double TongTienOrder(int iMaHoaDon, float fPhibanVip, float fMaGiamGiaVND, float fGiamGiaPhanTram, float fGiamGiaKhachHang)
         {
-            double TOTAL = 0; // Tổng tiền bằng 0 
+            double TOTAL = 0; // Tổng tiền bằng 0
             var ttMonAn = db.ChiTietHoaDons.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList(); // Tìm được món ăn thuộc hóa đơn
             var hoaDon = db.HoaDons.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon); // Lấy ra được hóa đơn của mình
-            var ban = db.Bans.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id); // Lấy bàn 
+            var ban = db.Bans.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id); // Lấy bàn
 
             if (ban.Vip == 1) // 1 là bàn vip
             {
-                if (ttMonAn.Count() != 0) // đếm bao nhiêu món 
+                if (ttMonAn.Count() != 0) // đếm bao nhiêu món
                 {
                     TOTAL = ttMonAn.Sum(n => n.ThanhTien) + (ttMonAn.Sum(n => n.ThanhTien) * 10 / 100) - fMaGiamGiaVND - fGiamGiaKhachHang - (ttMonAn.Sum(n => n.ThanhTien) * fGiamGiaPhanTram / 100);
 
-                    if (TOTAL < 0) // Giảm giá quá mức thì lỗ 
+                    if (TOTAL < 0) // Giảm giá quá mức thì lỗ
                     {
                         TOTAL = 0;
                     }
