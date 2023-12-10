@@ -517,7 +517,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
 
             if (float.TryParse(f["txtGiamGiaPhanTram"].ToString().Trim(), out float resultGiamGiaPhanTram))
             {
-                giamGiaVND = resultGiamGiaPhanTram;
+                giamGiaPhanTram = resultGiamGiaPhanTram;
             }
 
 
