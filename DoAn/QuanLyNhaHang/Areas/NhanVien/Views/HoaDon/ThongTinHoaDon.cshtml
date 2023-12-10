@@ -48,21 +48,24 @@
                                                             @item.MonAn.TenMonAn
                                                         </div>
                                                     </a>
-                                                    <div class="text-muted text-small">@item.MonAn.LoaiMonAn.TenLMA</div>
+                                                    <div class="text-muted text-small">Loại món: @item.MonAn.LoaiMonAn.TenLMA</div>
                                                     <div class="mb-0 sw-19">@string.Format("{0:0,0}", item.MonAn.DonGia) vnđ</div>
                                                 </div>
                                             </div>
-                                            <div class="col-6 col-md-3 pe-0 d-flex align-items-center">
+                                            <div class="col-10 col-md-4 pe-0 d-flex align-items-center">
                                                 @using (Html.BeginForm("CapNhatSoLuong", "HoaDon", new { @iMaHoaDon = Model.MaHoaDon, @iMaMonAn = item.MaMonAn_id, @strURL = Request.Url.ToString() }))
                                                 {
-                                                    <div class="input-group" data-trigger="spinner">
-                                                        <input value="@item.SoLuongMua" type="number" min="0" style="width: 50px; border: 1px solid #ed6789; text-align: center" name="txtSoLuongMua" />
-                                                        &nbsp;
-                                                        <input class="btn btn-primary" type="submit" value="cập nhật">
+                                                    <div style="display: flex; align-items: center;">
+                                                        <input value="@item.GhiChu" type="text" style="border: 1px solid black; margin-right: 2px" name="txtGhiChu" />
+                                                        <div class="input-group" data-trigger="spinner">
+                                                            <input value="@item.SoLuongMua" type="number" min="0" style="width: 50px; border: 1px solid #ed6789; text-align: center" name="txtSoLuongMua" />
+                                                            &nbsp;
+                                                            <input class="btn btn-primary" type="submit" value="cập nhật">
+                                                        </div>
                                                     </div>
                                                 }
                                             </div>
-                                            <div class="col-6 col-md-3 d-flex justify-content-end justify-content-md-start align-items-center">
+                                            <div class="col-2 col-md-2 d-flex justify-content-end justify-content-md-start align-items-center">
                                                 <div class="h6 mb-0">@string.Format("{0:0,0}", item.ThanhTien) vnđ</div>
                                             </div>
                                         </div>

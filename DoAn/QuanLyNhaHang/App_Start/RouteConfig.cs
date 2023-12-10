@@ -37,12 +37,20 @@ namespace QuanLyNhaHang
             //).DataTokens.Add("area", "NhanVienKho");
 
             // Chạy trang khách hàng đầu tiên
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+            //    namespaces: new string[] { "QuanLyNhaHang.Areas.KhachHang.Controllers" }
+            //).DataTokens.Add("area", "KhachHang");
+
+            // Chạy trang nhân viên kho đầu tiên 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new string[] { "QuanLyNhaHang.Areas.KhachHang.Controllers" }
-            ).DataTokens.Add("area", "KhachHang");
+                defaults: new { Controller = "DangNhap", action = "DangNhap", id = UrlParameter.Optional },
+                namespaces: new string[] { "QuanLyNhaHang.Areas.NhanVien.Controllers" }
+            ).DataTokens.Add("area", "NhanVien");
         }
     }
 }

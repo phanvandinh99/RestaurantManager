@@ -292,8 +292,13 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         public ActionResult CapNhatSoLuong(int iMaHoaDon, int iMaMonAn, string strURL, FormCollection f)
         {
             int soLuong = int.Parse(f["txtSoLuongMua"].ToString());
+            string ghiChu = f["txtGhiChu"].ToString();
+
             int soLuongBanDau = soLuong;
             var monAn = db.ChiTietHoaDons.SingleOrDefault(n => n.MaHoaDon_id == iMaHoaDon && n.MaMonAn_id == iMaMonAn);
+            monAn.GhiChu = ghiChu;
+            db.SaveChanges();
+
             // Lấy giá món ăn
             MonAn giaMonAn = db.MonAns.SingleOrDefault(n => n.MaMonAn == iMaMonAn);
             if (soLuong >= 0)
@@ -433,13 +438,17 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     db.SaveChanges();
                     #endregion
                 }
+                else if (soLuong == monAn.SoLuongMua) // Không cập nhật số lượng
+                {
+
+                }
                 else // Nếu cập nhật món ăn = 0 => Nhân viên muốn xóa món ăn đó khỏi hóa đơn
                 {
                     //Gọi lại method xóa món ăn
                     XoaMonAn(iMaHoaDon, iMaMonAn, strURL);
                 }
                 monAn.SoLuongMua = soLuongBanDau;
-                monAn.ThanhTien = (double)(monAn.SoLuongMua * monAn.MonAn.DonGia);
+                monAn.ThanhTien = (double)(monAn.SoLuongMua * giaMonAn.DonGia);
 
             }
             // lấy hóa đơn
