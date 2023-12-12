@@ -178,3 +178,6 @@ C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\Micr
 C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\System.ComponentModel.Annotations.dll
 C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\EPPlus.xml
 C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\Microsoft.IO.RecyclableMemoryStream.xml
+C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\RestSharp.dll
+C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\Wit.ai.net.dll
+C:\Users\phanv\OneDrive\Máy tính\RestaurantManager\DoAn\QuanLyNhaHang\bin\RestSharp.xml

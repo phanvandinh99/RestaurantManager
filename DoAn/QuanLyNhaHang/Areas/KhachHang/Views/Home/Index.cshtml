@@ -20,9 +20,123 @@
     <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/nouislider.css">
     <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/main.css">
     <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/responsive.css">
+    <!-- Thêm thư viện jQuery từ CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .chatbox-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chatbox-icon {
+            background-color: #4caf50;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .chatbox {
+            display: none;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .chatbox-content {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+        }
+
+            .chatbox-content p {
+                margin: 5px;
+                padding: 8px;
+                border-radius: 8px;
+                max-width: 70%;
+            }
+
+                .chatbox-content p:nth-child(even) {
+                    align-self: flex-start;
+                    background-color: #ddd;
+                }
+
+                .chatbox-content p:nth-child(odd) {
+                    align-self: flex-end;
+                    background-color: #4caf50;
+                    color: #fff;
+                }
+
+        .chatbox-input {
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-top: 1px solid #ccc;
+        }
+
+        #messageInput {
+            width: 70%;
+            padding: 8px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 8px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #45a049;
+            }
+    </style>
+
 </head>
 
 <body>
+    <!-- #region Wit.AI Chat -->
+    <!-- Frontend View -->
+    @*<div id="chatbox">
+            <div id="chatbox-content"></div>
+            <div id="chatbox-input">
+                <input type="text" id="messageInput" placeholder="Type a message...">
+                <button onclick="sendMessage()">Gửi</button>
+            </div>
+        </div>*@
+
+    <div class="chatbox-container">
+        <div class="chatbox-icon" onclick="toggleChatbox()">&#9993;</div>
+        <div class="chatbox" id="chatbox">
+            <div class="chatbox-content" id="chatbox-content"></div>
+            <div class="chatbox-input" id="chatbox-input">
+                <input type="text" id="messageInput" placeholder="Type a message...">
+                <button onclick="sendMessage()">Gửi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- #endregion -->
     <!-- #region Nút gọi điện -->
     @*<a href="tel:0346923002" class="call-button"><img src="~/Assets/KhachHang/assets/img/phone.gif" alt="Phone Icon" width="50" height="50"></a>*@
     <!-- #endregion -->
@@ -848,7 +962,7 @@
     </div>
 
     <!-- #region Nút chat -->
-    <div class="chat-widget">
+    <!--<div class="chat-widget">
         <div class="chat-icon" onclick="toggleChat()">
             <img src="~/Assets/KhachHang/assets/img/icon/chat.gif" alt="Chat Icon" id="chatIconImage">
         </div>
@@ -856,9 +970,9 @@
             <div class="chat-header">
                 <span class="close-icon" onclick="toggleChat()">Tư vấn viên [x]</span>
             </div>
-            <div class="chat-body">
-                <!-- Hiển thị danh sách câu hỏi có sẵn -->
-                <div class="predefined-questions" onclick="handlePredefinedQuestionClick(event)">
+            <div class="chat-body">-->
+    <!-- Hiển thị danh sách câu hỏi có sẵn -->
+    <!--<div class="predefined-questions" onclick="handlePredefinedQuestionClick(event)">
                     <p>Bạn cần hỗ trợ:</p>
                     <ul id="questionList"></ul>
                 </div>
@@ -868,7 +982,7 @@
                 <button onclick="sendMessage()">Gửi</button>
             </div>
         </div>
-    </div>
+    </div>-->
     <!-- #endregion -->
     <!-- ====main wrapper end == -->
     <!-- ======script======= -->
@@ -889,6 +1003,78 @@
     <script src="~/Assets/KhachHang/assets/js/app.js"></script>
     <!-- ========mixitup init========= -->
     <script src="~/Assets/KhachHang/assets/js/mixitup.js"></script>
+
+    <script>
+        function toggleChatbox() {
+            var chatbox = document.getElementById('chatbox');
+            chatbox.style.display = (chatbox.style.display === 'none' || chatbox.style.display === '') ? 'block' : 'none';
+        }
+
+        function sendMessage() {
+            var message = $("#messageInput").val();
+
+            $.ajax({
+                type: "GET",
+                url: `https://api.wit.ai/message?v=20231212&q=${encodeURIComponent(message)}`,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", "Bearer DEZPJ2WD6H4SLD6B4752PBUBL23PQRYU");
+                },
+
+                success: function (data) {
+                    console.log("==================");
+                    console.log(data);
+                    console.log("==================");
+
+                    // Handle the Wit.ai response
+                    $("#chatbox-content").append("<p>" + message + "</p>");
+
+                    // Kiểm tra intents
+                    if (data.intents && data.intents.length > 0) {
+                        var response = handleIntents(data.intents);
+
+                        console.log(response);
+                        $("#chatbox-content").append("<p>" + response + "</p>");
+                    } else {
+                        $("#chatbox-content").append("<p>Xin lỗi, tôi không hiểu ý của bạn.</p>");
+                    }
+
+                    // Clear the input field
+                    $("#messageInput").val("");
+                }
+            });
+        }
+
+        // Define your response generation logic based on intents
+        function handleIntents(intents) {
+            console.log(intents)
+            // Example: Check for a specific intent
+            for (var i = 0; i < intents.length; i++) {
+                var intent = intents[i];
+                //alert(intent.name);
+                if (intent.name === "muon_dat_ban") {
+                    // Trả lời
+                    return "Chào bạn, Nhà hàng cafeu vẫn còn bàn. Bạn liên hệ 0346923002 để đặt bàn nhé.";
+                }
+
+                if (intent.name === "muon_chao_hoi") {
+                    // Trả lời
+                    return "Tôi có thể giúp gì cho bạn!";
+                }
+
+                if (intent.name === "muon_dang_nhap") {
+                    // Trả lời
+                    return "Bạn vào trang chủ cafea và chọn click vào biểu tượng user trên góc phải màn hình.";
+                }
+
+
+
+
+            }
+
+            // Trường hợp mặc định chưa hiểu rõ câu nói của mình
+            return "Xin lỗi, tôi không rõ ý của bạn?";
+        }
+    </script>
 </body>
 
 </html>
