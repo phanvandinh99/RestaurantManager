@@ -1050,7 +1050,7 @@
             // Example: Check for a specific intent
             for (var i = 0; i < intents.length; i++) {
                 var intent = intents[i];
-                //alert(intent.name);
+                alert(intent.name);
                 if (intent.name === "muon_dat_ban") {
                     // Trả lời
                     return "Chào bạn, Nhà hàng cafeu vẫn còn bàn. Bạn liên hệ 0346923002 để đặt bàn nhé.";
@@ -1065,14 +1065,6 @@
                     // Trả lời
                     return "Bạn vào trang chủ cafea và chọn click vào biểu tượng user trên góc phải màn hình.";
                 }
-
-                if (intent.name === "muon_dang_nhap") {
-                    // Trả lời
-                    return "Bạn vào trang chủ cafea và chọn click vào biểu tượng user trên góc phải màn hình.";
-                }
-
-
-
 
                 if (intent.name === "muon_hoi_thoi_gian") {
                     // Trả lời
@@ -1089,6 +1081,20 @@
                     return "Xin lỗi. Nhà hàng cafeu chưa có dịch vụ giao hàng.";
                 }
 
+                if (intent.name === "muon_hoi_bao_nhieu_mon") {
+                    // Trả lời
+                    return "Bạn có thể xem menu trên trang chủ cafeu.";
+                }
+
+                if (intent.name === "muon_hoi_dia_chi") {
+                    // Trả lời
+                    return "Nhà hàng của mình ở Cần Thơ";
+                }
+
+                if (intent.name === "muon_dat_tiec") {
+                    // Trả lời
+                    return "Nhà hàng cafeu nhận tất cả các bữa tiệc";
+                }
             }
 
             // Trường hợp mặc định chưa hiểu rõ câu nói của mình
