@@ -1074,6 +1074,21 @@
 
 
 
+                if (intent.name === "muon_hoi_thoi_gian") {
+                    // Trả lời
+                    return "Nhà hàng cafeu mở cửa cả tuần từ 08:00 đến 23:00";
+                }
+
+                if (intent.name === "muon_doi_mat_khau") {
+                    // Trả lời
+                    return "Tài khoản đăng nhập khách hàng chỉ cần nhập mã xác thực theo sdt\nKhông cần mật khẩu";
+                }
+
+                if (intent.name === "muon_giao_hang") {
+                    // Trả lời
+                    return "Xin lỗi. Nhà hàng cafeu chưa có dịch vụ giao hàng.";
+                }
+
             }
 
             // Trường hợp mặc định chưa hiểu rõ câu nói của mình

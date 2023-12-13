@@ -600,7 +600,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             {
                 if (ttMonAn.Count() != 0) // đếm bao nhiêu món
                 {
-                    TOTAL = ttMonAn.Sum(n => n.ThanhTien) + (ttMonAn.Sum(n => n.ThanhTien) * 10 / 100) - fMaGiamGiaVND - fGiamGiaKhachHang - (ttMonAn.Sum(n => n.ThanhTien) * fGiamGiaPhanTram / 100);
+                    TOTAL = ttMonAn.Sum(n => n.ThanhTien) + (ttMonAn.Sum(n => n.ThanhTien) + 10 / 100) - fMaGiamGiaVND - fGiamGiaKhachHang - (ttMonAn.Sum(n => n.ThanhTien) * fGiamGiaPhanTram / 100);
 
                     if (TOTAL < 0) // Giảm giá quá mức thì lỗ
                     {
