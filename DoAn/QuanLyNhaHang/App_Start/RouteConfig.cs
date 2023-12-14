@@ -45,6 +45,14 @@ namespace QuanLyNhaHang
             //).DataTokens.Add("area", "KhachHang");
 
             // Chạy trang nhân viên kho đầu tiên 
+            //routes.MapRoute(
+            //    name: "Default",
+            //    url: "{controller}/{action}/{id}",
+            //    defaults: new { Controller = "DangNhap", action = "DangNhap", id = UrlParameter.Optional },
+            //    namespaces: new string[] { "QuanLyNhaHang.Areas.NhanVien.Controllers" }
+            //).DataTokens.Add("area", "NhanVien");
+
+            // chạy trang đăng nhập
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

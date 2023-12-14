@@ -110,33 +110,48 @@
             button:hover {
                 background-color: #45a049;
             }
+        .chatbox-icon {
+            background-color: #4caf50;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            z-index: 2; /* Đặt z-index cao hơn */
+        }
+
+        .chatbox {
+            display: none;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            background-color: white;
+            z-index: 1; /* Đặt z-index thấp hơn */
+        }
     </style>
 
 </head>
 
 <body>
     <!-- #region Wit.AI Chat -->
-    <!-- Frontend View -->
-    @*<div id="chatbox">
-            <div id="chatbox-content"></div>
-            <div id="chatbox-input">
-                <input type="text" id="messageInput" placeholder="Type a message...">
-                <button onclick="sendMessage()">Gửi</button>
-            </div>
-        </div>*@
-
     <div class="chatbox-container">
-        <div class="chatbox-icon" onclick="toggleChatbox()">&#9993;</div>
+        <div class="chatbox-icon" id="chatbox-icon" onclick="toggleChatbox()">&#9993;</div>
         <div class="chatbox" id="chatbox">
             <div class="chatbox-content" id="chatbox-content"></div>
             <div class="chatbox-input" id="chatbox-input">
-                <input type="text" id="messageInput" placeholder="Type a message...">
+                <input type="text" id="messageInput" placeholder="Nhập nội dung...">
                 <button onclick="sendMessage()">Gửi</button>
             </div>
         </div>
     </div>
-
     <!-- #endregion -->
+
     <!-- #region Nút gọi điện -->
     @*<a href="tel:0346923002" class="call-button"><img src="~/Assets/KhachHang/assets/img/phone.gif" alt="Phone Icon" width="50" height="50"></a>*@
     <!-- #endregion -->
@@ -1007,7 +1022,18 @@
     <script>
         function toggleChatbox() {
             var chatbox = document.getElementById('chatbox');
-            chatbox.style.display = (chatbox.style.display === 'none' || chatbox.style.display === '') ? 'block' : 'none';
+            var chatboxIcon = document.getElementById('chatbox-icon');
+
+            if (chatbox.style.display === 'none' || chatbox.style.display === '') {
+                alert("Vào if")
+                chatbox.style.display = 'block';
+                chatboxIcon.innerHTML = 'x'; // Change to 'x' symbol
+            } else {
+                chatbox.style.display = 'none';
+                chatboxIcon.innerHTML = '&#9993;'; // Change back to chat symbol
+                alert("Vào else")
+
+            }
         }
 
         function sendMessage() {
@@ -1032,7 +1058,6 @@
                     if (data.intents && data.intents.length > 0) {
                         var response = handleIntents(data.intents);
 
-                        console.log(response);
                         $("#chatbox-content").append("<p>" + response + "</p>");
                     } else {
                         $("#chatbox-content").append("<p>Xin lỗi, tôi không hiểu ý của bạn.</p>");
@@ -1046,11 +1071,10 @@
 
         // Define your response generation logic based on intents
         function handleIntents(intents) {
-            console.log(intents)
             // Example: Check for a specific intent
             for (var i = 0; i < intents.length; i++) {
                 var intent = intents[i];
-                alert(intent.name);
+
                 if (intent.name === "muon_dat_ban") {
                     // Trả lời
                     return "Chào bạn, Nhà hàng cafeu vẫn còn bàn. Bạn liên hệ 0346923002 để đặt bàn nhé.";
