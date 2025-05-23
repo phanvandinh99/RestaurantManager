@@ -1,0 +1,107 @@
+~============================= YÊU CẦU CHỨC NĂNG KHÁCH HÀNG =============================~
+
+Các tác nhân: Nhân Viên, Nhân Viên Kho, Khách Hàng Và Admin.
+
+NHÂN VIÊN:
+- Quản lý danh mục (Tầng) => Tầng 1, 2, 3...
+	Chỉ cần hiển thị danh sách các tầng 
+	=> Xong
+- Quản lý danh mục bàn của mỗi tầng.
+	CRUD thành công
+	=> Xong
+- Quản lý thông tin nhân viên (Nhân viên có thể quản lý nhân viên)
+	Đây chính là nhân viên bán hàng hoặc là thu ngân nên có thể quản lý thông tin nhân viên phục vụ
+	Xong
+- Quản lý vị trí làm việc và tính lương cho nhân viên
+	Đang gặp lỗi
+- Quản lý danh mục món ăn, thức uống, đơn giá món ăn thức uống theo thời gian.
+	CRUD Thành công
+	Xong
+- Quản lý yêu cầu gọi món của khách hàng.
+	Xem được lịch sử gọi món của khách hàng (Thời gian gọi món, thời gian hủy món của khách hàng)
+	Xong
+- Quản lý việc đổi món, hủy món.
+	Hủy món ăn. Đặc biệt là món ăn chế biến (TH này giả sử món ăn chế biến đầu bếp đã làm thì k được hủy)
+	Vì không có tác nhân đầu bếp tham gia nên việc xác nhận món ăn chế biến hay chưa chỉ phụ thuộc trao đổi miệng trực tiếp giữa nhân viên và đầu bếp
+	chế biến món ăn đó
+	Xong
+- Quản lý hóa đơn tính tiền.
+	Thêm và Hủy hóa đơn. Vì liên quan đến thống kê nên không thể xóa hóa đơn đã tồn tại => sai số thống kê
+	Xong
+- tìm kiếm theo danh sách món => gợi ý theo keywork chủ đề món ăn
+	tìm kiếm theo từ khóa
+- Đặt bàn
+	Đặt bàn trực tiếp
+	Xong
+
+Nhân viên kho.
+- Quản lý nguyên liệu
+	CRUD Nguyên liệu (Nhiều nguyên liệu để tạo nên món ăn)
+	Xong
+- Nhập hàng (Nhập nguyên liệu)
+	Tạo mới nhập nguyên liệu
+- Xuất hóa đơn nhập hàng
+- tìm kiếm theo danh sách món => gợi ý theo keywork chủ đề món ăn
+
+
+Khách hàng:
++ Đặt món
+	Khách hàng đặt món theo bàn của mình (Bằng cách nhập số điện thoại xác nhận theo số điện thoại đặt bàn. Mỗi bàn ( = tất là mỗi hóa đơn) chỉ chứa một 
+	số điện thoại nhất định)
++ yêu cầu thanh toán: (bổ sung)
+	Gửi thông báo đến Nhân viên bán hàng (Nhân viên bán hàng chỉ nhận yêu cầu thanh toán từ khách hàng chứ chưa thanh toán online)
++ Xem danh sách món đã đặt
+
+
++ Tạo chatbot cho khách hàng
+
+
+Admin: 
++ Quản lý tài khoản thành viên\
++ Xem doanh thu (Tháng, quý, năm)
++ Đóng băng tài khoản
+
++ Đăng nhập sai 5 lần liên tiếp 	đóng băng
+
+
+
+Sếp = Admin 
+
+powerpoint + word ()
+
+Nhân viên, quản lý kho, 
+CDM => Mô hình erd
+
+
+
+Dạ thiếu bước đăng nhập có tài khoảng
+Với in doanh thu theo ngày, tháng, năm…
+
+
+
+
+Source chính (1) Nhân viên bán hàng:
+- Quản lý danh mục sảnh
+- Quản lý danh mục bàn của mỗi sảnh.
+- Quản lý thông tin nhân viên phục vụ.
+- Quản lý danh mục món ăn, thức uống, đơn giá món ăn thức uống theo thời gian.
+- Quản lý yêu cầu gọi món của khách hàng.
+- Quản lý việc đổi món, hủy món.
+- Quản lý hóa đơn tính tiền.
+
+- Quản lý danh mục ca làm việc, đơn giá ca làm việc.
+- Phân công việc làm theo cho nhân viên theo ca, chấm công và tính lương.
+
+
+Link: https://preview.themeforest.net/item/cafeu-food-restaurant-html5-template/full_screen_preview/35682422?_ga=2.109707398.2029117526.1698132779-1809524429.1696778541
+
+// ================TÀI KHOẢN XÁC THỰC SMS======================
+https://console.twilio.com/
+use:thanhduy15032001@gmail.com
+pass:ThanhDuy15032001@gmail.com
+Recovery code: P177DKNKRR1M4DJJ4SL7Y1WB
+
+Account SID: AC3800db8cf57f75a4e0bf9a7104e17194
+Auth Token: 0ca6000eb9b93bc9c267504b254ea2d0
+My Twilio phone number: +12512442750
+// =============================================================

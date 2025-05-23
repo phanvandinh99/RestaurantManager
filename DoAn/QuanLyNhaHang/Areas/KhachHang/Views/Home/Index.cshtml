@@ -1,0 +1,1130 @@
+﻿@using QuanLyNhaHang.Models
+@model List<MonAn>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ</title>
+    <!-- ==============favicon=============== -->
+    <link rel="shortcut icon" type="image/png" href="~/Assets/KhachHang/assets/img/log.png">
+
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/font/icofont.min.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/animation/aos.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/meanmenu.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/nice-select.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/nouislider.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/main.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/responsive.css">
+    <!-- Thêm thư viện jQuery từ CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .chatbox-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chatbox-icon {
+            background-color: #4caf50;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .chatbox {
+            display: none;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .chatbox-content {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+        }
+
+            .chatbox-content p {
+                margin: 5px;
+                padding: 8px;
+                border-radius: 8px;
+                max-width: 70%;
+            }
+
+                .chatbox-content p:nth-child(even) {
+                    align-self: flex-start;
+                    background-color: #ddd;
+                }
+
+                .chatbox-content p:nth-child(odd) {
+                    align-self: flex-end;
+                    background-color: #4caf50;
+                    color: #fff;
+                }
+
+        .chatbox-input {
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-top: 1px solid #ccc;
+        }
+
+        #messageInput {
+            width: 70%;
+            padding: 8px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 8px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #45a049;
+            }
+        .chatbox-icon {
+            background-color: #4caf50;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            z-index: 2; /* Đặt z-index cao hơn */
+        }
+
+        .chatbox {
+            display: none;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            background-color: white;
+            z-index: 1; /* Đặt z-index thấp hơn */
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- #region Wit.AI Chat -->
+    <div class="chatbox-container">
+        <div class="chatbox-icon" id="chatbox-icon" onclick="toggleChatbox()">&#9993;</div>
+        <div class="chatbox" id="chatbox">
+            <div class="chatbox-content" id="chatbox-content"></div>
+            <div class="chatbox-input" id="chatbox-input">
+                <input type="text" id="messageInput" placeholder="Nhập nội dung...">
+                <button onclick="sendMessage()">Gửi</button>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+
+    <!-- #region Nút gọi điện -->
+    @*<a href="tel:0346923002" class="call-button"><img src="~/Assets/KhachHang/assets/img/phone.gif" alt="Phone Icon" width="50" height="50"></a>*@
+    <!-- #endregion -->
+    <!-- Preloader Start -->
+    <div id="preloader">
+        <div class="loader3">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <!-- Preloader End -->
+    <!-- ======preloader==== -->
+    <!-- ====main wrapper == -->
+    <div class="wrapper">
+        <!-- header  -->
+        <header>
+            <!-- header  -->
+            <div class="header header-1">
+                <!-- container  -->
+                <div class="container">
+                    <!-- header inner -->
+                    <div class="header-inner">
+                        <div class="logo">
+                            <a href="/KhachHang/Home/Index"><img src="~/Assets/KhachHang/assets/img/logo/logo.png" alt="Logo not found" class="logo-img"></a>
+                        </div>
+                        <div class="header-right">
+                            <div class="header-menu d-none d-lg-block">
+                                <nav class="cf-header-menu" id="header-menu">
+                                    <ul>
+                                        <li><a href="/KhachHang/Home/Index">Trang Chủ</a></li>
+                                        <li class="has-submenu">
+                                            <a href="#">Thực Đơn</a>
+                                            <ul class="submenu">
+                                                <li><a href="#">Thực Đơn 1</a></li>
+                                                <li><a href="#">Thực Đơn 2</a></li>
+                                                <li><a href="#">Thực Đơn 3</a></li>
+                                                <li><a href="#">Thực Đơn 4</a></li>
+                                                <li><a href="#">Thực Đơn 5</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Không Gian</a></li>
+                                        <li><a href="#">Đặt Bàn</a></li>
+                                        <li><a href="/KhachHang/About/SuKien">Sự Kiện</a></li>
+                                        <li><a href="/KhachHang/About/LienHe">Liên Hệ</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="header-right-search-phone d-none d-lg-block ml-35">
+                                <a href="#" class="header-search" id="search"><span class="icofont-search-1"></span></a>
+                                @if (Session["KhachHang"] != null)
+                                {
+                                    HoaDon KH = (HoaDon)Session["KhachHang"];
+                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@KH.SDTKhachHang" class="header-phone">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> @KH.TenKhachHang
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="/KhachHang/DangNhap/DangNhap" class="header-phone">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> Đăng Nhập
+                                    </a>
+                                }
+                            </div>
+                            <div class="d-lg-none dr-navbar-mobile-sign side-toggle">
+                                <!-- <span class="headeer-navigaiton"><i class="icofont-navigation-menu"></i></span> -->
+                                <div class="dr-navbar-sign menu-tab">
+                                    <span class="dr-line-1"></span>
+                                    <span class="dr-line-2"></span>
+                                    <span class="dr-line-3"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- header inner end  -->
+                    <div class="search-form-wrapper">
+                        <form action="#">
+                            <div class="p-1 bg-light search-form shadow-sm mt-3" id="searchForm">
+                                <div class="input-group">
+                                    <input type="search" placeholder="What're you searching for?" class="form-control search-input border-0 bg-light">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- container end  -->
+            </div>
+            <!-- nav end -->
+        </header>
+        <!-- header end  -->
+        <!-- #region NỘI DUNG -->
+        <!-- dr-sidebar-information-area-start -->
+        <div class="dr-sidebar-info side-info">
+            <div class="dr-sidebar-logo-wrapper mb-25">
+                <div class="row align-items-center">
+                    <div class="col-xl-6 col-8">
+                        <div class="dr-sidebar-logo">
+                            <a href="#"><img src="~/Assets/KhachHang/assets/img/logo/logo.png" alt="logo-img"></a>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-4">
+                        <div class="dr-sidebar-close-wrapper text-end">
+                            <button class="dr-sidebar-close side-info-close"><i class="icofont-close-line"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dr-sidebar-menu-wrapper fix">
+                <div class="cf-header-menu"></div>
+            </div>
+
+            <div class="dr-sidebar-btn-wrap mt-40">
+                <a href="#"><span class="icofont-shopping-cart"><span class="cart-count">4</span></span></a>
+                <a href="#"><i class="icofont-ui-user"></i></a>
+            </div>
+
+            <div class="dr-sidebar-contact-wrapper mt-40">
+                <div class="dr-sidebar-contact mb-40">
+                    <h4 class="dr-sidebar-contact-title">Contact Info</h4>
+                    <span class="sidebar-address"><i class="icofont-google-map"></i><span>4929 Thorn Street Crow heart, WY 82512</span> </span>
+                    <a href="tel:+1(251)410-1010"><i class="icofont-phone"></i><span>+1 (251) 410-1010</span></a>
+                    <a href="mailto:example@gmail.com" class="theme-3"><i class="icofont-envelope-open"></i><span><span>example@gmail.com</span></span></a>
+                </div>
+
+                <div class="dr-sidebar-social mt-40 mb-30">
+                    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="youtube"><i class="fab fa-dribbble"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="offcanvas-overlay"></div>
+        <!-- dr-sidebar-information-area-end -->
+        <!-- =======================body wrapper========= -->
+        <div class="body-wrapper">
+            <!-- banner  -->
+            <section>
+                <!-- banner  -->
+                <div class="banner banner-1" data-background="/Assets/KhachHang/assets/img/slider/banner-bg.jpg">
+                    <!-- container  -->
+                    <div class="container">
+                        <!-- banner slider  -->
+                        <div class="banner-slider">
+                            <div class="swiper bannerSlider">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide">
+                                        <div class="row">
+                                            <div class="col-md-6 my-2">
+                                                <div class="slider-details">
+                                                    <div class="text-inner">
+                                                        <span class="sm-title mb-0">Best In Cafeu</span>
+                                                        <h1 class="banner-title">
+                                                            <a href="#">Shashimi</a> Nguyên Liệu Tươi Ngon Tuyệt Vời
+                                                        </h1>
+                                                        <p class="banner-des">SALAD trộn. Với nguyên liệu được đảm bảo vệ sinh an toàn tuyệt đối <br> Tạo nên món ăn hài hòa & ngon miệng</p>
+
+                                                        <div class="banner-btn-sec mt-3">
+                                                            <a href="" class="custom-btn">Đặt Ngay</a>
+                                                            <div class="watch">
+                                                                <a href="#" class="video-btn play-video"><span class="icofont-ui-play"></span> </a> <span class="wc-btn">Xem Video</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 my-2">
+                                                <div class="slider-item-img">
+                                                    <img src="~/Assets/KhachHang/assets/img/slider/baner.png" alt="Image not found">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide">
+                                        <div class="row">
+                                            <div class="col-md-6 my-2">
+                                                <div class="slider-details">
+                                                    <div class="text-inner">
+                                                        <span class="sm-title mb-0">Best In Cafeu</span>
+                                                        <h1 class="banner-title">
+                                                            Sường Nướng Nguyên Mảng Bò <a href=""> KOBE</a> Nhật Bản Tươi Ngon
+                                                        </h1>
+                                                        <p class="banner-des">Với thịt bò KOBE nhiều dinh dưỡng <br> kèm với rau cũ giúp hương vị hài hòa quyến rũ</p>
+
+                                                        <div class="banner-btn-sec mt-3">
+                                                            <a href="" class="custom-btn">Đặt Ngay</a>
+                                                            <div class="watch">
+                                                                <a href="#" class="video-btn play-video"><span class="icofont-ui-play"></span> </a> <span class="wc-btn">Xem Video</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 my-2">
+                                                <div class="slider-item-img">
+                                                    <img src="~/Assets/KhachHang/assets/img/slider/baner1.png" alt="Image not found">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="swiper-slide">
+                                        <div class="row">
+                                            <div class="col-md-6 my-2">
+                                                <div class="slider-details">
+                                                    <div class="text-inner">
+                                                        <span class="sm-title mb-0">Best In Cafeu</span>
+                                                        <h1 class="banner-title">
+                                                            <a href="">Gia Vị</a> Khác Nhau Cho Hương Vị Khác Nhau
+                                                        </h1>
+                                                        <p class="banner-des">Linh hồn của món ăn không nằm ở nguyên liệu <br> mà nó quyết định bởi hương thơm đặc trưng từng món ăn</p>
+
+                                                        <div class="banner-btn-sec mt-3">
+                                                            <a href="" class="custom-btn">Đặt Ngay</a>
+                                                            <div class="watch">
+                                                                <a href="#" class="video-btn play-video"><span class="icofont-ui-play"></span> </a> <span class="wc-btn">Xem Video</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 my-2">
+                                                <div class="slider-item-img">
+                                                    <img src="~/Assets/KhachHang/assets/img/slider/first-slider.png" alt="Image not found">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!-- ========video model======= -->
+                            <div id="video-overlay" class="video-overlay">
+                                <a class="video-overlay-close">&times;</a>
+                            </div>
+                        </div>
+                        <!-- banner slider end  -->
+                    </div>
+                    <!-- container end  -->
+                    <div class="banner-pagination"></div>
+                </div>
+                <!-- banner end  -->
+            </section>
+            <!-- banner end -->
+            <!-- social sec  -->
+            <div class="social-sec">
+                <div class="right-social">
+                    <ul class="right-social-ul">
+                        <li><a href="" class="share-link">Facebook</a></li>
+
+                        <li><a href="" class="share-link">Twitter</a></li>
+
+                        <li><a href="" class="share-link">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- social sec end  -->
+            <!-- ======feature===== -->
+            <div class="feature cpy-8">
+                <!-- container  -->
+                <div class="container">
+                    <!-- row  -->
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 mb-4">
+                            <div class="feature-card" data-aos="fade-up" data-aos-duration="1000">
+                                <div class="feature-icon-sec">
+                                    <div class="feature-box">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/1.png" alt="Image not found">
+                                    </div>
+                                </div>
+                                <div class="feature-details" data-background="~/Assets/KhachHang/assets/img/icon/f-bg.png">
+                                    <h3 class="feature-name"><a href="#">NGUYÊN LIỆU</a></h3>
+                                    <p class="feature-des">Việc nguyên liệu tươi ngon được nhà hàng chú trọng hàng đầu. Không tồn tại thực phẩm không rõ nguồn gốc...</p>
+                                    <a href="" class="discover-bt">Xem thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 mb-4">
+                            <div class="feature-card" data-aos="fade-up" data-aos-duration="1500">
+                                <div class="feature-icon-sec">
+                                    <div class="feature-box">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/2.png" alt="Image not found">
+                                    </div>
+                                </div>
+                                <div class="feature-details" data-background="~/Assets/KhachHang/assets/img/icon/f-bg.png">
+                                    <h3 class="feature-name"><a href="service-details.html.htm">ĐẦU BẾP</a></h3>
+                                    <p class="feature-des">Với lượng đội ngũ đầu bếp 5* chất lượng sẽ cho ra món ăn phù hợp với mọi khách hàng trong và ngoài nước...</p>
+                                    <a href="#" class="discover-bt">Xem thêm</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 mb-4">
+                            <div class="feature-card" data-aos="fade-up" data-aos-duration="2000">
+                                <div class="feature-icon-sec">
+                                    <div class="feature-box">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/3.png" alt="Image not found">
+                                    </div>
+                                </div>
+                                <div class="feature-details" data-background="~/Assets/KhachHang/assets/img/icon/f-bg.png">
+                                    <h3 class="feature-name"><a href="service-details.html.htm">THỨC UỐNG</a></h3>
+                                    <p class="feature-des">Với đa dạng thức uống được nhập từ nhiều quốc gia khác nhau giúp quý khách có thể thưởng thức phù hợp</p>
+                                    <a href="service-details.html.htm" class="discover-bt">Xem thêm</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 col-lg-4 col-sm-6 mb-4">
+                            <div class="feature-card" data-aos="fade-up" data-aos-duration="2500">
+                                <div class="feature-icon-sec">
+                                    <div class="feature-box">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/4.png" alt="Image not found">
+                                    </div>
+                                </div>
+                                <div class="feature-details" data-background="~/Assets/KhachHang/assets/img/icon/f-bg.png">
+                                    <h3 class="feature-name"><a href="service-details.html.htm">THỰC PHẨM</a></h3>
+                                    <p class="feature-des">Thực phẩm được trồng từ phân hữu cơ, không sử dụng thuốc bảo vệ giúp an toàn hơn về vệ sinh thực phẩm</p>
+                                    <a href="service-details.html.htm" class="discover-bt">Xem thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row end  -->
+                </div>
+                <!-- container end  -->
+            </div>
+            <!-- ======feature end===== -->
+            <!-- ========Product section========= -->
+            <section>
+                <div class="all-product all-product-1">
+                    <!-- product inner  -->
+                    <div class="product-inner cpy-8" data-background="~/Assets/KhachHang/assets/img/product/bg.jpg">
+                        <!-- container  -->
+                        <div class="container">
+                            <!-- row  -->
+                            <div class="row">
+                                <div class="section-head text-center">
+                                    <span class="sm-title ">MENU</span>
+                                    <h2 class="sec-title">
+                                        LOẠI MÓN ĂN
+                                    </h2>
+                                    <div class="product-cat mb-40">
+                                        <div class="controls">
+                                            <ul class="cat-menu">
+                                                <li class="cat-menu-li " data-filter="all">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/7.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">All</span>
+                                                </li>
+                                                <li class="cat-menu-li " data-filter=".Khai_Vị">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/1.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">Khai Vị</span>
+                                                </li>
+                                                <li class="cat-menu-li" data-filter=".Món_Heo">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/2.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">Cơm</span>
+                                                </li>
+                                                <li class="cat-menu-li" data-filter=".Món_Lẩu">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/3.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">Burger</span>
+                                                </li>
+                                                <li class="cat-menu-li" data-filter=".Món_Cháo">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/4.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">Salad</span>
+                                                </li>
+                                                <li class="cat-menu-li" data-filter=".Trái_Cây">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/5.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">Bakery</span>
+                                                </li>
+                                                <li class="cat-menu-li" data-filter=".Thức_Uống">
+                                                    <img src="~/Assets/KhachHang/assets/img/category/icon/6.png" alt="" class="cat-icon">
+                                                    <span class="cat-name">Thức Uống</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- row end  -->
+                            <!-- #region Phần Hiển Thị Danh Sách Món Ăn -->
+                            <div class="row" data-aos="fade-up" data-aos-duration="1000">
+                                @foreach (var item in Model)
+                                {
+                                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-4 mix @item.LoaiMonAn.TenLMA.Replace(' ', '_')">
+                                        <div class="product-card">
+                                            <div class="product-img">
+                                                <a href="/KhachHang/SanPham/XemChiTiet?iMaMonAn=@item.MaMonAn"><img src="~/Assets/img/AnhMonAn/@item.HinhAnh" alt="image not found" style="max-height:366px"></a>
+                                            </div>
+                                            <div class="product-details">
+                                                <a href="/KhachHang/SanPham/XemChiTiet?iMaMonAn=@item.MaMonAn" class="product-name">@item.TenMonAn</a>
+                                                @*<p class="product-sm-des">@item.ThongTin</p>*@
+                                                <div class="cart-price-wishlist">
+                                                    <p class="delivery-text">@string.Format("{0:0,0}", item.DonGia) vnđ</p>
+                                                    @*<div class="cart-wishlist">
+                                                            <a href="wishlist.html.htm" class="sm-custom-btn wishlist-btn"><span class="icofont-plus"></span></a>
+                                                            <a href="cart.html.htm" class="sm-custom-btn cart-btn"><span class="icofont-cart-alt"></span></a>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                            <p class="product-price">
+                                                @string.Format("{0:0,0}", item.DonGia) vnđ
+                                            </p>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <!-- #endregion -->
+                        </div>
+                        <!-- container end  -->
+                    </div>
+                    <!-- product inner end  -->
+                </div>
+            </section>
+            <!-- ========Product section end========= -->
+            <!-- =========About====== -->
+            <section>
+                <div class="about about-1 cpy-8">
+                    <!-- container  -->
+                    <div class="container">
+                        <!-- row  -->
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-right" data-aos-duration="1000">
+                                <div class="about-img">
+                                    <img src="~/Assets/KhachHang/assets/img/image/exparience.png" alt="">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 mb-4" data-aos="fade-left" data-aos-duration="1000">
+                                <div class="h-100 d-flex align-items-center pl-40">
+                                    <div class="about-details">
+                                        <span class="sm-title">Về Chúng Tôi</span>
+                                        <h2 class="about-title mb-3">
+                                            NHÀ HÀNG CÂY BƯỞI
+                                        </h2>
+                                        <p class="about-des mb-4">
+                                            Đón hàng nghìn khách mỗi ngày có lẽ đã đủ nói lên vị trí của Nhà Hàng Cây Bưởi trong lòng người Việt và du khách bốn phương. Đặt chân đến quán, đối với thực khách lần đầu đến đây sẽ không khỏi ngỡ ngàng trước một không gian rộng rãi thoáng mát với gam màu tươi mới chủ đạo. Còn gì lý tưởng hơn khi thưởng thức hàng trăm món ngon mang đậm nét miền Tây Nam Bộ đủ đầy hương vị màu sắc trong một không gian như thế.
+                                        </p>
+                                        <div class="service-list">
+                                            <ul class="service-ul">
+                                                <li class="ab-service-li mb-4">
+                                                    <div class="service-icon">
+                                                        <img src="~/Assets/KhachHang/assets/img/icon/5.png" alt="">
+                                                    </div>
+                                                    <div class="service-name-des">
+                                                        <h4 class="service-name mb-1">Dịch Vụ Chu Đáo</h4>
+                                                        <p class="service-des">
+                                                            Với đội ngũ nhân viên trẻ trung, năng động, chuyên nghiệp<br> mang đến cho qúy khách sự phục vụ chu đáo nhất
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                                <li class="ab-service-li mb-4">
+                                                    <div class="service-icon">
+                                                        <img src="~/Assets/KhachHang/assets/img/icon/6.png" alt="">
+                                                    </div>
+                                                    <div class="service-name-des">
+                                                        <h4 class="service-name mb-1">Thực Hiện Thao Tác Trực Tuyến</h4>
+                                                        <p class="service-des">
+                                                            Nhà hàng đã áp dụng công nghệ để phục vụ quản lý <br> ngay trên điện thoại của bạn
+                                                        </p>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="service-button-wrap mt-40">
+                                            <a href="#" class="custom-btn">Thông Tin Chi Tiết</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row end  -->
+                    </div>
+                    <!-- container end  -->
+                </div>
+            </section>
+            <!-- =========About end====== -->
+            <!-- ======check section======== -->
+            <section>
+                <div class="availability mb-120" data-background="~/Assets/KhachHang/assets/img/subscribe-bg.png">
+                    <!-- bg availa  -->
+                    <div class="bg-availa">
+                        <!-- container  -->
+                        <div class="container">
+                            <!-- position relative  -->
+                            <div class="position-relative">
+                                <!-- row  -->
+                                <div class="row">
+                                    <div class="col-md-6 col-xl-8 col-lg-7 my-2" data-aos="fade-right" data-aos-duration="1000">
+                                        <div class="available-content">
+                                            <h2 class="available-head">
+                                                NHÀ HÀNG TẠI CẦN THƠ
+                                            </h2>
+                                            <p class="mb-0">Ẩm thực tại Cần Thơ là một trong những điểm đến ăn uống hấp dẫn tại thành phố. Với nhiều món ăn đặc trưng và đa dạng, ẩm thực tại Cần Thơ cung cấp cho khách hàng trải nghiệm ăn uống tuyệt vời. Nổi bật với những món ăn ngon, độc đáo và đầy màu sắc, ẩm thực tại Cần Thơ là điểm đến không thể bỏ qua cho những ai thích ăn uống tại đây.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-xl-4 col-lg-5 my-2" data-aos="fade-left" data-aos-duration="1000">
+                                        <div class="avail-inner">
+                                            <div class="available-note">
+                                                <div class="note-head">
+                                                    <span class="sm-title mb-0">Thời gian mỏ cửa</span>
+                                                </div>
+                                                <ul class="note-ul">
+                                                    <li class="note-li">
+                                                        <p class="day">Thứ 2</p>
+                                                        <p class="time">13:00 - 23:00</p>
+                                                    </li>
+                                                    <li class="note-li">
+                                                        <p class="day">Thứ 3</p>
+                                                        <p class="time">13:00 - 23:00</p>
+                                                    </li>
+                                                    <li class="note-li">
+                                                        <p class="day">Thứ 4</p>
+                                                        <p class="time">13:00 - 23:00</p>
+                                                    </li>
+                                                    <li class="note-li">
+                                                        <p class="day">Thứ 5</p>
+                                                        <p class="time">13:00 - 23:00</p>
+                                                    </li>
+                                                    <li class="note-li">
+                                                        <p class="day">Thứ 6</p>
+                                                        <p class="time">13:00 - 23:00</p>
+                                                    </li>
+                                                    <li class="note-li">
+                                                        <p class="day">Thứ 7</p>
+                                                        <p class="time">08:00 - 23:00</p>
+                                                    </li>
+                                                    <li class="note-li">
+                                                        <p class="day">Chủ Nhật</p>
+                                                        <p class="time">08:00 - 23:00</p>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="note-footer">
+                                                    <h4 class="note-footer-text">Liên Hệ</h4>
+                                                    <a class="note-footer-text" href="tel:+84346923002">0346.923.002</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- row end  -->
+                            </div>
+                            <!-- position relative end  -->
+                        </div>
+                        <!-- container end  -->
+                    </div>
+                    <!-- bg availa end  -->
+                </div>
+            </section>
+            <!-- ======check section end======== -->
+            <!-- ===========our team========= -->
+            <section>
+                <!-- team  -->
+                <div class="team cmb-7">
+                    <!-- container  -->
+                    <div class="container">
+                        <div class="section-head text-center " data-aos="fade-up" data-aos-duration="1000">
+                            <span class="sm-title ">
+                                Đầu Bếp
+                            </span>
+                            <h2 class="sec-title">
+                                Bếp Trưởng
+                            </h2>
+                        </div>
+                        <div class="row mt-40">
+                            <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="1000">
+                                <div class="team-card">
+                                    <div class="member-img">
+                                        <a href="#"><img src="~/Assets/KhachHang/assets/img/team/1.png" alt="Image not found"></a>
+                                    </div>
+                                    <div class="member-details">
+                                        <a href="#" class="member-name">Mst Cherry</a>
+                                        <p class="member-title">
+                                            Chuyên Viên Trang Trí
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="1500">
+                                <div class="team-card">
+                                    <div class="member-img">
+                                        <a href="#"><img src="~/Assets/KhachHang/assets/img/team/2.png" alt="Image not found"></a>
+                                    </div>
+                                    <div class="member-details">
+                                        <a href="#" class="member-name">Mr Tom</a>
+                                        <p class="member-title">
+                                            Bếp Trưởng
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="2000">
+                                <div class="team-card">
+                                    <div class="member-img">
+                                        <a href="#"><img src="~/Assets/KhachHang/assets/img/team/3.png" alt="Image not found"></a>
+                                    </div>
+                                    <div class="member-details">
+                                        <a href="#" class="member-name">Mr Bean</a>
+                                        <p class="member-title">
+                                            Bếp Phó
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- container end  -->
+                </div>
+                <!-- team end  -->
+            </section>
+            <!-- ===========our team end========= -->
+            <!-- ==================Latest Blog Post================= -->
+            <section>
+                <!-- latest blog  -->
+                <div class="latest-blog cpy-8" data-background="~/Assets/KhachHang/assets/img/blog/bg-blog.png">
+                    <!-- container  -->
+                    <div class="container">
+                        <!-- section head  -->
+                        <div class="section-head text-center " data-aos="fade-up" data-aos-duration="500">
+                            <span class="sm-title ">News & Blog</span>
+                            <h2 class="sec-title">Bài Viết Mới</h2>
+                        </div>
+                        <!-- section head end  -->
+                        <!-- row  -->
+                        <div class="row mt-40">
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4" data-aos="fade-up" data-aos-duration="1000">
+                                <div class="post-card">
+                                    <div class="post-img">
+                                        <a href=""><img src="~/Assets/KhachHang/assets/img/blog/1.png" alt="Image not found"></a>
+                                    </div>
+                                    <div class="post-details">
+                                        <a href="" class="post-title">
+                                            Gà Tây Nướng Nguyên Con
+                                        </a>
+                                        <p class="post-des">Gà tây với hương vị châu á!!! Tại sao không???</p>
+
+                                        <div class="date-view">
+                                            <p class="date mb-0">10/11/2023</p>
+                                            <a href="#" class="view-more">Xem thêm</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4" data-aos="fade-up" data-aos-duration="1500">
+                                <div class="post-card">
+                                    <div class="post-img">
+                                        <a href=""><img src="~/Assets/KhachHang/assets/img/blog/2.png" alt="Image not found"></a>
+                                    </div>
+                                    <div class="post-details">
+                                        <a href="" class="post-title">
+                                            Thực Phẩm Tốt Cho Người Già, Bạn Đã Biết???
+                                        </a>
+                                        <p class="post-des">Với người lớn tuổi thường hệ tiêu hóa kém ...</p>
+
+                                        <div class="date-view">
+                                            <p class="date mb-0">09/11/2023</p>
+                                            <a href="#" class="view-more">Xem thêm</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-4 col-md-6 col-sm-6 col-12 mb-4" data-aos="fade-up" data-aos-duration="2000">
+                                <div class="post-card">
+                                    <div class="post-img">
+                                        <a href=""><img src="~/Assets/KhachHang/assets/img/blog/3.png" alt="Image not found"></a>
+                                    </div>
+                                    <div class="post-details">
+                                        <a href="" class="post-title">
+                                            Thực Phẩm Nào Dành Cho Người Ăn Kiêng?
+                                        </a>
+                                        <p class="post-des">Thực phẩm đơn giản có cung cấp đủ?</p>
+
+                                        <div class="date-view">
+                                            <p class="date mb-0">08/11/2023</p>
+                                            <a href="#" class="view-more">Xem thêm</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- row end  -->
+                    </div>
+                    <!-- container end  -->
+                </div>
+                <!-- latest blog end  -->
+            </section>
+            <!-- ==================Latest Blog Post end================= -->
+            <!-- ========================Footer ============= -->
+            <footer>
+                <!-- footer section  -->
+                <div class="footer-section footer-1" data-background="/Assets/KhachHang/assets/img/footer-bg.png">
+                    <!-- container  -->
+                    <div class="container">
+                        <!-- row  -->
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-sm-6 my-2 smpadright40" data-aos="fade-up" data-aos-duration="1000">
+                                <div class="footer-content-wrapper">
+                                    <div class="footer-logo mb-4">
+                                        <img src="/Assets/KhachHang/assets/img/logo/logo-white.png" alt="">
+                                    </div>
+                                    <p>Chào mừng bạn đến với Cafeu</p>
+                                    <ul class="address">
+                                        <li>
+                                            <span class="icofont-location-pin"></span>
+                                            <p class="address-info">3 Tháng 2, Xuân Khánh, Ninh Kiều, Cần Thơ</p>
+                                        </li>
+
+                                        <li>
+                                            <span class="icofont-email"></span>
+                                            <div class="address-inner">
+                                                <p class="address-info"><a href="mailto:nfo@example.com">cafeu@gmail.com</a></p>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <span class="icofont-ui-call"> </span>
+                                            <div class="address-inner">
+                                                <p class="address-info"><a href="tel:+123456679123">0346923002</a></p>
+                                                @*<p class="address-info"><a href="tel:+123456789">+123 456 789</a></p>*@
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 col-sm-6 my-2 padleft40" data-aos="fade-up" data-aos-duration="1500">
+                                <div class="footer-content-wrapper">
+                                    <div class="footer-sec-head mb-4">
+                                        <h4 class="footer-widget-title">Menu</h4>
+                                    </div>
+                                    <ul class="qu-link">
+                                        <li class="foot-list"><a href="#" class="footer-link">Trang Chủ</a></li>
+                                        <li class="foot-list"><a href="#" class="footer-link">Không Gian</a></li>
+                                        <li class="foot-list"><a href="#" class="footer-link">Đặt Bàn</a></li>
+                                        <li class="foot-list"><a href="/KhachHang/About/SuKien" class="footer-link">Sự Kiện</a></li>
+                                        <li class="foot-list"><a href="/KhachHang/About/LienHe" class="footer-link">Liên Hệ</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 col-sm-6 my-2 padright40" data-aos="fade-up" data-aos-duration="2000">
+                                <div class="footer-content-wrapper">
+                                    <div class="footer-sec-head mb-4">
+                                        <h4 class="footer-widget-title">Instagram</h4>
+                                    </div>
+                                    <ul class="insta-feed">
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/1.png" alt=""></a>
+                                        </li>
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/2.png" alt=""></a>
+                                        </li>
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/3.png" alt=""></a>
+                                        </li>
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/4.png" alt=""></a>
+                                        </li>
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/5.png" alt=""></a>
+                                        </li>
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/6.png" alt=""></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 col-sm-6 my-2" data-aos="fade-up" data-aos-duration="2500">
+                                <div class="footer-content-wrapper">
+                                    <div class="footer-sec-head mb-4">
+                                        <h4 class="footer-widget-title">Nhận Thông Báo</h4>
+                                    </div>
+
+                                    <p class="subscribe-des">
+                                        Nhập thông tin email bên dưới để biết chương trình khuyến mãi của chúng tôi
+                                    </p>
+
+                                    <form class="hero-form" action="#">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control subscribtion-input" placeholder="Nhập email">
+                                            <button type="submit" class="custom-btn"><span class="icofont-location-arrow"></span></button>
+                                        </div>
+                                    </form>
+                                    <ul class="social-ul">
+                                        <li class="social-list">
+                                            <a href="#" class="social-link"><span class="icofont-facebook"></span></a>
+                                        </li>
+
+                                        <li class="social-list">
+                                            <a href="#" class="social-link"><span class="icofont-twitter"></span></a>
+                                        </li>
+
+                                        <li class="social-list">
+                                            <a href="#" class="social-link"><span class="icofont-skype"></span></a>
+                                        </li>
+
+                                        <li class="social-list">
+                                            <a href="#" class="social-link"><span class="icofont-instagram"></span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row end  -->
+                    </div>
+                    <!-- container end  -->
+                </div>
+                <!-- footer section end  -->
+            </footer>
+            <!-- ========================Footer end============= -->
+        </div>
+        <!-- =======================body wrapper end========= -->
+        <!-- #endregion -->
+
+    </div>
+
+    <!-- #region Nút chat -->
+    <!--<div class="chat-widget">
+        <div class="chat-icon" onclick="toggleChat()">
+            <img src="~/Assets/KhachHang/assets/img/icon/chat.gif" alt="Chat Icon" id="chatIconImage">
+        </div>
+        <div class="chat-box" id="chatBox">
+            <div class="chat-header">
+                <span class="close-icon" onclick="toggleChat()">Tư vấn viên [x]</span>
+            </div>
+            <div class="chat-body">-->
+    <!-- Hiển thị danh sách câu hỏi có sẵn -->
+    <!--<div class="predefined-questions" onclick="handlePredefinedQuestionClick(event)">
+                    <p>Bạn cần hỗ trợ:</p>
+                    <ul id="questionList"></ul>
+                </div>
+            </div>
+            <div class="chat-footer">
+                <input type="text" id="userInput" placeholder="Type your message">
+                <button onclick="sendMessage()">Gửi</button>
+            </div>
+        </div>
+    </div>-->
+    <!-- #endregion -->
+    <!-- ====main wrapper end == -->
+    <!-- ======script======= -->
+    <!-- =====jquery===== -->
+    <script src="~/Assets/KhachHang/assets/js/jquery/jquery.min.js"></script>
+    <!-- =====bootstrap===== -->
+    <script src="~/Assets/KhachHang/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- ======slider===== -->
+    <script src="~/Assets/KhachHang/assets/js/swiper/swiper-bundle.min.js"></script>
+    <!-- ===============animation========= -->
+    <script src="~/Assets/KhachHang/assets/js/jquery.nice-select.min.js"></script>
+    <script src="~/Assets/KhachHang/assets/js/animation/aos.js"></script>
+    <script src="~/Assets/KhachHang/assets/js/meanmenu.js"></script>
+    <!-- ======mixitup======= -->
+    <script src="~/Assets/KhachHang/assets/js/mixitup/mixitup.min.js"></script>
+    <script src="~/Assets/KhachHang/assets/js/nouislider.js"></script>
+    <!-- ======custom script====== -->
+    <script src="~/Assets/KhachHang/assets/js/app.js"></script>
+    <!-- ========mixitup init========= -->
+    <script src="~/Assets/KhachHang/assets/js/mixitup.js"></script>
+
+    <script>
+        function toggleChatbox() {
+            var chatbox = document.getElementById('chatbox');
+            var chatboxIcon = document.getElementById('chatbox-icon');
+
+            if (chatbox.style.display === 'none' || chatbox.style.display === '') {
+                alert("Vào if")
+                chatbox.style.display = 'block';
+                chatboxIcon.innerHTML = 'x'; // Change to 'x' symbol
+            } else {
+                chatbox.style.display = 'none';
+                chatboxIcon.innerHTML = '&#9993;'; // Change back to chat symbol
+                alert("Vào else")
+
+            }
+        }
+
+        function sendMessage() {
+            var message = $("#messageInput").val();
+
+            $.ajax({
+                type: "GET",
+                url: `https://api.wit.ai/message?v=20231212&q=${encodeURIComponent(message)}`,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", "Bearer DEZPJ2WD6H4SLD6B4752PBUBL23PQRYU");
+                },
+
+                success: function (data) {
+                    console.log("==================");
+                    console.log(data);
+                    console.log("==================");
+
+                    // Handle the Wit.ai response
+                    $("#chatbox-content").append("<p>" + message + "</p>");
+
+                    // Kiểm tra intents
+                    if (data.intents && data.intents.length > 0) {
+                        var response = handleIntents(data.intents);
+
+                        $("#chatbox-content").append("<p>" + response + "</p>");
+                    } else {
+                        $("#chatbox-content").append("<p>Xin lỗi, tôi không hiểu ý của bạn.</p>");
+                    }
+
+                    // Clear the input field
+                    $("#messageInput").val("");
+                }
+            });
+        }
+
+        // Define your response generation logic based on intents
+        function handleIntents(intents) {
+            // Example: Check for a specific intent
+            for (var i = 0; i < intents.length; i++) {
+                var intent = intents[i];
+
+                if (intent.name === "muon_dat_ban") {
+                    // Trả lời
+                    return "Chào bạn, Nhà hàng cafeu vẫn còn bàn. Bạn liên hệ 0346923002 để đặt bàn nhé.";
+                }
+
+                if (intent.name === "muon_chao_hoi") {
+                    // Trả lời
+                    return "Tôi có thể giúp gì cho bạn!";
+                }
+
+                if (intent.name === "muon_dang_nhap") {
+                    // Trả lời
+                    return "Bạn vào trang chủ cafea và chọn click vào biểu tượng user trên góc phải màn hình.";
+                }
+
+                if (intent.name === "muon_hoi_thoi_gian") {
+                    // Trả lời
+                    return "Nhà hàng cafeu mở cửa cả tuần từ 08:00 đến 23:00";
+                }
+
+                if (intent.name === "muon_doi_mat_khau") {
+                    // Trả lời
+                    return "Tài khoản đăng nhập khách hàng chỉ cần nhập mã xác thực theo sdt\nKhông cần mật khẩu";
+                }
+
+                if (intent.name === "muon_giao_hang") {
+                    // Trả lời
+                    return "Xin lỗi. Nhà hàng cafeu chưa có dịch vụ giao hàng.";
+                }
+
+                if (intent.name === "muon_hoi_bao_nhieu_mon") {
+                    // Trả lời
+                    return "Bạn có thể xem menu trên trang chủ cafeu.";
+                }
+
+                if (intent.name === "muon_hoi_dia_chi") {
+                    // Trả lời
+                    return "Nhà hàng của mình ở Cần Thơ";
+                }
+
+                if (intent.name === "muon_dat_tiec") {
+                    // Trả lời
+                    return "Nhà hàng cafeu nhận tất cả các bữa tiệc";
+                }
+            }
+
+            // Trường hợp mặc định chưa hiểu rõ câu nói của mình
+            return "Xin lỗi, tôi không rõ ý của bạn?";
+        }
+    </script>
+</body>
+
+</html>

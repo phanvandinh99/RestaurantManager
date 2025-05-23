@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Mã Xác Thực";
+    Layout = "~/Areas/KhachHang/Views/Shared/_LayoutKhachHang.cshtml";
+}
+
+<div class="body-wrapper">
+    <!-- ===================page banner============ -->
+    <div class="page-banner" data-background="/Assets/KhachHang/assets/img/page-ban-bg.png">
+        <!-- container  -->
+        <div class="container">
+            <!-- row  -->
+            <div class="row">
+                <div class="page-ban-content">
+                    <h1 class="page-head" data-aos="fade-up" data-aos-duration="1000">Xác Thực Số Điện Thoại</h1>
+                    <div class="breadcrumb-list" data-aos="fade-up" data-aos-duration="1500">
+                        <a href="index.html.htm" class="page-route-link">Home</a>
+                        <span class="devider">/</span>
+                        <span><a href="/KhachHang/DangNhap/DangNhap">Đăng Nhập</a></span>
+                        <span class="devider">/</span>
+                        <span>Xác Thực</span>
+
+                    </div>
+                </div>
+            </div>
+            <!-- row end  -->
+        </div>
+        <!-- container end -->
+    </div>
+    <!-- ===================page banner end============ -->
+    <!-- ===========contact============ -->
+    <div class="contact">
+        <div class="container">
+            <div class="form-inside col-4">
+                @using (Ajax.BeginForm("CheckCode", "DangNhap", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }))
+                {
+                    @*<span class="sm-title ">Nhập Số Điện Thoại</span>*@
+                    <a>Mã code đã được gửi đến: @ViewBag.phoneNumber.<br />Mã có hiệu lực trong vòng 60s</a>
+                    <div class="input-group flex-nowrap">
+                        <input type="text" value="@ViewBag.phoneNumber" name="phoneNumber" hidden />
+                        <input type="number" maxlength="6" name="code" class="form-control" placeholder="" required>
+                        @*<span class="right-input-icon"><i class="icofont-phone"></i></span>*@
+                    </div>
+                    <div class="ThongBao" id="ThongBao">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                    </div>
+                    <div class="submit-button-sec mt-30">
+                        <button type="submit" class="custom-btn">Đăng Nhập</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <!-- ========================contact================== -->
+</div>

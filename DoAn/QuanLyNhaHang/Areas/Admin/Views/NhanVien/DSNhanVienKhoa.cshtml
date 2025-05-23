@@ -1,0 +1,126 @@
+﻿@using QuanLyNhaHang.Models
+
+@model List<NhanVien>
+@{
+    ViewBag.Title = "Danh Sách Nhân Viên Đã Khóa";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container" id="DanhSachHoaDon">
+    <div class="page-title-container">
+        <div class="row g-0">
+            <div class="col-auto mb-3 mb-md-0 me-auto">
+                <div class="w-auto">
+                    <h1 class="mb-0 pb-0 " id="title">Danh Sách Tài khoản Nhân Viên Bị Khóa</h1>
+                </div>
+            </div>
+            <div class="col col-md-auto d-flex align-items-end justify-content-end">
+                <div class="btn-group ms-1 w-100 w-md-auto">
+                    <a href="/Admin/NhanVien/ThemNhanVien" class="btn btn-outline-primary btn-icon btn-icon-start w-100">
+                        <span><i data-cs-icon="user" class="icon" data-cs-size="18"></i> Thêm Mới</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-sm-12 col-md-5 col-lg-3 col-xxl-2 mb-1">
+            <div class="d-inline-block float-md-start me-1 mb-1 search-input-container w-100 shadow bg-foreground">
+                <input class="form-control search" placeholder="Search">
+                <span class="search-magnifier-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="cs-icon cs-icon-search"><circle cx="9" cy="9" r="7"></circle><path d="M14 14L17.5 17.5"></path></svg>
+                </span>
+                <span class="search-delete-icon d-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="cs-icon cs-icon-close"><path d="M5 5 15 15M15 5 5 15"></path></svg>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row g-0">
+        <div class="col-12 mb-5">
+            <div id="checkboxTable">
+                <div class="mb-4 mb-lg-3 bg-transparent no-shadow d-none d-lg-block">
+                    <div class="row g-0">
+                        <div class="col">
+                            <div class="ps-5 pe-4 h-100">
+                                <div class="row g-0 h-100 align-content-center custom-sort">
+                                    <div class="col-lg-2 d-flex flex-column pe-1 justify-content-center">
+                                        <div class="text-muted text-body cursor-pointer sort" data-sort="TenKhachHang">Họ Tên</div>
+                                    </div>
+                                    <div class="col-lg-2 d-flex flex-column pe-1 justify-content-center">
+                                        <div class="text-muted text-body cursor-pointer sort" onclick="HiddenPass()" id="MatKhau" data-sort="NgayTao">Tài Khoản</div>
+                                    </div>
+                                    <div class="col-lg-2 d-flex flex-column pe-1 justify-content-left">
+                                        <div class="text-muted text-body cursor-pointer sort" data-sort="NgayThanhToan">Mật Khẩu</div>
+                                    </div>
+                                    <div class="col-lg-2 d-flex flex-column pe-1 justify-content-center">
+                                        <div class="text-muted text-body cursor-pointer sort" data-sort="TongTien">Ngày Sinh</div>
+                                    </div>
+                                    <div class="col-lg-2 d-flex flex-column pe-1 justify-content-center">
+                                        <div class="text-muted text-body cursor-pointer sort" data-sort="ThanhToan">SDT</div>
+                                    </div>
+                                    <div class="col-lg-2 d-flex flex-column pe-1 justify-content-center">
+                                        <div class="text-muted text-body cursor-pointer sort" data-sort="TongTien">Trạng thái</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- #region Danh sách hóa đơn -->
+                <div class="list">
+                    @foreach (var item in Model)
+                    {
+                        <div class="card mb-2">
+                            <div class="row g-0 h-100 sh-lg-9 position-relative">
+                                <div class="col py-4 py-lg-0">
+                                    <div class="ps-5 pe-4 h-100">
+                                        <div class="row g-0 h-100 align-content-center">
+                                            <a href="Products.Detail.html" class="col-12 col-lg-2 d-flex flex-column mb-lg-0 mb-3 pe-3 d-flex order-1 h-lg-100 justify-content-center TenNhanVien">
+                                                @item.TenNhanVien
+                                            </a>
+                                            <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
+                                                <div class="lh-1 text-alternate TaiKhoan">@item.TaiKhoanNV</div>
+                                            </div>
+                                            <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
+                                                <in class="lh-1 text-alternate NgayThanhToan">********</in>
+                                            </div>
+                                            <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
+                                                <div class="lh-1 text-alternate NgaySinh">@string.Format("{0:dd/MM/yyyy}", item.NgaySinh)</div>
+                                            </div>
+                                            <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
+                                                <div class="lh-1 text-alternate SDT">@item.SoDienThoai</div>
+                                            </div>
+                                            <div class="col-12 col-lg-2 d-flex flex-column pe-1 mb-2 mb-lg-0 justify-content-center order-3">
+                                                <div class="lh-1 text-alternate">
+                                                    <div>
+                                                        <a href="/Admin/NhanVien/LockAccount?sTaiKhoanNV=@item.TaiKhoanNV">Mở Khóa</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <!-- #endregion -->
+                <div class="w-100 d-flex justify-content-center">
+                    <ul class="pagination"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #region Script lọc -->
+<script type="text/javascript">
+    var options = {
+        valueNames: ['TenNhanhVien', 'TaiKhoan', 'NgaySinh', 'SDT'],
+        page: 8,
+        pagination: true
+    };
+    var userList = new List('DanhSachHoaDon', options);
+</script>
+
+<!-- #endregion -->

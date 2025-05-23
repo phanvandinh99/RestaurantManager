@@ -1,0 +1,537 @@
+﻿@using QuanLyNhaHang.Models
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>@ViewBag.Title</title>
+    <!-- ==============favicon=============== -->
+    <link rel="shortcut icon" type="image/png" href="~/Assets/KhachHang/assets/img/log.png">
+
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/font/icofont.min.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/animation/aos.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/meanmenu.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/nice-select.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/nouislider.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/main.css">
+    <link rel="stylesheet" href="~/Assets/KhachHang/assets/css/responsive.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .chatbox-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chatbox-icon {
+            background-color: #4caf50;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .chatbox {
+            display: none;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .chatbox-content {
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            height: 300px;
+            overflow-y: auto;
+        }
+
+            .chatbox-content p {
+                margin: 5px;
+                padding: 8px;
+                border-radius: 8px;
+                max-width: 70%;
+            }
+
+                .chatbox-content p:nth-child(even) {
+                    align-self: flex-start;
+                    background-color: #ddd;
+                }
+
+                .chatbox-content p:nth-child(odd) {
+                    align-self: flex-end;
+                    background-color: #4caf50;
+                    color: #fff;
+                }
+
+        .chatbox-input {
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-top: 1px solid #ccc;
+        }
+
+        #messageInput {
+            width: 70%;
+            padding: 8px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 8px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #45a049;
+            }
+
+        .chatbox-icon {
+            background-color: #4caf50;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 18px;
+            cursor: pointer;
+            position: relative;
+            z-index: 2; /* Đặt z-index cao hơn */
+        }
+
+        .chatbox {
+            display: none;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            background-color: white;
+            z-index: 1; /* Đặt z-index thấp hơn */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- #region Wit.AI Chat -->
+    <div class="chatbox-container">
+        <div class="chatbox-icon" id="chatbox-icon" onclick="toggleChatbox()">&#9993;</div>
+        <div class="chatbox" id="chatbox">
+            <div class="chatbox-content" id="chatbox-content"></div>
+            <div class="chatbox-input" id="chatbox-input">
+                <input type="text" id="messageInput" placeholder="Nhập nội dung...">
+                <button onclick="sendMessage()">Gửi</button>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+    <!-- ======preloader==== -->
+    <div id="preloader">
+        <div class="loader3">
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <!-- ======preloader==== -->
+    <!-- ====main wrapper == -->
+    <div class="wrapper">
+        <!-- header  -->
+        <header>
+            <div class="header header-default">
+                <!-- container  -->
+                <div class="container">
+                    <!-- header inner -->
+                    <div class="header-inner">
+                        <div class="logo">
+                            <a href="/KhachHang/Home/Index"><img src="~/Assets/KhachHang/assets/img/logo/logo.png" alt="Logo not found" class="logo-img"></a>
+                        </div>
+                        <div class="header-right">
+                            <div class="header-menu d-none d-lg-block">
+                                <nav class="cf-header-menu" id="header-menu">
+                                    <ul>
+                                        <li><a href="/KhachHang/Home/Index">Trang Chủ</a></li>
+                                        <li class="has-submenu">
+                                            <a href="#">Thực Đơn</a>
+                                            <ul class="submenu">
+                                                <li><a href="#">Thực Đơn 1</a></li>
+                                                <li><a href="#">Thực Đơn 2</a></li>
+                                                <li><a href="#">Thực Đơn 3</a></li>
+                                                <li><a href="#">Thực Đơn 4</a></li>
+                                                <li><a href="#">Thực Đơn 5</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Không Gian</a></li>
+                                        <li><a href="#">Đặt Bàn</a></li>
+                                        <li><a href="/KhachHang/About/SuKien">Sự Kiện</a></li>
+                                        <li><a href="/KhachHang/About/LienHe">Liên Hệ</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                            <div class="header-right-search-phone d-none d-lg-block ml-35">
+                                <a href="#" class="header-search" id="search"><span class="icofont-search-1"></span></a>
+                                @if (Session["KhachHang"] != null)
+                                {
+                                    HoaDon KH = (HoaDon)Session["KhachHang"];
+                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@KH.SDTKhachHang" class="header-phone">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> @KH.TenKhachHang
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="/KhachHang/DangNhap/DangNhap" class="header-phone">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> Đăng Nhập
+                                    </a>
+                                }
+                            </div>
+                            <div class="d-lg-none dr-navbar-mobile-sign side-toggle">
+                                <!-- <span class="headeer-navigaiton"><i class="icofont-navigation-menu"></i></span> -->
+                                <div class="dr-navbar-sign menu-tab">
+                                    <span class="dr-line-1"></span>
+                                    <span class="dr-line-2"></span>
+                                    <span class="dr-line-3"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- header inner end  -->
+                    <div class="search-form-wrapper">
+                        <form action="#">
+                            <div class="p-1 bg-light search-form shadow-sm mt-3" id="searchForm">
+                                <div class="input-group">
+                                    <input type="search" placeholder="What're you searching for?" class="form-control search-input border-0 bg-light">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- container end  -->
+            </div>
+            <!-- nav end -->
+        </header>
+        <!-- header end  -->
+        <!-- dr-sidebar-information-area-start -->
+        <div class="dr-sidebar-info side-info">
+            <div class="dr-sidebar-logo-wrapper mb-25">
+                <div class="row align-items-center">
+                    <div class="col-xl-6 col-8">
+                        <div class="dr-sidebar-logo">
+                            <a href="index.html.htm"><img src="~/Assets/KhachHang/assets/img/logo/logo.png" alt="logo-img"></a>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-4">
+                        <div class="dr-sidebar-close-wrapper text-end">
+                            <button class="dr-sidebar-close side-info-close"><i class="icofont-close-line"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dr-sidebar-menu-wrapper fix">
+                <div class="cf-header-menu"></div>
+            </div>
+
+            <div class="dr-sidebar-btn-wrap mt-40">
+                <a href="#"><span class="icofont-shopping-cart"><span class="cart-count">4</span></span></a>
+                <a href="#"><i class="icofont-ui-user"></i></a>
+            </div>
+
+            <div class="dr-sidebar-contact-wrapper mt-40">
+                <div class="dr-sidebar-contact mb-40">
+                    <h4 class="dr-sidebar-contact-title">Contact Info</h4>
+                    <span class="sidebar-address"><i class="icofont-google-map"></i><span>4929 Thorn Street Crow heart, WY 82512</span> </span>
+                    <a href="tel:+1(251)410-1010"><i class="icofont-phone"></i><span>+1 (251) 410-1010</span></a>
+                    <a href="mailto:example@gmail.com" class="theme-3"><i class="icofont-envelope-open"></i><span><span>example@gmail.com</span></span></a>
+                </div>
+
+                <div class="dr-sidebar-social mt-40 mb-30">
+                    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="youtube"><i class="fab fa-dribbble"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="offcanvas-overlay"></div>
+        <!-- dr-sidebar-information-area-end -->
+        <!-- =======================body wrapper========= -->
+        <div class="body-wrapper">
+            <!-- #region NỘI DUNG -->
+            @RenderBody()
+            <!-- #endregion -->
+            <!-- ========================Footer ============= -->
+            <footer>
+                <!-- footer section  -->
+                <div class="footer-section footer-1" data-background="/Assets/KhachHang/assets/img/footer-bg.png">
+                    <!-- container  -->
+                    <div class="container">
+                        <!-- row  -->
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6 col-sm-6 my-2 smpadright40" data-aos="fade-up" data-aos-duration="1000">
+                                <div class="footer-content-wrapper">
+                                    <div class="footer-logo mb-4">
+                                        <img src="/Assets/KhachHang/assets/img/logo/logo-white.png" alt="">
+                                    </div>
+                                    <p>Chào mừng bạn đến với Cafeu</p>
+                                    <ul class="address">
+                                        <li>
+                                            <span class="icofont-location-pin"></span>
+                                            <p class="address-info">3 Tháng 2, Xuân Khánh, Ninh Kiều, Cần Thơ</p>
+                                        </li>
+
+                                        <li>
+                                            <span class="icofont-email"></span>
+                                            <div class="address-inner">
+                                                <p class="address-info"><a href="mailto:nfo@example.com">cafeu@gmail.com</a></p>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <span class="icofont-ui-call"> </span>
+                                            <div class="address-inner">
+                                                <p class="address-info"><a href="tel:+123456679123">0346923002</a></p>
+                                                @*<p class="address-info"><a href="tel:+123456789">+123 456 789</a></p>*@
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 col-sm-6 my-2 padleft40" data-aos="fade-up" data-aos-duration="1500">
+                                <div class="footer-content-wrapper">
+                                    <div class="footer-sec-head mb-4">
+                                        <h4 class="footer-widget-title">Menu</h4>
+                                    </div>
+                                    <ul class="qu-link">
+                                        <li class="foot-list"><a href="#" class="footer-link">Trang Chủ</a></li>
+                                        <li class="foot-list"><a href="#" class="footer-link">Không Gian</a></li>
+                                        <li class="foot-list"><a href="#" class="footer-link">Đặt Bàn</a></li>
+                                        <li class="foot-list"><a href="/KhachHang/About/SuKien" class="footer-link">Sự Kiện</a></li>
+                                        <li class="foot-list"><a href="/KhachHang/About/LienHe" class="footer-link">Liên Hệ</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 col-sm-6 my-2 padright40" data-aos="fade-up" data-aos-duration="2000">
+                                <div class="footer-content-wrapper">
+                                    <div class="footer-sec-head mb-4">
+                                        <h4 class="footer-widget-title">Instagram</h4>
+                                    </div>
+                                    <ul class="insta-feed">
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/1.png" alt=""></a>
+                                        </li>
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/2.png" alt=""></a>
+                                        </li>
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/3.png" alt=""></a>
+                                        </li>
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/4.png" alt=""></a>
+                                        </li>
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/5.png" alt=""></a>
+                                        </li>
+                                        <li class="foot-list">
+                                            <a href="https://www.instagram.com/" class="footer-link"><img src="~/Assets/KhachHang/assets/img/instagram/6.png" alt=""></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-6 col-sm-6 my-2" data-aos="fade-up" data-aos-duration="2500">
+                                <div class="footer-content-wrapper">
+                                    <div class="footer-sec-head mb-4">
+                                        <h4 class="footer-widget-title">Nhận Thông Báo</h4>
+                                    </div>
+
+                                    <p class="subscribe-des">
+                                        Nhập thông tin email bên dưới để biết chương trình khuyến mãi của chúng tôi
+                                    </p>
+
+                                    <form class="hero-form" action="#">
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control subscribtion-input" placeholder="Nhập email">
+                                            <button type="submit" class="custom-btn"><span class="icofont-location-arrow"></span></button>
+                                        </div>
+                                    </form>
+                                    <ul class="social-ul">
+                                        <li class="social-list">
+                                            <a href="#" class="social-link"><span class="icofont-facebook"></span></a>
+                                        </li>
+
+                                        <li class="social-list">
+                                            <a href="#" class="social-link"><span class="icofont-twitter"></span></a>
+                                        </li>
+
+                                        <li class="social-list">
+                                            <a href="#" class="social-link"><span class="icofont-skype"></span></a>
+                                        </li>
+
+                                        <li class="social-list">
+                                            <a href="#" class="social-link"><span class="icofont-instagram"></span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- row end  -->
+                    </div>
+                    <!-- container end  -->
+                </div>
+                <!-- footer section end  -->
+            </footer>
+            <!-- ========================Footer end============= -->
+        </div>
+        <!-- =======================body wrapper end========= -->
+
+    </div>
+
+    <!-- ====main wrapper end == -->
+    <!-- ======script======= -->
+    <!-- =====jquery===== -->
+    <script src="~/Assets/KhachHang/assets/js/jquery/jquery.min.js"></script>
+    <!-- =====bootstrap===== -->
+    <script src="~/Assets/KhachHang/assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+    <!-- ======slider===== -->
+    <script src="~/Assets/KhachHang/assets/js/swiper/swiper-bundle.min.js"></script>
+    <!-- ========nice select======== -->
+    <script src="~/Assets/KhachHang/assets/js/jquery.nice-select.min.js"></script>
+    <!-- ===============animation========= -->
+    <script src="~/Assets/KhachHang/assets/js/animation/aos.js"></script>
+    <script src="~/Assets/KhachHang/assets/js/meanmenu.js"></script>
+    <!-- ======custom script====== -->
+    <!-- ======mixitup======= -->
+    <script src="~/Assets/KhachHang/assets/js/mixitup/mixitup.min.js"></script>
+    <script src="~/Assets/KhachHang/assets/js/nouislider.js"></script>
+    <!-- ======mixitup======= -->
+    <script src="~/Assets/KhachHang/assets/js/app.js"></script>
+    <!-- ========mixitup init========= -->
+
+
+    <script>
+        function toggleChatbox() {
+            var chatbox = document.getElementById('chatbox');
+            var chatboxIcon = document.getElementById('chatbox-icon');
+
+            if (chatbox.style.display === 'none' || chatbox.style.display === '') {
+                chatbox.style.display = 'block';
+                chatboxIcon.innerHTML = 'x'; // Change to 'x' symbol
+            } else {
+                chatbox.style.display = 'none';
+                chatboxIcon.innerHTML = '&#9993;'; // Change back to chat symbol
+            }
+        }
+
+        function sendMessage() {
+            var message = $("#messageInput").val();
+
+            $.ajax({
+                type: "GET",
+                url: `https://api.wit.ai/message?v=20231212&q=${encodeURIComponent(message)}`,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("Authorization", "Bearer DEZPJ2WD6H4SLD6B4752PBUBL23PQRYU");
+                },
+
+                success: function (data) {
+                    console.log("==================");
+                    console.log(data);
+                    console.log("==================");
+
+                    // Handle the Wit.ai response
+                    $("#chatbox-content").append("<p>" + message + "</p>");
+
+                    // Kiểm tra intents
+                    if (data.intents && data.intents.length > 0) {
+                        var response = handleIntents(data.intents);
+
+                        $("#chatbox-content").append("<p>" + response + "</p>");
+                    } else {
+                        $("#chatbox-content").append("<p>Xin lỗi, tôi không hiểu ý của bạn.</p>");
+                    }
+
+                    // Clear the input field
+                    $("#messageInput").val("");
+                }
+            });
+        }
+
+        // Define your response generation logic based on intents
+        function handleIntents(intents) {
+            // Example: Check for a specific intent
+            for (var i = 0; i < intents.length; i++) {
+                var intent = intents[i];
+
+                if (intent.name === "muon_dat_ban") {
+                    // Trả lời
+                    return "Chào bạn, Nhà hàng cafeu vẫn còn bàn. Bạn liên hệ 0346923002 để đặt bàn nhé.";
+                }
+
+                if (intent.name === "muon_chao_hoi") {
+                    // Trả lời
+                    return "Tôi có thể giúp gì cho bạn!";
+                }
+
+                if (intent.name === "muon_dang_nhap") {
+                    // Trả lời
+                    return "Bạn vào trang chủ cafea và chọn click vào biểu tượng user trên góc phải màn hình.";
+                }
+
+                if (intent.name === "muon_hoi_thoi_gian") {
+                    // Trả lời
+                    return "Nhà hàng cafeu mở cửa cả tuần từ 08:00 đến 23:00";
+                }
+
+                if (intent.name === "muon_doi_mat_khau") {
+                    // Trả lời
+                    return "Tài khoản đăng nhập khách hàng chỉ cần nhập mã xác thực theo sdt\nKhông cần mật khẩu";
+                }
+
+                if (intent.name === "muon_giao_hang") {
+                    // Trả lời
+                    return "Xin lỗi. Nhà hàng cafeu chưa có dịch vụ giao hàng.";
+                }
+
+                if (intent.name === "muon_hoi_bao_nhieu_mon") {
+                    // Trả lời
+                    return "Bạn có thể xem menu trên trang chủ cafeu.";
+                }
+
+                if (intent.name === "muon_hoi_dia_chi") {
+                    // Trả lời
+                    return "Nhà hàng của mình ở Cần Thơ";
+                }
+
+                if (intent.name === "muon_dat_tiec") {
+                    // Trả lời
+                    return "Nhà hàng cafeu nhận tất cả các bữa tiệc";
+                }
+            }
+
+            // Trường hợp mặc định chưa hiểu rõ câu nói của mình
+            return "Xin lỗi, tôi không rõ ý của bạn?";
+        }
+    </script>
+</body>
+
+</html>

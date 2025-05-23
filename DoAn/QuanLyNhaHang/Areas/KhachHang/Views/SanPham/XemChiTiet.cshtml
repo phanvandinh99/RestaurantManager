@@ -1,0 +1,280 @@
+﻿@using QuanLyNhaHang.Models
+@model MonAn
+
+@{
+    ViewBag.Title = "Chi Tiết Món Ăn";
+    Layout = "~/Areas/KhachHang/Views/Shared/_LayoutKhachHang.cshtml";
+
+    IEnumerable<MonAn> listMonAnLienQuan = (IEnumerable<MonAn>)ViewBag.MonAnLienQuan;
+    IEnumerable<ChiTietSanPham> listChiTietMonAn = (IEnumerable<ChiTietSanPham>)ViewBag.ChiTietMonAn;
+}
+
+
+<!-- ===================page banner============ -->
+<div class="page-banner" data-background="/Assets/KhachHang/assets/img/page-ban-bg.png">
+    <!-- container  -->
+    <div class="container">
+        <!-- row  -->
+        <div class="row">
+            <div class="page-ban-content">
+                <h1 class="page-head" data-aos="fade-up" data-aos-duration="1000">CHI TIẾT MÓN ĂN</h1>
+                <div class="breadcrumb-list" data-aos="fade-up" data-aos-duration="1500">
+                    <a href="/KhachHang/Home/Index" class="page-route-link">Trang Chủ</a>
+                    <span class="devider">/</span>
+                    <span>Chi Tiết</span>
+                </div>
+            </div>
+        </div>
+        <!-- row end  -->
+    </div>
+    <!-- container end -->
+</div>
+<!-- ===================page banner end============ -->
+
+<div class="shop-area pt-105 pb-55">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6" data-aos="fade-up" data-aos-duration="1000">
+                <div class="view-img mb-50">
+                    <img src="~/Assets/img/AnhMonAn/@Model.HinhAnh" alt="@Model.TenMonAn">
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-up" data-aos-duration="1500">
+                <div class="product-main-info mb-50">
+                    <h4 class="name">@Model.TenMonAn</h4>
+                    <div class="rating-div" style="display:none">
+                        <ul class="rating">
+                            <li> <span class="icofont-ui-rating"></span></li>
+                            <li> <span class="icofont-ui-rating"></span></li>
+                            <li> <span class="icofont-ui-rating"></span></li>
+                            <li> <span class="icofont-ui-rating"></span></li>
+                            <li> <span class="icofont-ui-rating unrated"></span></li>
+                        </ul>
+                        <p>(3) Rating</p>
+                    </div>
+                    <div class="product-price">
+                        <del>$12.00</del>
+                        <p>$11.00</p>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <span>Loại món ăn:</span>
+                            <p>@Model.LoaiMonAn.TenLMA</p>
+                        </li>
+                        <li>
+                            <span>Nhóm món ăn:</span>
+                            <p>@Model.NhomMonAn.TenNMA</p>
+                        </li>
+                        <li>
+                            <span>Giá bán:</span>
+                            <p>@string.Format("{0:0,0}", Model.DonGia) vnđ</p>
+                        </li>
+                    </ul>
+                    <p class="sm-des">
+                        Mô tả: @Model.ThongTin
+                    </p>
+
+                    @*<div class="size-qty">
+                        <div class="mb-3 select-box">
+                            <label for="exampleFormControlInput1" class="form-label">Số Lượng</label>
+                            <input class="form-control" type="number" value="1" min="1"/>
+                        </div>
+                    </div>
+
+                    <div class="cart-sec">
+                        <div class="btn-sec">
+                            <a href="cart.html.htm" class="custom-btn">Gọi Món</a>
+                            <a href="wishlist.html.htm" class="custom-btn">Add To Wishlist</a>
+                        </div>
+                    </div>*@
+
+                    <div class="share-link">
+                        <p>Share Link</p>
+                        <ul class="social-ul">
+                            <li class="social-list">
+                                <a href="" class="social-link"><span class="icofont-facebook"></span></a>
+                            </li>
+
+                            <li class="social-list">
+                                <a href="" class="social-link"><span class="icofont-twitter"></span></a>
+                            </li>
+
+                            <li class="social-list">
+                                <a href="" class="social-link"><span class="icofont-skype"></span></a>
+                            </li>
+
+                            <li class="social-list">
+                                <a href="" class="social-link"><span class="icofont-instagram"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" data-aos="fade-up" data-aos-duration="1000">
+                <div class="description mb-50">
+                    <ul class="nav review-tab mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="active" id="pills-description-tab" data-bs-toggle="pill" data-bs-target="#pills-description" type="button" role="tab" aria-controls="pills-description" aria-selected="true">Mô Tả</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button id="pills-review-tab" data-bs-toggle="pill" data-bs-target="#pills-review" type="button" role="tab" aria-controls="pills-review" aria-selected="false">Reviews</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+                            <div class="blog-details">
+                                <h5 class="service-heding mb-3">Món ăn: @Model.TenMonAn</h5>
+                                <p class="service-des">
+                                    @Html.Raw(Model.MoTa)
+                                </p>
+                                <h6 class="service-heding mb-3">Nguyên liệu món ăn</h6>
+                                <table class="table m-n2">
+                                    <thead>
+                                        <tr>
+                                            <td scope="col" class="text-danger text-uppercase text-muted">Nguyên Liệu</td>
+                                            <td scope="col" class="text-danger text-uppercase text-muted">Số lượng (kg)</td>
+                                            @*<td scope="col" class="text-danger text-uppercase text-muted">Trừ</td>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in listChiTietMonAn)
+                                        {
+                                            <tr>
+                                                <td>@item.NguyenLieu.TenNguyenLieu</td>
+                                                <td>@item.SoLuongDung</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
+                            <div class="product-review p-0">
+                                <div class="review-head">
+                                    <h4 class="customer-review-title">Bình Luận Khách Hàng</h4>
+                                    <div class="user-review">
+                                        <div class="review-list">
+                                            <div class="col-md-8">
+
+                                                <div class="comment-section">
+                                                    <div class="comment-area">
+                                                        <div class="single-comment mb-5">
+                                                            <div class="commenter-img">
+                                                                <img src="~/Assets/KhachHang/assets/img/customer/3.png" alt="">
+                                                            </div>
+                                                            <div class="comment">
+                                                                <h4 class="commenter-name">Mr Tom</h4>
+                                                                <div class="date-reply">
+                                                                    <p class="comment-date">20/11/2023</p>
+                                                                    <a href="" class="reply-btn">Reply</a>
+                                                                </div>
+                                                                <p class="comment-content">Món ăn nhìn bắt bắt, vừa ngon...</p>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="single-comment my-5 reply-comment">
+                                                            <div class="commenter-img">
+                                                                <img src="~/Assets/KhachHang/assets/img/customer/4.png" alt="">
+                                                            </div>
+                                                            <div class="comment">
+                                                                <h4 class="commenter-name">Mst Jery</h4>
+                                                                <div class="date-reply">
+                                                                    <p class="comment-date">21/11/2023</p>
+                                                                    <a href="" class="reply-btn">Reply</a>
+                                                                </div>
+                                                                <p class="comment-content">Cảm ơn bạn đã review món ăn này. Chúc quý khách ngon miệng</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="single-comment my-5">
+                                                            <div class="commenter-img">
+                                                                <img src="~/Assets/KhachHang/assets/img/customer/5.png" alt="">
+                                                            </div>
+                                                            <div class="comment">
+                                                                <h4 class="commenter-name">Mr Bin</h4>
+                                                                <div class="date-reply">
+                                                                    <p class="comment-date">25/11/2023</p>
+                                                                    <a href="" class="reply-btn">Reply</a>
+                                                                </div>
+                                                                <p class="comment-content">Món ăn rẽ nhưng rất ngon</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="comment-form">
+                                                    <h3 class="comment-form-title">
+                                                        Viết bình luận
+                                                    </h3>
+                                                    <div class="form">
+                                                        <form action="#">
+                                                            <div class="row">
+                                                                <div class="col-sm-6 mb-30">
+                                                                    <input type="text" class="form-control" placeholder="Name">
+                                                                </div>
+                                                                <div class="col-sm-6 mb-30">
+                                                                    <input type="email" class="form-control" placeholder="Email">
+                                                                </div>
+                                                                <div class="col-md-12 mb-30">
+                                                                    <textarea name="message" id="message" class="form-control" rows="5" placeholder="Message"></textarea>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <button type="submit" id="alert" class="custom-btn">Bình luận</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-10">
+            <div class="col-12">
+                <div class="menu-product mb-25">
+                    <div class="product-inner p-0">
+                        <div class="section-head text-center" data-aos="fade-up" data-aos-duration="1000">
+                            <h2 class="review-title">
+                                Món Ăn Liên Quan
+                            </h2>
+                        </div>
+                        <div class="row mt-40">
+                            <!-- #region Hiển thị danh sách món ăn liên quan -->
+                            @foreach (var item in listMonAnLienQuan)
+                            {
+                                <div class="col-md-6 col-xl-3 col-lg-4 col-sm-6 mb-4" data-aos="fade-up" data-aos-duration="2500">
+                                    <div class="product-card">
+                                        <p class="status-product">New</p>
+                                        <div class="product-img">
+                                            <a href="/KhachHang/SanPham/XemChiTiet?iMaMonAn=@item.MaMonAn"><img src="~/Assets/img/AnhMonAn/@item.HinhAnh" alt=""></a>
+                                        </div>
+                                        <div class="product-details">
+                                            <a href="/KhachHang/SanPham/XemChiTiet?iMaMonAn=@item.MaMonAn" class="product-name">@item.TenMonAn
+                                            </a>
+                                            <p class="price">@string.Format("{0:0,0}", item.DonGia) vnđ</p>
+                                            @*<ul class="pd-btn-group">
+                                                <li><a href="" class="shop-btn"><span class="icofont-heart-alt"></span></a></li>
+                                                <li><a href="cart.html.htm" class="shop-btn"><span class="icofont-shopping-cart"></span></a></li>
+                                                <li><a href="shop.html.htm" class="shop-btn"><span class="icofont-eye"></span></a></li>
+                                            </ul>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <!-- #endregion -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
