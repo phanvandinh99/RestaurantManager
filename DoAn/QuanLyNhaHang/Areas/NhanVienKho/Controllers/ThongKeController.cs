@@ -1,6 +1,5 @@
 ﻿using QuanLyNhaHang.Models;
 using System.Linq;
-using System.Net.NetworkInformation;
 using System.Web.Mvc;
 
 namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers

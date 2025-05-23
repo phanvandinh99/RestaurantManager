@@ -3,7 +3,6 @@ using QuanLyNhaHang.Models;
 using System;
 using System.Linq;
 using System.Security.Cryptography;
-using System.Web;
 using System.Web.Mvc;
 
 namespace QuanLyNhaHang.Areas.KhachHang.Controllers

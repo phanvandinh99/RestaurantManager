@@ -1,8 +1,5 @@
 ﻿using QuanLyNhaHang.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace QuanLyNhaHang.Areas.NhanVien.Controllers
@@ -15,11 +12,13 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             var listBan = db.Bans.ToList();
             return View(listBan);
         }
+
         public ActionResult XemChiTiet(int iMaBan)
         {
             var ban = db.Bans.Find(iMaBan);
             return View(ban);
         }
+
         public ActionResult XoaBan(int iMaBan)
         {
             try

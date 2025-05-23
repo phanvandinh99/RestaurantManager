@@ -1,8 +1,7 @@
 ﻿using QuanLyNhaHang.Models;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
-using System.Collections.Generic;
-using System.Data.Entity;
 
 namespace QuanLyNhaHang.Areas.NhanVien.Controllers
 {
