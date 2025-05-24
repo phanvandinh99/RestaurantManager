@@ -1,5 +1,4 @@
 ﻿using QuanLyNhaHang.Models;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace QuanLyNhaHang.Areas.NhanVien.Controllers
@@ -7,81 +6,82 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
     public class DangNhapController : Controller
     {
         DatabaseQuanLyNhaHang db = new DatabaseQuanLyNhaHang();
+
         public ActionResult DangNhap()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DangNhap(FormCollection f)
+        public ActionResult DangNhap(string ssTaiKhoan, string ssMatKhau)
         {
-
-            // Kiểm tra tên đăng nhập và mật khẩu
-            string ssTaiKhoan = f["txtTaiKhoan"].ToString();
-            string ssMatKhau = f["txtMatKhau"].ToString();
-            if (ssTaiKhoan == "" & ssMatKhau == "")
+            if (string.IsNullOrEmpty(ssTaiKhoan))
             {
-                ModelState.AddModelError("", "Vui loàng nhập tên đăng nhập và mật khẩu của bạn !");
+                ModelState.AddModelError("", "Bạn không được bỏ trống tên đăng nhập!");
+                return View();
             }
-            else if (ssTaiKhoan == "")
+            else if (string.IsNullOrEmpty(ssMatKhau))
             {
-                ModelState.AddModelError("", "Bạn không được bỏ trống tên đăng nhập !");
-            }
-            else if (ssMatKhau == "")
-            {
-                ModelState.AddModelError("", "Bạn không được bỏ trống mật khẩu !");
+                ModelState.AddModelError("", "Bạn không được bỏ trống mật khẩu!");
+                return View();
             }
             else
             {
-                var kh = db.NhanViens.SingleOrDefault(n => n.TaiKhoanNV == ssTaiKhoan);
+                var nguoiDung = db.NhanViens.Find(ssTaiKhoan);
 
-                if (kh == null)
+                if (nguoiDung == null)
                 {
                     ModelState.AddModelError("", "Tài khoản không hợp lệ !");
                     return View();
                 }
-                else if (kh != null)
+                else if (nguoiDung != null)
                 {
-                    if (kh.MatKhauNV != ssMatKhau && kh.TrangThai != 4) // Không đúng mật khẩu
+                    if (nguoiDung.MatKhauNV != ssMatKhau && nguoiDung.TrangThai != 4) // Không đúng mật khẩu
                     {
-                        kh.TrangThai = kh.TrangThai + 1;
+                        nguoiDung.TrangThai = nguoiDung.TrangThai + 1;
                         int? LuotDangNhap = 3;
-                        LuotDangNhap = LuotDangNhap - kh.TrangThai;
+                        LuotDangNhap = LuotDangNhap - nguoiDung.TrangThai;
                         db.SaveChanges();
+
                         ModelState.AddModelError("", "Bạn nhập sai mật khẩu !,\nCòn " + LuotDangNhap + " Lượt");
                         return View();
                     }
                 }
 
-                if (kh.TrangThai == 4)
+                if (nguoiDung.TrangThai == 4)
                 {
                     ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa !");
                     return View();
                 }
 
-                else if (kh.MaQuyen_id == 1) // nhân viên thu ngân
+                switch (nguoiDung.MaQuyen_id)
                 {
+                    // nhân viên thu ngân
+                    case 1:
+                        Session["TaiKhoanNV"] = nguoiDung;
+                        nguoiDung.TrangThai = 0;
+                        db.SaveChanges();
+                        return Redirect("/NhanVien/Home/Index");
 
-                    Session["TaiKhoanNV"] = kh;
-                    kh.TrangThai = 0;
-                    return Redirect("/NhanVien/Home/Index");
-                }
-                else if (kh.MaQuyen_id == 3) // Nhân viên admin
-                {
-                    Session["Admin"] = kh;
-                    kh.TrangThai = 0;
-                    return Redirect("/Admin/Home/Index");
-                }
-                else // nhân viên kho
-                {
-                    Session["TaiKhoanKho"] = kh;
-                    kh.TrangThai = 0;
-                    return Redirect("/NhanVienKho/Home/Index");
-                }
+                    // nhân viên kho
+                    case 2:
+                        Session["TaiKhoanKho"] = nguoiDung;
+                        nguoiDung.TrangThai = 0;
+                        db.SaveChanges();
+                        return Redirect("/NhanVienKho/Home/Index"); 
+
+                    // Nhân viên admin
+                    case 3:
+                        Session["Admin"] = nguoiDung;
+                        nguoiDung.TrangThai = 0;
+                        db.SaveChanges();
+                        return Redirect("/Admin/Home/Index");
+            
+                };
             }
-
-            return View();
         }
+
         public ActionResult DangXuatNhanVien()
         {
             Session["TaiKhoanNV"] = null;
