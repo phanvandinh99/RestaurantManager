@@ -14,21 +14,21 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DangNhap(string ssTaiKhoan, string ssMatKhau)
+        public ActionResult DangNhap(string sTaiKhoan, string sMatKhau)
         {
-            if (string.IsNullOrEmpty(ssTaiKhoan))
+            if (string.IsNullOrEmpty(sTaiKhoan))
             {
                 ModelState.AddModelError("", "Bạn không được bỏ trống tên đăng nhập!");
                 return View();
             }
-            else if (string.IsNullOrEmpty(ssMatKhau))
+            else if (string.IsNullOrEmpty(sMatKhau))
             {
                 ModelState.AddModelError("", "Bạn không được bỏ trống mật khẩu!");
                 return View();
             }
             else
             {
-                var nguoiDung = db.NhanViens.Find(ssTaiKhoan);
+                var nguoiDung = db.NhanViens.Find(sTaiKhoan);
 
                 if (nguoiDung == null)
                 {
@@ -37,7 +37,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                 }
                 else if (nguoiDung != null)
                 {
-                    if (nguoiDung.MatKhauNV != ssMatKhau && nguoiDung.TrangThai != 4) // Không đúng mật khẩu
+                    if (nguoiDung.MatKhauNV != sMatKhau && nguoiDung.TrangThai != 4) // Không đúng mật khẩu
                     {
                         nguoiDung.TrangThai = nguoiDung.TrangThai + 1;
                         int? LuotDangNhap = 3;
@@ -69,7 +69,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                         Session["TaiKhoanKho"] = nguoiDung;
                         nguoiDung.TrangThai = 0;
                         db.SaveChanges();
-                        return Redirect("/NhanVienKho/Home/Index"); 
+                        return Redirect("/NhanVienKho/Home/Index");
 
                     // Nhân viên admin
                     case 3:
@@ -77,9 +77,10 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                         nguoiDung.TrangThai = 0;
                         db.SaveChanges();
                         return Redirect("/Admin/Home/Index");
-            
                 };
             }
+
+            return View();
         }
 
         public ActionResult DangXuatNhanVien()
