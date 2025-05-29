@@ -32,12 +32,14 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                 return RedirectToAction("XoaBan", "Error");
             }
         }
+
         //Thêm bàn
         public ActionResult ThemBan()
         {
             ViewBag.MaTang = db.Tangs;
             return View();
         }
+
         [HttpPost]
         public ActionResult ThemBan(Ban Model)
         {
@@ -51,6 +53,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             db.SaveChanges();
             return RedirectToAction("DanhSachBan", "Ban");
         }
+
         //Cập Nhật Bàn
         public ActionResult CapNhatBan(int iMaBan)
         {

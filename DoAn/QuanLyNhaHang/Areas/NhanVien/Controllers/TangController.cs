@@ -16,10 +16,26 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         public ActionResult XemChiTiet(int iMaTang)
         {
             var tang = db.Tangs.SingleOrDefault(n => n.MaTang == iMaTang);
-            // Tổng số bàn 
-            ViewBag.Tang = db.Bans.Where(n => n.MaTang_id == iMaTang).Count();
+            // Tổng số bàn
+            ViewBag.Ban = db.Bans.Where(n => n.MaTang_id == iMaTang).Count();
             return View(tang);
         }
+
+        //Thêm tầng
+        public ActionResult ThemTang()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ThemTang(Tang Model)
+        {
+            db.Tangs.Add(Model);
+            db.SaveChanges();
+
+            return RedirectToAction("DanhSachTang", "Tang");
+        }
+
+
         public ActionResult CapNhat(int iMaTang)
         {
             var tang = db.Tangs.SingleOrDefault(n => n.MaTang == iMaTang);
