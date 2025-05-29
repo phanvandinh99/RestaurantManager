@@ -9,7 +9,7 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         DatabaseQuanLyNhaHang db = new DatabaseQuanLyNhaHang();
         public ActionResult ChiTietPhieuNhap()
         {
-            var list = db.ChiTietPhieuNhaps.ToList();
+            var list = db.ChiTietPhieuNhap.ToList();
             return View();
         }
     }

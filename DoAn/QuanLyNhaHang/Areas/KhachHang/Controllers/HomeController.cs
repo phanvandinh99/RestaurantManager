@@ -11,7 +11,7 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
         // Hiển thị trang danh sách khách hàng
         public ActionResult Index()
         {
-            var listSanPham = db.MonAns.ToList();
+            var listSanPham = db.MonAn.ToList();
             return View(listSanPham);
         }
     }

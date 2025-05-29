@@ -10,7 +10,7 @@ namespace QuanLyNhaHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LoaiMonAn()
         {
-            MonAns = new HashSet<MonAn>();
+            MonAn = new HashSet<MonAn>();
         }
 
         [Key]
@@ -23,6 +23,6 @@ namespace QuanLyNhaHang.Models
         public int? TongSoLuong{ get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MonAn> MonAns { get; set; }
+        public virtual ICollection<MonAn> MonAn { get; set; }
     }
 }

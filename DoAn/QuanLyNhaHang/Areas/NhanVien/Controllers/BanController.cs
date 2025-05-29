@@ -9,13 +9,13 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         DatabaseQuanLyNhaHang db = new DatabaseQuanLyNhaHang();
         public ActionResult DanhSachBan()
         {
-            var listBan = db.Bans.ToList();
+            var listBan = db.Ban.ToList();
             return View(listBan);
         }
 
         public ActionResult XemChiTiet(int iMaBan)
         {
-            var ban = db.Bans.Find(iMaBan);
+            var ban = db.Ban.Find(iMaBan);
             return View(ban);
         }
 
@@ -23,7 +23,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         {
             try
             {
-                db.Bans.Remove(db.Bans.Find(iMaBan));
+                db.Ban.Remove(db.Ban.Find(iMaBan));
                 db.SaveChanges();
                 return RedirectToAction("DanhSachBan", "Ban");
             }
@@ -36,7 +36,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         //Thêm bàn
         public ActionResult ThemBan()
         {
-            ViewBag.MaTang = db.Tangs;
+            ViewBag.MaTang = db.Tang;
             return View();
         }
 
@@ -49,7 +49,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             ban.Vip = Model.Vip;
             ban.TinhTrang = 0;
             ban.MaTang_id = Model.MaTang_id;
-            db.Bans.Add(ban);
+            db.Ban.Add(ban);
             db.SaveChanges();
             return RedirectToAction("DanhSachBan", "Ban");
         }
@@ -57,9 +57,9 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         //Cập Nhật Bàn
         public ActionResult CapNhatBan(int iMaBan)
         {
-            var ban = db.Bans.SingleOrDefault(n => n.MaBan == iMaBan);
-            ViewBag.MaTang_id = new SelectList(db.Tangs, "MaTang", "TenTang", ban.MaTang_id); // lẫy mã tầng
-            ViewBag.MaTang = db.Tangs;
+            var ban = db.Ban.SingleOrDefault(n => n.MaBan == iMaBan);
+            ViewBag.MaTang_id = new SelectList(db.Tang, "MaTang", "TenTang", ban.MaTang_id); // lẫy mã tầng
+            ViewBag.MaTang = db.Tang;
             return View(ban);
         }
         [HttpPost]
@@ -71,7 +71,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             ban.Vip = Model.Vip;
             ban.TinhTrang = 0;
             ban.MaTang_id = Model.MaTang_id;
-            db.Bans.Add(ban);
+            db.Ban.Add(ban);
             db.SaveChanges();
             return RedirectToAction("DanhSachBan", "Ban");
         }

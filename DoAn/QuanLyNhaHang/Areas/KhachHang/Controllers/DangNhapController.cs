@@ -30,7 +30,7 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
         {
             // Convert phoneNumber thành 
             // Kiểm tra số điện thoại của bạn đã tạo bàn chưa?
-            var checkPhoneNumber = db.HoaDons.FirstOrDefault(n => n.SDTKhachHang == phoneNumber & n.TrangThai == 1);
+            var checkPhoneNumber = db.HoaDon.FirstOrDefault(n => n.SDTKhachHang == phoneNumber & n.TrangThai == 1);
 
             if (checkPhoneNumber == null)
             {
@@ -64,7 +64,7 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
         [HttpPost]
         public ActionResult CheckCode(string phoneNumber, string code)
         {
-            var checkPhoneNumber = db.HoaDons.FirstOrDefault(n => n.SDTKhachHang == phoneNumber.Replace("+84", "0") & n.TrangThai == 1);
+            var checkPhoneNumber = db.HoaDon.FirstOrDefault(n => n.SDTKhachHang == phoneNumber.Replace("+84", "0") & n.TrangThai == 1);
 
             DateTime? thoiHan = checkPhoneNumber.ThoiHan;
             TimeSpan timeDifference = thoiHan.Value.Subtract(DateTime.Now);

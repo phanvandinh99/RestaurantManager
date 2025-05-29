@@ -12,15 +12,15 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         // Hiển thị danh sách nguyên liệu
         public ActionResult ListNguyenLieu()
         {
-            ViewBag.ListNguyenLieu = db.LoaiNguyenLieus.ToList();
-            ViewBag.TatCa = db.NguyenLieus.Count();
-            var listNguyenLieu = db.NguyenLieus.ToList().OrderBy(n => n.TenNguyenLieu);
+            ViewBag.ListNguyenLieu = db.LoaiNguyenLieu.ToList();
+            ViewBag.TatCa = db.NguyenLieu.Count();
+            var listNguyenLieu = db.NguyenLieu.ToList().OrderBy(n => n.TenNguyenLieu);
             return View(listNguyenLieu);
         }
         //Xem chi tiết
         public ActionResult XemChiTiet(int? iMaNguyenLieu)
         {
-            NguyenLieu nguyenLieu = db.NguyenLieus.Find(iMaNguyenLieu);
+            NguyenLieu nguyenLieu = db.NguyenLieu.Find(iMaNguyenLieu);
             if (nguyenLieu == null)
             {
                 return HttpNotFound();
@@ -30,8 +30,8 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         // Cập nhật
         public ActionResult CapNhat(int? iMaNguyenLieu)
         {
-            NguyenLieu nguyenLieu = db.NguyenLieus.Find(iMaNguyenLieu);
-            ViewBag.MaLNL_id = new SelectList(db.LoaiNguyenLieus, "MaLNL", "TenLNL", nguyenLieu.MaLNL_id);
+            NguyenLieu nguyenLieu = db.NguyenLieu.Find(iMaNguyenLieu);
+            ViewBag.MaLNL_id = new SelectList(db.LoaiNguyenLieu, "MaLNL", "TenLNL", nguyenLieu.MaLNL_id);
             return View(nguyenLieu);
         }
 
@@ -45,7 +45,7 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
                 db.SaveChanges();
                 return RedirectToAction("ListNguyenLieu", "NguyenLieu");
             }
-            ViewBag.MaLNL_id = new SelectList(db.LoaiNguyenLieus, "MaLNL", "TenLNL", nguyenLieu.MaLNL_id);
+            ViewBag.MaLNL_id = new SelectList(db.LoaiNguyenLieu, "MaLNL", "TenLNL", nguyenLieu.MaLNL_id);
             return View(nguyenLieu);
         }
 
@@ -54,8 +54,8 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         {
             try
             {
-                NguyenLieu nguyenLieu = db.NguyenLieus.Find(iMaNguyenLieu);
-                db.NguyenLieus.Remove(nguyenLieu);
+                NguyenLieu nguyenLieu = db.NguyenLieu.Find(iMaNguyenLieu);
+                db.NguyenLieu.Remove(nguyenLieu);
                 db.SaveChanges();
                 return RedirectToAction("HaiSan", "NguyenLieu");
             }
@@ -69,7 +69,7 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         // Thêm mới
         public ActionResult ThemMoi()
         {
-            ViewBag.MaLNL_id = new SelectList(db.LoaiNguyenLieus, "MaLNL", "TenLNL");
+            ViewBag.MaLNL_id = new SelectList(db.LoaiNguyenLieu, "MaLNL", "TenLNL");
             return View();
         }
 
@@ -85,14 +85,14 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
                 nl.GhiChu = nguyenLieu.GhiChu;
                 nl.GiaNhapCuoi = 0;
                 nl.MaLNL_id = nguyenLieu.MaLNL_id;
-                db.NguyenLieus.Add(nl);
-                var loaiNguyenLieu = db.LoaiNguyenLieus.SingleOrDefault(n => n.MaLNL == nguyenLieu.MaLNL_id);
+                db.NguyenLieu.Add(nl);
+                var loaiNguyenLieu = db.LoaiNguyenLieu.SingleOrDefault(n => n.MaLNL == nguyenLieu.MaLNL_id);
                 loaiNguyenLieu.TongSoLuong++;
                 db.SaveChanges();
                 return RedirectToAction("ListNguyenLieu", "NguyenLieu");
             }
 
-            ViewBag.MaLNL_id = new SelectList(db.LoaiNguyenLieus, "MaLNL", "TenLNL", nguyenLieu.MaLNL_id);
+            ViewBag.MaLNL_id = new SelectList(db.LoaiNguyenLieu, "MaLNL", "TenLNL", nguyenLieu.MaLNL_id);
             return View(nguyenLieu);
         }
 

@@ -10,16 +10,16 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         #region Lọc Danh sách món ăn
         public ActionResult LocMonAn(int iMaLMA)
         {
-            ViewBag.TatCa = db.MonAns.Count();
-            ViewBag.LoaiMonAn = db.LoaiMonAns.ToList();
-            var listFilter = db.MonAns.Where(n => n.MaLMA_id == iMaLMA).ToList();
+            ViewBag.TatCa = db.MonAn.Count();
+            ViewBag.LoaiMonAn = db.LoaiMonAn.ToList();
+            var listFilter = db.MonAn.Where(n => n.MaLMA_id == iMaLMA).ToList();
             return View(listFilter);
         }
         public ActionResult LocMonAnList(int iMaLMA)
         {
-            ViewBag.TatCa = db.MonAns.Count();
-            ViewBag.LoaiMonAn = db.LoaiMonAns.ToList();
-            var listFilter = db.MonAns.Where(n => n.MaLMA_id == iMaLMA).ToList();
+            ViewBag.TatCa = db.MonAn.Count();
+            ViewBag.LoaiMonAn = db.LoaiMonAn.ToList();
+            var listFilter = db.MonAn.Where(n => n.MaLMA_id == iMaLMA).ToList();
             return View(listFilter);
         }
         #endregion

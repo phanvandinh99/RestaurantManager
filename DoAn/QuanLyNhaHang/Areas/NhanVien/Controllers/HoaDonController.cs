@@ -14,16 +14,16 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         [HttpGet]
         public ActionResult ThongTinHoaDon(int iMaBan)
         {
-            ViewBag.LoaiMonAn = db.LoaiMonAns.ToList(); // Lấy danh mục món ăn
-            ViewBag.DanhSachMonAn = db.MonAns.ToList(); // Lấy danh sách món ăn
-            ViewBag.TatCa = db.MonAns.Count();
-            ViewBag.Ban = db.Bans.ToList();
+            ViewBag.LoaiMonAn = db.LoaiMonAn.ToList(); // Lấy danh mục món ăn
+            ViewBag.DanhSachMonAn = db.MonAn.ToList(); // Lấy danh sách món ăn
+            ViewBag.TatCa = db.MonAn.Count();
+            ViewBag.Ban = db.Ban.ToList();
             /* có 2 trường hợp: 
             TH1: Bàn đang trống thì sẽ tạo đơn hàng mới
             TH2: Bàn đã có người thì vào xem hóa đơn
              */
             // xem bàn đó đã có khách hay chưa? 
-            var ban = db.Bans.SingleOrDefault(n => n.MaBan == iMaBan && n.TinhTrang == 0); // 0: bàn trống
+            var ban = db.Ban.SingleOrDefault(n => n.MaBan == iMaBan && n.TinhTrang == 0); // 0: bàn trống
             if (ban != null) // nếu bàn trống
             {
                 ban.TinhTrang = 1;
@@ -38,21 +38,21 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                 hd.TongTien = 0;
                 hd.TrangThai = 1; // 1: chưa thanh toán
                 hd.MaBan_id = iMaBan;
-                db.HoaDons.Add(hd);
+                db.HoaDon.Add(hd);
                 db.SaveChanges();
-                var hoaDonTrong = db.HoaDons.SingleOrDefault(n => n.MaBan_id == iMaBan && n.TrangThai == 1); //bàn đã có hóa đơn chưa thanh toán 
+                var hoaDonTrong = db.HoaDon.SingleOrDefault(n => n.MaBan_id == iMaBan && n.TrangThai == 1); //bàn đã có hóa đơn chưa thanh toán 
 
 
                 #region Order khăn lạnh
-                MonAn monAn = db.MonAns.SingleOrDefault(n => n.MaMonAn == 1);
+                MonAn monAn = db.MonAn.SingleOrDefault(n => n.MaMonAn == 1);
                 ChiTietHoaDon cthd = new ChiTietHoaDon();
                 cthd.MaHoaDon_id = hoaDonTrong.MaHoaDon;
                 cthd.MaMonAn_id = 1;
                 cthd.SoLuongMua = ban.SoGhe;
                 cthd.ThanhTien = (double)((cthd.SoLuongMua) * monAn.DonGia);
-                db.ChiTietHoaDons.Add(cthd);
+                db.ChiTietHoaDon.Add(cthd);
                 // thêm số lượng đã bán trong bảng Món Ăn
-                var monAn_SLDaBan = db.MonAns.SingleOrDefault(n => n.MaMonAn == monAn.MaMonAn);
+                var monAn_SLDaBan = db.MonAn.SingleOrDefault(n => n.MaMonAn == monAn.MaMonAn);
                 monAn_SLDaBan.SoLuongDaBan = monAn_SLDaBan.SoLuongDaBan + ban.SoGhe;
                 //db.SaveChanges();
                 //Ghi vào lịch sử gọi món
@@ -63,12 +63,12 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                 ls.ThoiGianTra = null;
                 ls.MaHoaDon_id = hoaDonTrong.MaHoaDon;
                 ls.MaMonAn_id = monAn.MaMonAn;
-                db.LichSuGoiMons.Add(ls);
+                db.LichSuGoiMon.Add(ls);
                 db.SaveChanges();
                 #endregion
 
 
-                var listMonAnKhachChon = db.ChiTietHoaDons.Where(n => n.MaHoaDon_id == hoaDonTrong.MaHoaDon).ToList();
+                var listMonAnKhachChon = db.ChiTietHoaDon.Where(n => n.MaHoaDon_id == hoaDonTrong.MaHoaDon).ToList();
                 ViewBag.MonAnKhachChon = listMonAnKhachChon;
 
                 if (ban.Vip == 1)// Nếu bàn vip
@@ -80,7 +80,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     ViewBag.TongTienMonAn = TongTienOrder(hoaDonTrong.MaHoaDon, 0, 0, 0, 0);
                 }
 
-                HoaDon hoaDon = db.HoaDons.FirstOrDefault(n => n.MaHoaDon == hoaDonTrong.MaHoaDon);
+                HoaDon hoaDon = db.HoaDon.FirstOrDefault(n => n.MaHoaDon == hoaDonTrong.MaHoaDon);
                 hoaDon.TongTien = ViewBag.TongTienMonAn;
                 db.SaveChanges();
 
@@ -90,12 +90,12 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             }
             else // bàn đã có => có hóa đơn nhưng chưa gọi món
             {
-                var hoaDon = db.HoaDons.SingleOrDefault(n => n.MaBan_id == iMaBan && n.TrangThai == 1); //bàn đã có hóa đơn chưa thanh toán 
+                var hoaDon = db.HoaDon.SingleOrDefault(n => n.MaBan_id == iMaBan && n.TrangThai == 1); //bàn đã có hóa đơn chưa thanh toán 
                 // Hiển thị danh mục order (tạo hóa đơn nhưng chưa order)
                 if (hoaDon != null)
                 {
-                    var listMonAnKhachChon = db.ChiTietHoaDons.Where(n => n.MaHoaDon_id == hoaDon.MaHoaDon).ToList();
-                    var banVip = db.Bans.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id);
+                    var listMonAnKhachChon = db.ChiTietHoaDon.Where(n => n.MaHoaDon_id == hoaDon.MaHoaDon).ToList();
+                    var banVip = db.Ban.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id);
                     ViewBag.MonAnKhachChon = listMonAnKhachChon;
                     if (banVip.Vip == 1)// Nếu bàn vip
                     {
@@ -113,15 +113,15 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         [HttpGet]
         public ActionResult ThongTinHoaDonMonAn(int iMaBan, int iMaHoaDon, int iMaLMA)
         {
-            ViewBag.LoaiMonAn = db.LoaiMonAns.ToList(); // Lấy danh mục món ăn
-            ViewBag.DanhSachMonAn = db.MonAns.Where(n => n.MaLMA_id == iMaLMA).ToList();
-            ViewBag.TatCa = db.MonAns.Count();
-            ViewBag.Ban = db.Bans.ToList();
+            ViewBag.LoaiMonAn = db.LoaiMonAn.ToList(); // Lấy danh mục món ăn
+            ViewBag.DanhSachMonAn = db.MonAn.Where(n => n.MaLMA_id == iMaLMA).ToList();
+            ViewBag.TatCa = db.MonAn.Count();
+            ViewBag.Ban = db.Ban.ToList();
             #region Tìm ra hóa đơn
-            var hoaDon = db.HoaDons.SingleOrDefault(n => n.MaBan_id == iMaBan & n.MaHoaDon == iMaHoaDon);
-            var listMonAnKhachChon = db.ChiTietHoaDons.Where(n => n.MaHoaDon_id == hoaDon.MaHoaDon).ToList();
+            var hoaDon = db.HoaDon.SingleOrDefault(n => n.MaBan_id == iMaBan & n.MaHoaDon == iMaHoaDon);
+            var listMonAnKhachChon = db.ChiTietHoaDon.Where(n => n.MaHoaDon_id == hoaDon.MaHoaDon).ToList();
             ViewBag.MonAnKhachChon = listMonAnKhachChon;
-            var ban = db.Bans.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id);
+            var ban = db.Ban.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id);
             if (ban.Vip == 1)// Nếu bàn vip
             {
                 ViewBag.TongTienMonAn = TongTienOrder(hoaDon.MaHoaDon, 10, 0, 0, 0);
@@ -142,13 +142,13 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             int kiemTra = 0;
             #region Kiểm tra trong kho có đáp ứng đủ k
             // lấy danh sách chi tiết sản phẩm
-            var listCTSP = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == iMaMonAn && n.Tru == 1);
+            var listCTSP = db.ChiTietSanPham.Where(n => n.MaMonAn_id == iMaMonAn && n.Tru == 1);
             if (listCTSP != null)
             {
                 foreach (var item in listCTSP)
                 {
                     // lấy số lượng trong kho
-                    var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                    var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                     if (nguyenLieu.SoLuongHienCon >= (item.SoLuongDung * soLuongOrder)) // đáp ứng
                     {
                         // Thỏa mãn Kiemtra =0 sẽ chạy dòng 158
@@ -165,8 +165,8 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             {
                 #region Tính Toán
                 // Lấy giá món ăn
-                MonAn giaMonAn = db.MonAns.SingleOrDefault(n => n.MaMonAn == iMaMonAn);
-                var monAn = db.ChiTietHoaDons.SingleOrDefault(n => n.MaHoaDon_id == iMaHoaDon && n.MaMonAn_id == iMaMonAn);
+                MonAn giaMonAn = db.MonAn.SingleOrDefault(n => n.MaMonAn == iMaMonAn);
+                var monAn = db.ChiTietHoaDon.SingleOrDefault(n => n.MaHoaDon_id == iMaHoaDon && n.MaMonAn_id == iMaMonAn);
                 if (monAn == null) // món ăn chưa tồn tại trong list khách gọi
                 {
                     ChiTietHoaDon cthd = new ChiTietHoaDon();
@@ -175,7 +175,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     cthd.SoLuongMua = soLuongOrder;
                     cthd.ThanhTien = (double)((cthd.SoLuongMua) * giaMonAn.DonGia);
                     cthd.NgayGoi = DateTime.Now;
-                    db.ChiTietHoaDons.Add(cthd);
+                    db.ChiTietHoaDon.Add(cthd);
                     // thêm số lượng đã bán trong bảng Món Ăn
                     giaMonAn.SoLuongDaBan = giaMonAn.SoLuongDaBan + soLuongOrder;
                     db.SaveChanges();
@@ -188,17 +188,17 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     ls.ThoiGianTra = null;
                     ls.MaHoaDon_id = iMaHoaDon;
                     ls.MaMonAn_id = iMaMonAn;
-                    db.LichSuGoiMons.Add(ls);
+                    db.LichSuGoiMon.Add(ls);
                     db.SaveChanges();
 
                     #region Trừ nguyên liệu trong kho và lưu vào phiếu xuất kho
                     //B1: tìm món ăn
                     // B2: Lọc ra chi tiết sản phẩm có giá trị = 1
-                    var listChitietSanPham = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn && n.Tru == 1);
+                    var listChitietSanPham = db.ChiTietSanPham.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn && n.Tru == 1);
                     foreach (var item in listChitietSanPham)
                     {
                         // lấy ra nguyên liệu tương ứng
-                        var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                        var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                         nguyenLieu.SoLuongHienCon = (nguyenLieu.SoLuongHienCon - (item.SoLuongDung * soLuongOrder));
                     }
                     db.SaveChanges();
@@ -206,21 +206,21 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     // tạo phiếu xuất
                     XuatKho xk = new XuatKho();
                     xk.NgayXuat = DateTime.Now;
-                    db.XuatKhoes.Add(xk);
+                    db.XuatKho.Add(xk);
                     db.SaveChanges();
                     // lưu nguyên liệu vào nguyên liệu xuất
-                    //var listNguyenLieu = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn);
+                    //var listNguyenLieu = db.ChiTietSanPham.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn);
                     // lấy mã xuất kho
-                    var xuatKho = db.XuatKhoes.OrderByDescending(n => n.MaXuatKho).FirstOrDefault();
+                    var xuatKho = db.XuatKho.OrderByDescending(n => n.MaXuatKho).FirstOrDefault();
                     foreach (var item in listChitietSanPham)
                     {
                         // lấy ra nguyên liệu tương ứng => tìm đc đơn giá
-                        var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                        var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                         NguyenLieuXuat nlx = new NguyenLieuXuat();
                         nlx.MaXuatKho_id = xuatKho.MaXuatKho;
                         nlx.MaNguyenLieu_id = item.MaNguyenLieu_id;
                         nlx.SoLuongXuat = item.SoLuongDung;
-                        db.NguyenLieuXuats.Add(nlx);
+                        db.NguyenLieuXuat.Add(nlx);
                     }
                     db.SaveChanges();
                     #endregion
@@ -241,7 +241,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     ls.ThoiGianTra = null;
                     ls.MaHoaDon_id = iMaHoaDon;
                     ls.MaMonAn_id = iMaMonAn;
-                    db.LichSuGoiMons.Add(ls);
+                    db.LichSuGoiMon.Add(ls);
                     // thêm số lượng đã bán trong bảng Món Ăn
                     giaMonAn.SoLuongDaBan = giaMonAn.SoLuongDaBan + soLuongOrder;
                     db.SaveChanges();
@@ -249,11 +249,11 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     #region Trừ nguyên liệu trong kho và lưu vào phiếu xuất kho
                     //B1: tìm món ăn
                     // B2: Lọc ra chi tiết sản phẩm có giá trị = 1
-                    var listChitietSanPham = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn && n.Tru == 1);
+                    var listChitietSanPham = db.ChiTietSanPham.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn && n.Tru == 1);
                     foreach (var item in listChitietSanPham)
                     {
                         // lấy ra nguyên liệu tương ứng
-                        var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                        var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                         nguyenLieu.SoLuongHienCon = (nguyenLieu.SoLuongHienCon - item.SoLuongDung * soLuongOrder);
                     }
                     db.SaveChanges();
@@ -261,21 +261,21 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     // tạo phiếu xuất
                     XuatKho xk = new XuatKho();
                     xk.NgayXuat = DateTime.Now;
-                    db.XuatKhoes.Add(xk);
+                    db.XuatKho.Add(xk);
                     db.SaveChanges();
                     // lưu nguyên liệu vào nguyên liệu xuất
-                    var listNguyenLieu = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn);
+                    var listNguyenLieu = db.ChiTietSanPham.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn);
                     // lấy mã xuất kho
-                    var xuatKho = db.XuatKhoes.OrderByDescending(n => n.MaXuatKho).FirstOrDefault();
+                    var xuatKho = db.XuatKho.OrderByDescending(n => n.MaXuatKho).FirstOrDefault();
                     foreach (var item in listNguyenLieu)
                     {
                         // lấy ra nguyên liệu tương ứng => tìm đc đơn giá
-                        var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                        var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                         NguyenLieuXuat nlx = new NguyenLieuXuat();
                         nlx.MaXuatKho_id = xuatKho.MaXuatKho;
                         nlx.MaNguyenLieu_id = item.MaNguyenLieu_id;
                         nlx.SoLuongXuat = item.SoLuongDung;
-                        db.NguyenLieuXuats.Add(nlx);
+                        db.NguyenLieuXuat.Add(nlx);
                     }
                     db.SaveChanges();
                     #endregion
@@ -295,12 +295,12 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             string ghiChu = f["txtGhiChu"].ToString();
 
             int soLuongBanDau = soLuong;
-            var monAn = db.ChiTietHoaDons.SingleOrDefault(n => n.MaHoaDon_id == iMaHoaDon && n.MaMonAn_id == iMaMonAn);
+            var monAn = db.ChiTietHoaDon.SingleOrDefault(n => n.MaHoaDon_id == iMaHoaDon && n.MaMonAn_id == iMaMonAn);
             monAn.GhiChu = ghiChu;
             db.SaveChanges();
 
             // Lấy giá món ăn
-            MonAn giaMonAn = db.MonAns.SingleOrDefault(n => n.MaMonAn == iMaMonAn);
+            MonAn giaMonAn = db.MonAn.SingleOrDefault(n => n.MaMonAn == iMaMonAn);
             if (soLuong >= 0)
             {
                 //Ghi vào lịch sử gọi món. Có 2 trường hợp. cập nhật tăng => thêm món. Cập nhật giảm => hủy món
@@ -313,13 +313,13 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     giaMonAn.SoLuongDaBan = giaMonAn.SoLuongDaBan + soLuong;
 
                     // lấy danh sách chi tiết sản phẩm
-                    var listCTSP = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == iMaMonAn && n.Tru == 1);
+                    var listCTSP = db.ChiTietSanPham.Where(n => n.MaMonAn_id == iMaMonAn && n.Tru == 1);
                     if (listCTSP != null)
                     {
                         foreach (var item in listCTSP)
                         {
                             // lấy số lượng trong kho
-                            var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                            var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                             if (nguyenLieu.SoLuongHienCon >= (item.SoLuongDung * soLuong)) // đáp ứng
                             {
                                 kiemTra = 0;
@@ -339,17 +339,17 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                         //ls.ThoiGianTra = null;
                         ls.MaHoaDon_id = iMaHoaDon;
                         ls.MaMonAn_id = iMaMonAn;
-                        db.LichSuGoiMons.Add(ls);
+                        db.LichSuGoiMon.Add(ls);
                         db.SaveChanges();
 
                         #region Trừ nguyên liệu trong kho và lưu vào phiếu xuất kho
                         //B1: tìm món ăn
                         // B2: Lọc ra chi tiết sản phẩm có giá trị = 1
-                        var listChitietSanPham = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn && n.Tru == 1);
+                        var listChitietSanPham = db.ChiTietSanPham.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn && n.Tru == 1);
                         foreach (var item in listChitietSanPham)
                         {
                             // lấy ra nguyên liệu tương ứng
-                            var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                            var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                             // kiểm tra số lượng dùng <= số lượng hiện còn trong kho k
                             if (nguyenLieu.SoLuongHienCon >= (item.SoLuongDung * soLuong)) // đáp ứng
                             {
@@ -365,21 +365,21 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                         // tạo phiếu xuất
                         XuatKho xk = new XuatKho();
                         xk.NgayXuat = DateTime.Now;
-                        db.XuatKhoes.Add(xk);
+                        db.XuatKho.Add(xk);
                         db.SaveChanges();
                         // lưu nguyên liệu vào nguyên liệu xuất
-                        //var listNguyenLieu = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn);
+                        //var listNguyenLieu = db.ChiTietSanPham.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn);
                         // lấy mã xuất kho
-                        var xuatKho = db.XuatKhoes.OrderByDescending(n => n.MaXuatKho).FirstOrDefault();
+                        var xuatKho = db.XuatKho.OrderByDescending(n => n.MaXuatKho).FirstOrDefault();
                         foreach (var item in listChitietSanPham)
                         {
                             // lấy ra nguyên liệu tương ứng => tìm đc đơn giá
-                            var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                            var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                             NguyenLieuXuat nlx = new NguyenLieuXuat();
                             nlx.MaXuatKho_id = xuatKho.MaXuatKho;
                             nlx.MaNguyenLieu_id = item.MaNguyenLieu_id;
                             nlx.SoLuongXuat = soLuong;
-                            db.NguyenLieuXuats.Add(nlx);
+                            db.NguyenLieuXuat.Add(nlx);
                         }
                         db.SaveChanges();
                         #endregion
@@ -403,17 +403,17 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     ls.ThoiGianTra = DateTime.Now;
                     ls.MaHoaDon_id = iMaHoaDon;
                     ls.MaMonAn_id = iMaMonAn;
-                    db.LichSuGoiMons.Add(ls);
+                    db.LichSuGoiMon.Add(ls);
                     db.SaveChanges();
 
                     #region Cộng nguyên liệu trong kho và lưu vào phiếu hoàn trả
                     // B1: tìm món ăn
                     // B2: Lọc ra chi tiết sản phẩm có giá trị = 1
-                    var listChitietSanPham = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn && n.Tru == 1);
+                    var listChitietSanPham = db.ChiTietSanPham.Where(n => n.MaMonAn_id == giaMonAn.MaMonAn && n.Tru == 1);
                     foreach (var item in listChitietSanPham)
                     {
                         // lấy ra nguyên liệu tương ứng
-                        var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                        var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                         nguyenLieu.SoLuongHienCon = (nguyenLieu.SoLuongHienCon + (item.SoLuongDung * soLuong));
                     }
                     db.SaveChanges();
@@ -421,19 +421,19 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                     // tạo phiếu xuất
                     HoanTra ht = new HoanTra();
                     ht.NgayHoanTra = DateTime.Now;
-                    db.HoanTras.Add(ht);
+                    db.HoanTra.Add(ht);
                     db.SaveChanges();
 
-                    var hoanTra = db.HoanTras.OrderByDescending(n => n.MaHoanTra).FirstOrDefault();
+                    var hoanTra = db.HoanTra.OrderByDescending(n => n.MaHoanTra).FirstOrDefault();
                     foreach (var item in listChitietSanPham)
                     {
                         // lấy ra nguyên liệu tương ứng => tìm đc đơn giá
-                        var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                        var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                         NguyenLieuTra nlt = new NguyenLieuTra();
                         nlt.MaHoanTra_id = hoanTra.MaHoanTra;
                         nlt.MaNguyenLieu_id = item.MaNguyenLieu_id;
                         nlt.SoLuongTra = soLuong;
-                        db.NguyenLieuTras.Add(nlt);
+                        db.NguyenLieuTra.Add(nlt);
                     }
                     db.SaveChanges();
                     #endregion
@@ -452,8 +452,8 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
 
             }
             // lấy hóa đơn
-            var hoaDon = db.HoaDons.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
-            var ban = db.Bans.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id);
+            var hoaDon = db.HoaDon.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
+            var ban = db.Ban.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id);
             if (ban.Vip == 1)// Nếu bàn vip
             {
                 ViewBag.TongTienMonAn = TongTienOrder(hoaDon.MaHoaDon, 10, 0, 0, 0);
@@ -469,7 +469,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         }
         public ActionResult XoaMonAn(int iMaHoaDon, int iMaMonAn, string strURL)
         {
-            var monAn = db.ChiTietHoaDons.SingleOrDefault(n => n.MaHoaDon_id == iMaHoaDon && n.MaMonAn_id == iMaMonAn);
+            var monAn = db.ChiTietHoaDon.SingleOrDefault(n => n.MaHoaDon_id == iMaHoaDon && n.MaMonAn_id == iMaMonAn);
             //Ghi vào lịch sử gọi món xóa
             LichSuGoiMon ls = new LichSuGoiMon();
             //ls.SoLuongMua = 0;
@@ -478,37 +478,37 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             ls.ThoiGianTra = DateTime.Now;
             ls.MaHoaDon_id = iMaHoaDon;
             ls.MaMonAn_id = iMaMonAn;
-            db.LichSuGoiMons.Add(ls);
+            db.LichSuGoiMon.Add(ls);
 
             // Cập nhật số lượng đã bán của món ăn
-            var soLuongDaBan = db.MonAns.FirstOrDefault(n => n.MaMonAn == iMaMonAn);
+            var soLuongDaBan = db.MonAn.FirstOrDefault(n => n.MaMonAn == iMaMonAn);
             soLuongDaBan.SoLuongDaBan = soLuongDaBan.SoLuongDaBan + monAn.SoLuongMua;
 
             #region Tạo hoàn trả
             // tạo phiếu Hoàn Trả
             HoanTra ht = new HoanTra();
             ht.NgayHoanTra = DateTime.Now;
-            db.HoanTras.Add(ht);
+            db.HoanTra.Add(ht);
             db.SaveChanges();
 
-            var hoanTra = db.HoanTras.OrderByDescending(n => n.MaHoanTra).FirstOrDefault();
+            var hoanTra = db.HoanTra.OrderByDescending(n => n.MaHoanTra).FirstOrDefault();
             // Lọc danh sách món ăn và trừ số lượng tương ứng
-            var chiTietSanPham = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == iMaMonAn && n.Tru == 1).ToList();
+            var chiTietSanPham = db.ChiTietSanPham.Where(n => n.MaMonAn_id == iMaMonAn && n.Tru == 1).ToList();
             foreach (var item in chiTietSanPham)
             {
                 // lấy ra nguyên liệu trả tương ứng
-                var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                 nguyenLieu.SoLuongHienCon = (nguyenLieu.SoLuongHienCon + (item.SoLuongDung * monAn.SoLuongMua));
                 NguyenLieuTra nlt = new NguyenLieuTra();
                 nlt.MaHoanTra_id = hoanTra.MaHoanTra;
                 nlt.MaNguyenLieu_id = item.MaNguyenLieu_id;
                 nlt.SoLuongTra = item.SoLuongDung * monAn.SoLuongMua;
-                db.NguyenLieuTras.Add(nlt);
+                db.NguyenLieuTra.Add(nlt);
             }
             db.SaveChanges();
             #endregion
 
-            db.ChiTietHoaDons.Remove(monAn);
+            db.ChiTietHoaDon.Remove(monAn);
             db.SaveChanges();
             return Redirect(strURL);
         }
@@ -530,8 +530,8 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             }
 
 
-            HoaDon hoaDon = db.HoaDons.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
-            Ban ban = db.Bans.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id);
+            HoaDon hoaDon = db.HoaDon.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
+            Ban ban = db.Ban.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id);
             if (hoaDon != null)
             {
 
@@ -558,20 +558,20 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         }
         public ActionResult HuyHoaDon(int iMaHoaDon)
         {
-            HoaDon hoaDon = db.HoaDons.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
-            Ban ban = db.Bans.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id);
+            HoaDon hoaDon = db.HoaDon.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
+            Ban ban = db.Ban.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id);
             if (ban != null)
             {
                 ban.TinhTrang = 0;
                 db.SaveChanges();
             }
             // muốn xóa hóa đơn phải xóa trong lịch sử gọi món
-            var history = db.LichSuGoiMons.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList();
+            var history = db.LichSuGoiMon.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList();
             foreach (var item in history)
             {
-                db.LichSuGoiMons.Remove(item);
+                db.LichSuGoiMon.Remove(item);
             }
-            db.HoaDons.Remove(hoaDon);
+            db.HoaDon.Remove(hoaDon);
             db.SaveChanges();
 
             return RedirectToAction("Index", "Home");
@@ -580,7 +580,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         {
 
             int COUNT = 0;
-            var slMonAn = db.ChiTietHoaDons.Where(n => n.MaHoaDon_id == iMaHoaDon);
+            var slMonAn = db.ChiTietHoaDon.Where(n => n.MaHoaDon_id == iMaHoaDon);
             if (slMonAn.Count() != 0)
             {
                 COUNT = slMonAn.Sum(n => n.SoLuongMua);
@@ -592,9 +592,9 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         private double TongTienOrder(int iMaHoaDon, float fPhibanVip, float fMaGiamGiaVND, float fGiamGiaPhanTram, float fGiamGiaKhachHang)
         {
             double TOTAL = 0; // Tổng tiền bằng 0
-            var ttMonAn = db.ChiTietHoaDons.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList(); // Tìm được món ăn thuộc hóa đơn
-            var hoaDon = db.HoaDons.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon); // Lấy ra được hóa đơn của mình
-            var ban = db.Bans.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id); // Lấy bàn
+            var ttMonAn = db.ChiTietHoaDon.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList(); // Tìm được món ăn thuộc hóa đơn
+            var hoaDon = db.HoaDon.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon); // Lấy ra được hóa đơn của mình
+            var ban = db.Ban.SingleOrDefault(n => n.MaBan == hoaDon.MaBan_id); // Lấy bàn
 
             if (ban.Vip == 1) // 1 là bàn vip
             {
@@ -621,14 +621,14 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         // danh sách hóa đơn
         public ActionResult DanhSachHoaDon()
         {
-            var listHoaDon = db.HoaDons.OrderByDescending(n => n.MaHoaDon).ToList();
+            var listHoaDon = db.HoaDon.OrderByDescending(n => n.MaHoaDon).ToList();
             return View(listHoaDon);
         }
 
         // Xuất excel danh sách hóa đơn
         public ActionResult XuatExcel()
         {
-            var listHoaDon = db.HoaDons.Where(n => n.TrangThai == 0).OrderByDescending(n => n.MaHoaDon).ToList();
+            var listHoaDon = db.HoaDon.Where(n => n.TrangThai == 0).OrderByDescending(n => n.MaHoaDon).ToList();
 
             ExcelPackage excel = new ExcelPackage();
 
@@ -701,23 +701,23 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         // xem chi tiết
         public ActionResult ChiTietHoaDon(int iMaHoaDon)
         {
-            var chiTiet = db.HoaDons.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
+            var chiTiet = db.HoaDon.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
             // Lấy danh sách món ăn đã gọi trong bản chi tiết
-            var listOrder = db.ChiTietHoaDons.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList();
+            var listOrder = db.ChiTietHoaDon.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList();
             ViewBag.ListOrder = listOrder;
             // Lấy thời gian gọi món sắp xếp giảm gần theo thời gian đặt / mã hóa đơn
-            var listHistory = db.LichSuGoiMons.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList().OrderByDescending(n => n.MaLichSu);
+            var listHistory = db.LichSuGoiMon.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList().OrderByDescending(n => n.MaLichSu);
             ViewBag.ListHistory = listHistory;
             return View(chiTiet);
         }
         public ActionResult XoaHoaDons(int iMaHoaDon)
         {
-            var chiTiet = db.HoaDons.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
+            var chiTiet = db.HoaDon.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
             if (chiTiet == null)
             {
                 return RedirectToAction("XoaHoaDon", "Error");
             }
-            HoaDon hoaDon = db.HoaDons.Find(iMaHoaDon);
+            HoaDon hoaDon = db.HoaDon.Find(iMaHoaDon);
             if (hoaDon == null)
             {
                 return HttpNotFound();
@@ -727,25 +727,25 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         // xóa hóa đơn
         public ActionResult XoaHoaDon(int iMaHoaDon)
         {
-            var hoaDon = db.HoaDons.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
+            var hoaDon = db.HoaDon.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
             // Kiểm tra hóa đơn đã thanh toán mới được phép xóa
             if (hoaDon.TrangThai == 0)
             {
                 // xóa danh sách món ăn trong hóa đơn trước
-                var monAn = db.ChiTietHoaDons.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList();
+                var monAn = db.ChiTietHoaDon.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList();
                 foreach (var item in monAn)
                 {
-                    db.ChiTietHoaDons.Remove(item);
+                    db.ChiTietHoaDon.Remove(item);
                     db.SaveChanges();
                 }
                 // xóa trong danh sách lịch sử gọi món
-                var lichSu = db.LichSuGoiMons.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList();
+                var lichSu = db.LichSuGoiMon.Where(n => n.MaHoaDon_id == iMaHoaDon).ToList();
                 foreach (var item in lichSu)
                 {
-                    db.LichSuGoiMons.Remove(item);
+                    db.LichSuGoiMon.Remove(item);
                     db.SaveChanges();
                 }
-                db.HoaDons.Remove(hoaDon);
+                db.HoaDon.Remove(hoaDon);
                 db.SaveChanges();
                 return RedirectToAction("DanhSachHoaDon", "HoaDon");
             }
@@ -761,13 +761,13 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             int banMoi = int.Parse(f["Ban"].ToString());
 
             // cho trạng thái bài thuộc hóa đơn về bằng 0
-            var hoaDonCu = db.HoaDons.FirstOrDefault(n => n.MaHoaDon == iMaHoaDon);
-            var ban = db.Bans.FirstOrDefault(n => n.MaBan == hoaDonCu.MaBan_id);
+            var hoaDonCu = db.HoaDon.FirstOrDefault(n => n.MaHoaDon == iMaHoaDon);
+            var ban = db.Ban.FirstOrDefault(n => n.MaBan == hoaDonCu.MaBan_id);
             ban.TinhTrang = 0;
             db.SaveChanges();
 
             //Kiểm tra bàn mới này đã có khách nào đang ngồi hay k
-            var checkBan = db.Bans.FirstOrDefault(n => n.MaBan == banMoi);
+            var checkBan = db.Ban.FirstOrDefault(n => n.MaBan == banMoi);
             if (checkBan.TinhTrang == 0) // chưa có khách => cập nhật lại bàn mới
             {
                 hoaDonCu.MaBan_id = banMoi;
@@ -777,10 +777,10 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             else // đã có khách => đã có hóa đơn
             {
                 // lấy ra hóa đơn thuộc bàn cao nhất
-                var hoaDonBanMoi = db.HoaDons.Where(n => n.MaBan_id == banMoi).OrderByDescending(n => n.MaHoaDon).FirstOrDefault();
-                var chiTietMonAnMoi = db.ChiTietHoaDons.Where(n => n.MaHoaDon_id == hoaDonBanMoi.MaHoaDon).ToList();
+                var hoaDonBanMoi = db.HoaDon.Where(n => n.MaBan_id == banMoi).OrderByDescending(n => n.MaHoaDon).FirstOrDefault();
+                var chiTietMonAnMoi = db.ChiTietHoaDon.Where(n => n.MaHoaDon_id == hoaDonBanMoi.MaHoaDon).ToList();
                 // lấy ra danh sách món add vào sanh sách món mới()
-                var chiTietMonAnCu = db.ChiTietHoaDons.Where(n => n.MaHoaDon_id == hoaDonCu.MaHoaDon);
+                var chiTietMonAnCu = db.ChiTietHoaDon.Where(n => n.MaHoaDon_id == hoaDonCu.MaHoaDon);
                 if (chiTietMonAnCu != null) // đã gọi món => có lịch sử
                 {
                     foreach (var item in chiTietMonAnCu)
@@ -794,12 +794,12 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                                 cthd.MaMonAn_id = item.MaMonAn_id;
                                 cthd.SoLuongMua = item.SoLuongMua;
                                 cthd.ThanhTien = item.ThanhTien;
-                                db.ChiTietHoaDons.Add(cthd);
+                                db.ChiTietHoaDon.Add(cthd);
                                 //db.SaveChanges();
                             }
                             else // trùng món => + số lượng
                             {
-                                var monAnMoi = db.ChiTietHoaDons.SingleOrDefault(n => n.MaMonAn_id == items.MaMonAn_id & n.MaHoaDon_id == hoaDonBanMoi.MaHoaDon);
+                                var monAnMoi = db.ChiTietHoaDon.SingleOrDefault(n => n.MaMonAn_id == items.MaMonAn_id & n.MaHoaDon_id == hoaDonBanMoi.MaHoaDon);
                                 monAnMoi.SoLuongMua += item.SoLuongMua;
                             }
                         }
@@ -807,8 +807,8 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
 
                     //đưa lịch sử hóa đơn cũ vào lịch sử hóa đơn mới. sau khi thực hiện xóa lịch sử củ đi
                     //lấy lịch sử món ăn bàn cũ và mới
-                    var lichSuBanCu = db.LichSuGoiMons.Where(n => n.MaHoaDon_id == hoaDonCu.MaHoaDon).ToList();
-                    var lichSuBanMoi = db.LichSuGoiMons.Where(n => n.MaHoaDon_id == hoaDonBanMoi.MaHoaDon).ToList();
+                    var lichSuBanCu = db.LichSuGoiMon.Where(n => n.MaHoaDon_id == hoaDonCu.MaHoaDon).ToList();
+                    var lichSuBanMoi = db.LichSuGoiMon.Where(n => n.MaHoaDon_id == hoaDonBanMoi.MaHoaDon).ToList();
                     foreach (var item in lichSuBanCu)
                     {
                         LichSuGoiMon history = new LichSuGoiMon();
@@ -818,11 +818,11 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
                         history.ThoiGianTra = item.ThoiGianTra;
                         history.MaHoaDon_id = hoaDonBanMoi.MaHoaDon;
                         history.MaMonAn_id = item.MaMonAn_id;
-                        db.LichSuGoiMons.Add(history);
-                        db.LichSuGoiMons.Remove(item);
+                        db.LichSuGoiMon.Add(history);
+                        db.LichSuGoiMon.Remove(item);
                         db.SaveChanges();
                     }
-                    db.HoaDons.Remove(hoaDonCu);
+                    db.HoaDon.Remove(hoaDonCu);
                     db.SaveChanges();
 
                     #region Tính lại tổng tiền
@@ -846,12 +846,12 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             string tenkhachhang = f["txtTenKhachhang"].ToString();
             string dienThoai = f["txtSoDienThoai"].ToString();
 
-            var hoaDon = db.HoaDons.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
+            var hoaDon = db.HoaDon.SingleOrDefault(n => n.MaHoaDon == iMaHoaDon);
             hoaDon.TenKhachHang = tenkhachhang;
             hoaDon.SDTKhachHang = dienThoai;
 
             #region Kiểm tra số điện thoại khách hàng đã tồn tại chưa
-            var demSoHoaDon = db.HoaDons.Where(n => n.SDTKhachHang == dienThoai).OrderByDescending(n => n.MaHoaDon).FirstOrDefault();
+            var demSoHoaDon = db.HoaDon.Where(n => n.SDTKhachHang == dienThoai).OrderByDescending(n => n.MaHoaDon).FirstOrDefault();
 
             // Khách hàng mới
             if (demSoHoaDon != null)
@@ -870,7 +870,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         }
         public ActionResult KhachHang()
         {
-            var listKhachHang = db.HoaDons.OrderByDescending(n => n.NgayTao).ToList();
+            var listKhachHang = db.HoaDon.OrderByDescending(n => n.NgayTao).ToList();
             return View(listKhachHang);
         }
     }

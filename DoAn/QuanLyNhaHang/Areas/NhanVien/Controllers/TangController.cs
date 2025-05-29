@@ -9,15 +9,15 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         DatabaseQuanLyNhaHang db = new DatabaseQuanLyNhaHang();
         public ActionResult DanhSachTang()
         {
-            ViewBag.Tang = db.Tangs.Count();
-            var list = db.Tangs.ToList();
+            ViewBag.Tang = db.Tang.Count();
+            var list = db.Tang.ToList();
             return View(list);
         }
         public ActionResult XemChiTiet(int iMaTang)
         {
-            var tang = db.Tangs.SingleOrDefault(n => n.MaTang == iMaTang);
+            var tang = db.Tang.SingleOrDefault(n => n.MaTang == iMaTang);
             // Tổng số bàn
-            ViewBag.Ban = db.Bans.Where(n => n.MaTang_id == iMaTang).Count();
+            ViewBag.Ban = db.Ban.Where(n => n.MaTang_id == iMaTang).Count();
             return View(tang);
         }
 
@@ -30,7 +30,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         [HttpPost]
         public ActionResult ThemTang(Tang model)
         {
-            db.Tangs.Add(model);
+            db.Tang.Add(model);
             db.SaveChanges();
 
             return RedirectToAction("DanhSachTang", "Tang");
@@ -39,7 +39,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         //Cập Nhật Tầng
         public ActionResult CapNhatTang(int iMaTang)
         {
-            var tang = db.Tangs.Find(iMaTang);
+            var tang = db.Tang.Find(iMaTang);
             return View(tang);
         }
 
@@ -49,7 +49,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             Tang tang = new Tang();
             tang.TenTang= model.TenTang;
 
-            db.Tangs.Add(tang);
+            db.Tang.Add(tang);
             db.SaveChanges();
             return RedirectToAction("DanhSachTang", "Tang");
         }
@@ -59,7 +59,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         {
             try
             {
-                db.Tangs.Remove(db.Tangs.Find(iMaTang));
+                db.Tang.Remove(db.Tang.Find(iMaTang));
                 db.SaveChanges();
                 return RedirectToAction("DanhSachTang", "Ban");
             }

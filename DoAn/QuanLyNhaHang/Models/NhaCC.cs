@@ -10,7 +10,7 @@ namespace QuanLyNhaHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NhaCC()
         {
-            PhieuNhaps = new HashSet<PhieuNhap>();
+            PhieuNhap = new HashSet<PhieuNhap>();
         }
 
         [Key]
@@ -28,6 +28,6 @@ namespace QuanLyNhaHang.Models
         public string SoDienThoai { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuNhap> PhieuNhaps { get; set; }
+        public virtual ICollection<PhieuNhap> PhieuNhap { get; set; }
     }
 }

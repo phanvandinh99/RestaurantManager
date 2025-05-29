@@ -10,10 +10,10 @@ namespace QuanLyNhaHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NguyenLieu()
         {
-            ChiTietPhieuNhaps = new HashSet<ChiTietPhieuNhap>();
-            ChiTietSanPhams = new HashSet<ChiTietSanPham>();
-            NguyenLieuXuats = new HashSet<NguyenLieuXuat>();
-            NguyenLieuTras = new HashSet<NguyenLieuTra>();
+            ChiTietPhieuNhap = new HashSet<ChiTietPhieuNhap>();
+            ChiTietSanPham = new HashSet<ChiTietSanPham>();
+            NguyenLieuXuat = new HashSet<NguyenLieuXuat>();
+            NguyenLieuTra = new HashSet<NguyenLieuTra>();
         }
 
         [Key]
@@ -33,17 +33,17 @@ namespace QuanLyNhaHang.Models
         public int? MaLNL_id { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
+        public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhap { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietSanPham> ChiTietSanPhams { get; set; }
+        public virtual ICollection<ChiTietSanPham> ChiTietSanPham { get; set; }
 
         public virtual LoaiNguyenLieu LoaiNguyenLieu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NguyenLieuXuat> NguyenLieuXuats { get; set; }
+        public virtual ICollection<NguyenLieuXuat> NguyenLieuXuat { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NguyenLieuTra> NguyenLieuTras { get; set; }
+        public virtual ICollection<NguyenLieuTra> NguyenLieuTra { get; set; }
     }
 }

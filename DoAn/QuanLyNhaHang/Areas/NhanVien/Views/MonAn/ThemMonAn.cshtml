@@ -120,7 +120,7 @@
             </div>
         </div>
         <!-- #region Phần Sản Phẩm Nhập -->
-        <table class="table ChiTietSanPhams">
+        <table class="table ChiTietSanPham">
             <tr class="trAppend" style="display:none">
                 <td style="max-width: 60%">
                     <select class="ddlNguyenLieuDung form-select" name="" >
@@ -167,11 +167,11 @@
     }
     // Phần appen nguyên liệu
     $("#btnThemNguyenLieu").click(function () {
-        var id_cuoi = $(".ChiTietSanPhams").find("tr:last-child").attr("data-id");
+        var id_cuoi = $(".ChiTietSanPham").find("tr:last-child").attr("data-id");
         i = parseInt(id_cuoi) + 1;
         var tdnoidung = $(".trAppend").html();
         var trnoidung = "<tr class=\"trAppended\" data-id=\"" + i + "\">" + tdnoidung + "</tr>";
-        $(".ChiTietSanPhams").append(trnoidung);
+        $(".ChiTietSanPham").append(trnoidung);
         loadIDNguyenLieu();
     });
 

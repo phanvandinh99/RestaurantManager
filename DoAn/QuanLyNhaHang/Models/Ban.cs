@@ -10,7 +10,7 @@ namespace QuanLyNhaHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Ban()
         {
-            HoaDons = new HashSet<HoaDon>();
+            HoaDon = new HashSet<HoaDon>();
         }
 
         [Key]
@@ -31,6 +31,6 @@ namespace QuanLyNhaHang.Models
         public virtual Tang Tang { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDon> HoaDons { get; set; }
+        public virtual ICollection<HoaDon> HoaDon { get; set; }
     }
 }

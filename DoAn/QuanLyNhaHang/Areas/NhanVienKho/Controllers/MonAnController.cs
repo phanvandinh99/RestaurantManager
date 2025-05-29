@@ -14,25 +14,25 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         // Danh sách món ăn
         public ActionResult DanhSachMonAn()
         {
-            var listMonAn = db.MonAns.OrderBy(n => n.MaMonAn).ToList();
+            var listMonAn = db.MonAn.OrderBy(n => n.MaMonAn).ToList();
             return View(listMonAn);
         }
         public ActionResult XemChiTiet(int iMaMonAn)
         {
-            var monAn = db.MonAns.Find(iMaMonAn);
+            var monAn = db.MonAn.Find(iMaMonAn);
             // lấy m ón ăn cùng loại
-            var monAnCungLoai = db.MonAns.Where(n => n.MaLMA_id == monAn.MaLMA_id).ToList().Take(5);
+            var monAnCungLoai = db.MonAn.Where(n => n.MaLMA_id == monAn.MaLMA_id).ToList().Take(5);
             ViewBag.MonAnCungLoai = monAnCungLoai;
             // lấy chi tiết món ăn
-            ViewBag.ChiTietMonAn = db.ChiTietSanPhams.Where(n => n.MaMonAn_id == iMaMonAn).ToList();
+            ViewBag.ChiTietMonAn = db.ChiTietSanPham.Where(n => n.MaMonAn_id == iMaMonAn).ToList();
             return View(monAn);
         }
         [HttpGet]
         public ActionResult ThemMonAn()
         {
-            ViewBag.NhomMonAn = db.NhomMonAns.ToList();
-            ViewBag.LoaiMonAn = db.LoaiMonAns.ToList();
-            ViewBag.NguyenLieu = db.NguyenLieus.ToList();
+            ViewBag.NhomMonAn = db.NhomMonAn.ToList();
+            ViewBag.LoaiMonAn = db.LoaiMonAn.ToList();
+            ViewBag.NguyenLieu = db.NguyenLieu.ToList();
             return View();
         }
         [HttpPost]
@@ -41,9 +41,9 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         {
             //try
             //{
-            //ViewBag.NhomMonAn = db.NhomMonAns.ToList();
-            //ViewBag.LoaiMonAn = db.NhomMonAns.ToList();
-            //ViewBag.NguyenLieu = db.NguyenLieus.ToList();
+            //ViewBag.NhomMonAn = db.NhomMonAn.ToList();
+            //ViewBag.LoaiMonAn = db.NhomMonAn.ToList();
+            //ViewBag.NguyenLieu = db.NguyenLieu.ToList();
             #region Lưu hình ảnh vào thư mục
             if (HinhAnh.ContentLength > 0)
             {
@@ -71,11 +71,11 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
             monAn.SoLuongDaBan = 0;
             monAn.MaNMA_id = Model.MaNMA_id;
             monAn.MaLMA_id = Model.MaLMA_id;
-            db.MonAns.Add(monAn);
+            db.MonAn.Add(monAn);
             db.SaveChanges();
             #endregion
             //Lấy id mã món ăn
-            var maMonAn = db.MonAns.OrderByDescending(n => n.MaMonAn).FirstOrDefault();
+            var maMonAn = db.MonAn.OrderByDescending(n => n.MaMonAn).FirstOrDefault();
             #region Thêm món ăn vào chi tiết sản phẩm
             if (listCTSP != null)
             {
@@ -83,7 +83,7 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
                 {
                     ChiTietSanPham ctsp = new ChiTietSanPham();
                     //kiểm tra chi tiết sản phẩm đã tồn tại chưa
-                    var chiTietSanPham = db.ChiTietSanPhams.SingleOrDefault(n => n.MaMonAn_id == maMonAn.MaMonAn && n.MaNguyenLieu_id == item.MaNguyenLieu_id);
+                    var chiTietSanPham = db.ChiTietSanPham.SingleOrDefault(n => n.MaMonAn_id == maMonAn.MaMonAn && n.MaNguyenLieu_id == item.MaNguyenLieu_id);
                     if (chiTietSanPham != null)
                     {
                         chiTietSanPham.SoLuongDung += item.SoLuongDung;
@@ -97,7 +97,7 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
                         ctsp.MaNguyenLieu_id = item.MaNguyenLieu_id;
                         ctsp.SoLuongDung = item.SoLuongDung;
                         ctsp.Tru = item.Tru;
-                        db.ChiTietSanPhams.Add(ctsp);
+                        db.ChiTietSanPham.Add(ctsp);
                         db.SaveChanges();
                     }
                 }

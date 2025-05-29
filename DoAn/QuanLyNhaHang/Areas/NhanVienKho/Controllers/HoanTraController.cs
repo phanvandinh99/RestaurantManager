@@ -12,30 +12,30 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         // Danh sách phiếu xuất
         public ActionResult DanhSachPhieuHoanTra()
         {
-            var listHoanTra = db.HoanTras.ToList().OrderByDescending(n => n.MaHoanTra);
+            var listHoanTra = db.HoanTra.ToList().OrderByDescending(n => n.MaHoanTra);
             return View(listHoanTra);
         }
         // Xem chi tiết phiếu xuất
         public ActionResult ChiTiet(int iMaHoanTra)
         {
-            var hoanTra = db.HoanTras.SingleOrDefault(n => n.MaHoanTra == iMaHoanTra);
-            ViewBag.NguyenlieuTra = db.NguyenLieuTras.Where(n => n.MaHoanTra_id == iMaHoanTra).ToList();
+            var hoanTra = db.HoanTra.SingleOrDefault(n => n.MaHoanTra == iMaHoanTra);
+            ViewBag.NguyenlieuTra = db.NguyenLieuTra.Where(n => n.MaHoanTra_id == iMaHoanTra).ToList();
 
             return View(hoanTra);
         }
         // Xóa phiếu xuất
         public ActionResult XoaPhieuHoanTra(int iMaHoanTra)
         {
-            var listNguyenlieuHoanTra = db.NguyenLieuTras.Where(n => n.MaHoanTra_id == iMaHoanTra);
+            var listNguyenlieuHoanTra = db.NguyenLieuTra.Where(n => n.MaHoanTra_id == iMaHoanTra);
             if (listNguyenlieuHoanTra != null)
             {
                 foreach (var item in listNguyenlieuHoanTra)
                 {
-                    db.NguyenLieuTras.Remove(item);
+                    db.NguyenLieuTra.Remove(item);
                 }
             }
-            var phieuTra = db.HoanTras.SingleOrDefault(n => n.MaHoanTra == iMaHoanTra);
-            db.HoanTras.Remove(phieuTra);
+            var phieuTra = db.HoanTra.SingleOrDefault(n => n.MaHoanTra == iMaHoanTra);
+            db.HoanTra.Remove(phieuTra);
             db.SaveChanges();
             return RedirectToAction("DanhSachPhieuHoanTra", "HoanTra");
         }
@@ -44,7 +44,7 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         [HttpGet]
         public ActionResult PhieuHoanTraKho()
         {
-            ViewBag.NguyenLieu = db.NguyenLieus.ToList().OrderBy(n => n.TenNguyenLieu);
+            ViewBag.NguyenLieu = db.NguyenLieu.ToList().OrderBy(n => n.TenNguyenLieu);
             return View();
         }
         [HttpPost]
@@ -60,17 +60,17 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
             {
                 ht.NgayHoanTra = Model.NgayHoanTra;
             }
-            db.HoanTras.Add(ht);
+            db.HoanTra.Add(ht);
             db.SaveChanges();
             #endregion
             // lấy mã xuất kho
-            var maXuatKho = db.HoanTras.OrderByDescending(n => n.MaHoanTra).FirstOrDefault();
+            var maXuatKho = db.HoanTra.OrderByDescending(n => n.MaHoanTra).FirstOrDefault();
 
             foreach (var item in lstModel) // chi tiết phiếu xuất
             {
 
                 // tìm mã nguyên liệu
-                var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                 // kiểm tra nếu nhập số lẽ với thức uống
                 if (nguyenLieu.MaLNL_id == 4) // mã nguyên thức uống == 4
                 {
@@ -81,10 +81,10 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
                         nltThucUong.MaHoanTra_id = maXuatKho.MaHoanTra;
                         nltThucUong.MaNguyenLieu_id = item.MaNguyenLieu_id;
                         nltThucUong.SoLuongTra = item.SoLuongTra;
-                        db.NguyenLieuTras.Add(nltThucUong);
+                        db.NguyenLieuTra.Add(nltThucUong);
                         db.SaveChanges();
                         #region Cộng số lượng số lượng trong kho
-                        var slNguyenLieus = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                        var slNguyenLieus = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                         slNguyenLieus.SoLuongHienCon = slNguyenLieus.SoLuongHienCon + item.SoLuongTra;
                         db.SaveChanges();
                         #endregion
@@ -100,10 +100,10 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
                     nlt.MaHoanTra_id = maXuatKho.MaHoanTra;
                     nlt.MaNguyenLieu_id = item.MaNguyenLieu_id;
                     nlt.SoLuongTra = item.SoLuongTra;
-                    db.NguyenLieuTras.Add(nlt);
+                    db.NguyenLieuTra.Add(nlt);
                     db.SaveChanges();
                     #region Cộng số lượng số lượng trong kho
-                    var slNguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                    var slNguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                     slNguyenLieu.SoLuongHienCon = slNguyenLieu.SoLuongHienCon + item.SoLuongTra;
                     db.SaveChanges();
                     #endregion

@@ -28,7 +28,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             }
             else
             {
-                var nguoiDung = db.NhanViens.Find(sTaiKhoan);
+                var nguoiDung = db.NhanVien.Find(sTaiKhoan);
 
                 if (nguoiDung == null)
                 {

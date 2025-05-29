@@ -11,8 +11,8 @@ namespace QuanLyNhaHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HoaDon()
         {
-            ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
-            LichSuGoiMons = new HashSet<LichSuGoiMon>();
+            ChiTietHoaDon = new HashSet<ChiTietHoaDon>();
+            LichSuGoiMon = new HashSet<LichSuGoiMon>();
         }
 
         [Key]
@@ -44,9 +44,9 @@ namespace QuanLyNhaHang.Models
         public virtual Ban Ban { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
+        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDon { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<LichSuGoiMon> LichSuGoiMons { get; set; }
+        public virtual ICollection<LichSuGoiMon> LichSuGoiMon { get; set; }
     }
 }

@@ -12,26 +12,26 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         public ActionResult Index()
         {
             ViewBag.DoanhThu = DoanhThuDonHang();
-            ViewBag.SumHoaDon = db.HoaDons.Count();
-            ViewBag.SumMonAn = db.MonAns.Count();
-            ViewBag.SumNhanVien = db.NhanViens.Count();
-            ViewBag.SumBan = db.Bans.Count();
-            ViewBag.Tang = db.Tangs.Count();
+            ViewBag.SumHoaDon = db.HoaDon.Count();
+            ViewBag.SumMonAn = db.MonAn.Count();
+            ViewBag.SumNhanVien = db.NhanVien.Count();
+            ViewBag.SumBan = db.Ban.Count();
+            ViewBag.Tang = db.Tang.Count();
             // Món Ăn Bán Chạy
-            ViewBag.BanChay = db.MonAns.Where(n => n.MaLMA_id != 10 & n.MaMonAn != 1).ToList().OrderByDescending(n => n.SoLuongDaBan);
+            ViewBag.BanChay = db.MonAn.Where(n => n.MaLMA_id != 10 & n.MaMonAn != 1).ToList().OrderByDescending(n => n.SoLuongDaBan);
             // Hóa đơn
-            //var list = db.HoaDons.ToList().Where(n =>n.NgayTao.Value.ToString("dd/MM/yyyy")== time2).FirstOrDefault();
+            //var list = db.HoaDon.ToList().Where(n =>n.NgayTao.Value.ToString("dd/MM/yyyy")== time2).FirstOrDefault();
             //ViewBag.HoaDOn = list;
-            ViewBag.HoaDon = db.HoaDons.ToList();
+            ViewBag.HoaDon = db.HoaDon.ToList();
             return View();
         }
         public double DoanhThuDonHang()
         {
             double TongDoanhThu = 0;
-            if (0 < db.HoaDons.Count())
+            if (0 < db.HoaDon.Count())
             {
                 // doanh thu tất cả 
-                TongDoanhThu = db.HoaDons.Where(n => n.TrangThai == 0).Sum(n => n.TongTien);
+                TongDoanhThu = db.HoaDon.Where(n => n.TrangThai == 0).Sum(n => n.TongTien);
                 return TongDoanhThu;
             }
             else
@@ -42,15 +42,15 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         #region Hiển thị danh sách các bàn theo tầng khác nhau
         public ActionResult Ban(int iMaTang)
         {
-            var tenTang = db.Tangs.Find(iMaTang);
+            var tenTang = db.Tang.Find(iMaTang);
             ViewBag.Tang = tenTang.TenTang;
 
-            var listBan = db.Bans.Where(n => n.MaTang_id == iMaTang).OrderBy(n => n.MaBan).ToList();
+            var listBan = db.Ban.Where(n => n.MaTang_id == iMaTang).OrderBy(n => n.MaBan).ToList();
             return View(listBan);
         }
         public ActionResult Par_Tang()
         {
-            var listTang = db.Tangs.ToList().OrderBy(n => n.MaTang);
+            var listTang = db.Tang.ToList().OrderBy(n => n.MaTang);
             return PartialView(listTang);
         }
 

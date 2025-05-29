@@ -12,29 +12,29 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         // Danh sách phiếu xuất
         public ActionResult DanhSachPhieuXuatKho()
         {
-            var listPhieuXuat = db.XuatKhoes.ToList().OrderByDescending(n => n.MaXuatKho);
+            var listPhieuXuat = db.XuatKho.ToList().OrderByDescending(n => n.MaXuatKho);
             return View(listPhieuXuat);
         }
         // Xem chi tiết phiếu xuất
         public ActionResult ChiTiet(int iMaXuatKho)
         {
-            ViewBag.XuatKho = db.XuatKhoes.SingleOrDefault(n => n.MaXuatKho == iMaXuatKho);
-            var chiTiet = db.NguyenLieuXuats.Where(n => n.MaXuatKho_id == iMaXuatKho).ToList();
+            ViewBag.XuatKho = db.XuatKho.SingleOrDefault(n => n.MaXuatKho == iMaXuatKho);
+            var chiTiet = db.NguyenLieuXuat.Where(n => n.MaXuatKho_id == iMaXuatKho).ToList();
             return View(chiTiet);
         }
         // Xóa phiếu xuất
         public ActionResult XoaPhieuXuat(int iMaXuatKho)
         {
-            var listNguyenLieuXuat = db.NguyenLieuXuats.Where(n => n.MaXuatKho_id == iMaXuatKho);
+            var listNguyenLieuXuat = db.NguyenLieuXuat.Where(n => n.MaXuatKho_id == iMaXuatKho);
             if (listNguyenLieuXuat != null)
             {
                 foreach (var item in listNguyenLieuXuat)
                 {
-                    db.NguyenLieuXuats.Remove(item);
+                    db.NguyenLieuXuat.Remove(item);
                 }
             }
-            var phieuXuat = db.XuatKhoes.SingleOrDefault(n => n.MaXuatKho == iMaXuatKho);
-            db.XuatKhoes.Remove(phieuXuat);
+            var phieuXuat = db.XuatKho.SingleOrDefault(n => n.MaXuatKho == iMaXuatKho);
+            db.XuatKho.Remove(phieuXuat);
             db.SaveChanges();
             return RedirectToAction("DanhSachPhieuXuatKho", "XuatKho");
         }
@@ -43,7 +43,7 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         [HttpGet]
         public ActionResult PhieuXuatKho()
         {
-            ViewBag.NguyenLieu = db.NguyenLieus.ToList();
+            ViewBag.NguyenLieu = db.NguyenLieu.ToList();
             return View();
         }
         [HttpPost]
@@ -59,16 +59,16 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
             {
                 xk.NgayXuat = Model.NgayXuat;
             }
-            db.XuatKhoes.Add(xk);
+            db.XuatKho.Add(xk);
             #endregion
             // lấy mã xuất kho
-            //var maXuatKho = db.XuatKhoes.OrderByDescending(n => n.MaXuatKho).FirstOrDefault();
+            //var maXuatKho = db.XuatKho.OrderByDescending(n => n.MaXuatKho).FirstOrDefault();
 
             foreach (var item in lstModel) // chi tiết phiếu xuất
             {
 
                 // tìm mã nguyên liệu
-                var nguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                var nguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                 if (nguyenLieu.MaLNL_id == 4) // mã nguyên thức uống == 4
                 {
                     int SL;
@@ -78,10 +78,10 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
                         nlx.MaXuatKho_id = Model.MaXuatKho;
                         nlx.MaNguyenLieu_id = item.MaNguyenLieu_id;
                         nlx.SoLuongXuat = item.SoLuongXuat;
-                        db.NguyenLieuXuats.Add(nlx);
+                        db.NguyenLieuXuat.Add(nlx);
 
                         #region Trừ bớt số lượng trong kho
-                        var slNguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                        var slNguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                         if (slNguyenLieu.SoLuongHienCon >= item.SoLuongXuat)
                         {
                             slNguyenLieu.SoLuongHienCon = slNguyenLieu.SoLuongHienCon - item.SoLuongXuat;
@@ -89,7 +89,7 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
                         else
                         {
                             // Thoát và k lưu
-                            //db.XuatKhoes.Remove(maXuatKho);
+                            //db.XuatKho.Remove(maXuatKho);
                             return RedirectToAction("KhoKhongDapUng", "Error");
                         }
                         #endregion
@@ -105,10 +105,10 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
                     nlx.MaXuatKho_id = Model.MaXuatKho;
                     nlx.MaNguyenLieu_id = item.MaNguyenLieu_id;
                     nlx.SoLuongXuat = item.SoLuongXuat;
-                    db.NguyenLieuXuats.Add(nlx);
+                    db.NguyenLieuXuat.Add(nlx);
 
                     #region Trừ bớt số lượng trong kho
-                    var slNguyenLieu = db.NguyenLieus.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
+                    var slNguyenLieu = db.NguyenLieu.SingleOrDefault(n => n.MaNguyenLieu == item.MaNguyenLieu_id);
                     if (slNguyenLieu.SoLuongHienCon >= item.SoLuongXuat)
                     {
                         slNguyenLieu.SoLuongHienCon = slNguyenLieu.SoLuongHienCon - item.SoLuongXuat;
@@ -116,7 +116,7 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
                     else
                     {
                         // Thoát và k lưu
-                        //db.XuatKhoes.Remove(maXuatKho);
+                        //db.XuatKho.Remove(maXuatKho);
                         return RedirectToAction("KhoKhongDapUng", "Error");
                     }
 

@@ -12,11 +12,11 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
         // Xem danh sách món ăn đã đặt
         public ActionResult HoaDon(string phoneNumber)
         {
-            var checkPhoneNumber = db.HoaDons.FirstOrDefault(n => n.SDTKhachHang == phoneNumber.Replace("+84", "0") & n.TrangThai == 1);
+            var checkPhoneNumber = db.HoaDon.FirstOrDefault(n => n.SDTKhachHang == phoneNumber.Replace("+84", "0") & n.TrangThai == 1);
 
             if (checkPhoneNumber != null)
             {
-                ViewBag.ChiTietHoaDon = db.ChiTietHoaDons.Where(n=>n.MaHoaDon_id == checkPhoneNumber.MaHoaDon).ToList();
+                ViewBag.ChiTietHoaDon = db.ChiTietHoaDon.Where(n=>n.MaHoaDon_id == checkPhoneNumber.MaHoaDon).ToList();
                 return View(checkPhoneNumber);
             }
 

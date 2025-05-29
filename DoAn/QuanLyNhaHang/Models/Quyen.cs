@@ -10,7 +10,7 @@ namespace QuanLyNhaHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Quyen()
         {
-            NhanViens = new HashSet<NhanVien>();
+            NhanVien = new HashSet<NhanVien>();
         }
 
         [Key]
@@ -24,6 +24,6 @@ namespace QuanLyNhaHang.Models
         public string GhiChu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NhanVien> NhanViens { get; set; }
+        public virtual ICollection<NhanVien> NhanVien { get; set; }
     }
 }

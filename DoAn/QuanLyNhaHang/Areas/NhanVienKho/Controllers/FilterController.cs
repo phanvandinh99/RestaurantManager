@@ -10,18 +10,18 @@ namespace QuanLyNhaHang.Areas.NhanVienKho.Controllers
         #region Lọc Danh sách món ăn
         public ActionResult LocNguyenLieu(int iMaLNL)
         {
-            ViewBag.ListNguyenLieu = db.LoaiNguyenLieus.ToList();
-            ViewBag.TatCa = db.NguyenLieus.Count();
-            var listNguyenLieu = db.NguyenLieus.Where(n=>n.MaLNL_id== iMaLNL);
+            ViewBag.ListNguyenLieu = db.LoaiNguyenLieu.ToList();
+            ViewBag.TatCa = db.NguyenLieu.Count();
+            var listNguyenLieu = db.NguyenLieu.Where(n=>n.MaLNL_id== iMaLNL);
             return View(listNguyenLieu);
         }
         public ActionResult LocNhapNguyenLieu(int iMaLNL)
         {
-            ViewBag.ListNguyenLieu = db.LoaiNguyenLieus.ToList();
-            ViewBag.TatCa = db.LoaiNguyenLieus.Count();
-            ViewBag.NguyenLieu = db.NguyenLieus.Where(n => n.MaLNL_id == iMaLNL);
-            ViewBag.NhanVien = db.NhanViens.Where(n => n.MaQuyen_id == 2).ToList(); //1 nhân viên, 2 kho
-            ViewBag.NhaCungCap = db.NhaCCs.ToList();
+            ViewBag.ListNguyenLieu = db.LoaiNguyenLieu.ToList();
+            ViewBag.TatCa = db.LoaiNguyenLieu.Count();
+            ViewBag.NguyenLieu = db.NguyenLieu.Where(n => n.MaLNL_id == iMaLNL);
+            ViewBag.NhanVien = db.NhanVien.Where(n => n.MaQuyen_id == 2).ToList(); //1 nhân viên, 2 kho
+            ViewBag.NhaCungCap = db.NhaCC.ToList();
             return View();
         }
         #endregion
