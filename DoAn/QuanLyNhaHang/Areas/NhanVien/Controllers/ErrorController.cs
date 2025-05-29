@@ -27,8 +27,13 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         {
             return View();
         } 
-        // Thông báo xóa được bàn
+        // Thông báo không xóa được bàn
         public ActionResult XoaBan()
+        {
+            return View();
+        }
+        // Thông báo không xóa được tầng
+        public ActionResult XoaTang()
         {
             return View();
         }

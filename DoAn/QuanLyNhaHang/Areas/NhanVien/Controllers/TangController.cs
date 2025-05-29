@@ -26,22 +26,47 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public ActionResult ThemTang(Tang Model)
+        public ActionResult ThemTang(Tang model)
         {
-            db.Tangs.Add(Model);
+            db.Tangs.Add(model);
             db.SaveChanges();
 
             return RedirectToAction("DanhSachTang", "Tang");
         }
 
-
-        public ActionResult CapNhat(int iMaTang)
+        //Cập Nhật Tầng
+        public ActionResult CapNhatTang(int iMaTang)
         {
-            var tang = db.Tangs.SingleOrDefault(n => n.MaTang == iMaTang);
-            // Tổng số bàn 
-            ViewBag.Tang = db.Bans.Where(n => n.MaTang_id == iMaTang).Count();
+            var tang = db.Tangs.Find(iMaTang);
             return View(tang);
+        }
+
+        [HttpPost]
+        public ActionResult CapNhatTang(Tang model)
+        {
+            Tang tang = new Tang();
+            tang.TenTang= model.TenTang;
+
+            db.Tangs.Add(tang);
+            db.SaveChanges();
+            return RedirectToAction("DanhSachTang", "Tang");
+        }
+
+        // Xóa Tầng
+        public ActionResult XoaTang(int iMaTang)
+        {
+            try
+            {
+                db.Tangs.Remove(db.Tangs.Find(iMaTang));
+                db.SaveChanges();
+                return RedirectToAction("DanhSachTang", "Ban");
+            }
+            catch
+            {
+                return RedirectToAction("XoaTang", "Error");
+            }
         }
     }
 }
