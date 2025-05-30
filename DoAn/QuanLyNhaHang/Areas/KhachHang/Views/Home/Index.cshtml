@@ -110,6 +110,7 @@
             button:hover {
                 background-color: #45a049;
             }
+
         .chatbox-icon {
             background-color: #4caf50;
             color: #fff;
@@ -151,7 +152,6 @@
         </div>
     </div>
     <!-- #endregion -->
-
     <!-- #region Nút gọi điện -->
     @*<a href="tel:0346923002" class="call-button"><img src="~/Assets/KhachHang/assets/img/phone.gif" alt="Phone Icon" width="50" height="50"></a>*@
     <!-- #endregion -->
@@ -199,12 +199,13 @@
                                     </ul>
                                 </nav>
                             </div>
+
                             <div class="header-right-search-phone d-none d-lg-block ml-35">
                                 <a href="#" class="header-search" id="search"><span class="icofont-search-1"></span></a>
-                                @if (Session["KhachHang"] != null)
+                                @if (Session["TaiKhoanKH"] != null)
                                 {
-                                    HoaDon KH = (HoaDon)Session["KhachHang"];
-                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@KH.SDTKhachHang" class="header-phone">
+                                    KhachHang KH = (KhachHang)Session["TaiKhoanKH"];
+                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@KH.SoDienThoai" class="header-phone">
                                         <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> @KH.TenKhachHang
                                     </a>
                                 }
@@ -215,6 +216,7 @@
                                     </a>
                                 }
                             </div>
+
                             <div class="d-lg-none dr-navbar-mobile-sign side-toggle">
                                 <!-- <span class="headeer-navigaiton"><i class="icofont-navigation-menu"></i></span> -->
                                 <div class="dr-navbar-sign menu-tab">

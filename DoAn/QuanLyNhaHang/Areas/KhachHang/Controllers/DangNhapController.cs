@@ -39,6 +39,8 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
                 }
 
                 model.TrangThai = 0;
+                model.TaiKhoanKH = model.SoDienThoai;
+
                 db.KhachHang.Add(model);
                 db.SaveChanges();
 
