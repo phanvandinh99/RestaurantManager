@@ -1,5 +1,5 @@
 ﻿@using QuanLyNhaHang.Models
-@model NhanVien
+@model KhachHang
 @{
     ViewBag.Title = "Xem chi tiết";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -17,19 +17,21 @@
         </div>
     </div>
     <div class="mb-5">
-        <h2 class="small-title">Thông Tin Chi Tiết Nhân Viên Phục Vụ</h2>
+        <h2 class="small-title">Thông Tin Chi Tiết Khách Hàng</h2>
         <div class="card mb-2">
             <div class="row g-0 card-body">
                 <div class="col">
                     <div class="ps-4">
                         <div class="row mb-1">
                             <div class="col">
-                                <div class="heading text-primary mb-1">Họ Tên: @Model.TenNhanVien</div>
-                                <div class="mb-3">Tên Đăng Nhập: @Model.TaiKhoanNV</div>
-                                <div class="mb-3">Mật Khẩu NV: @Model.MatKhauNV</div>
+                                <div class="heading text-primary mb-1">Họ Tên: @Model.TenKhachHang</div>
+                                <div class="mb-3">Tên Đăng Nhập: @Model.TaiKhoanKH</div>
+                                <div class="mb-3">Mật Khẩu NV: @Model.MatKhauKH</div>
                                 <div class="mb-3">Ngày Sinh: @string.Format("{0:dd/MM/yyyy}", Model.NgaySinh)</div>
                                 <div class="mb-3">Số Điện Thoại: @Model.SoDienThoai</div>
-                                <div class="mb-3">Quyền: @Model.Quyen.TenQuyen</div>
+                                <div class="mb-3">Email: @Model.Email</div>
+                                <div class="mb-3">Địa Chỉ: @Model.DiaChi</div>
+                                <div class="mb-3">Trạng Thái: @(Model.TrangThai == 0 ? "Đang hoạt động" : "Đã khóa")</div>
                             </div>
                         </div>
                     </div>
