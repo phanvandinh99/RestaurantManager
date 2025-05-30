@@ -1,4 +1,5 @@
 ﻿using QuanLyNhaHang.Models;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace QuanLyNhaHang.Areas.NhanVien.Controllers
@@ -28,7 +29,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             }
             else
             {
-                var nguoiDung = db.NhanVien.Find(sTaiKhoan);
+                var nguoiDung = db.NhanVien.SingleOrDefault(n=>n.TaiKhoanNV.Equals(sTaiKhoan) && n.MatKhauNV.Equals(sMatKhau));
 
                 if (nguoiDung == null)
                 {

@@ -67,7 +67,7 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
                 return View();
             }
 
-            var khachHang = db.KhachHang.Find(sTaiKhoan);
+            var khachHang = db.KhachHang.SingleOrDefault(n=>n.TaiKhoanKH.Equals(sTaiKhoan) && n.MatKhauKH.Equals(sMatKhau));
 
             if (khachHang == null)
             {
