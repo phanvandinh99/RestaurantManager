@@ -123,7 +123,7 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
         }
         #endregion
 
-        #region Xóa đặt bàn
+        #region Hủy đặt bàn
         // GET: /KhachHang/DatBan/Cancel/5
         public ActionResult HuyDatBan(int iMaDatBan)
         {
