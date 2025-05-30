@@ -13,8 +13,11 @@ namespace QuanLyNhaHang.Models
         public virtual DbSet<ChiTietHoaDon> ChiTietHoaDon { get; set; }
         public virtual DbSet<ChiTietPhieuNhap> ChiTietPhieuNhap { get; set; }
         public virtual DbSet<ChiTietSanPham> ChiTietSanPham { get; set; }
+        public virtual DbSet<DatBan> DatBan { get; set; }
+        public virtual DbSet<GoiMonTruoc> GoiMonTruoc { get; set; }
         public virtual DbSet<HoaDon> HoaDon { get; set; }
         public virtual DbSet<HoanTra> HoanTra { get; set; }
+        public virtual DbSet<KhachHang> KhachHang { get; set; }
         public virtual DbSet<LichSuGoiMon> LichSuGoiMon { get; set; }
         public virtual DbSet<LoaiMonAn> LoaiMonAn { get; set; }
         public virtual DbSet<LoaiNguyenLieu> LoaiNguyenLieu { get; set; }
@@ -37,6 +40,23 @@ namespace QuanLyNhaHang.Models
                 .WithOptional(e => e.Ban)
                 .HasForeignKey(e => e.MaBan_id);
 
+            modelBuilder.Entity<DatBan>()
+                .Property(e => e.TaiKhoanKH_id)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<GoiMonTruoc>()
+                .HasMany(e => e.DatBan)
+                .WithOptional(e => e.GoiMonTruoc)
+                .HasForeignKey(e => e.MaGoiMonTruoc_id);
+
+            modelBuilder.Entity<HoaDon>()
+                .Property(e => e.SDTKhachHang)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HoaDon>()
+                .Property(e => e.Code)
+                .IsUnicode(false);
+
             modelBuilder.Entity<HoaDon>()
                 .HasMany(e => e.ChiTietHoaDon)
                 .WithRequired(e => e.HoaDon)
@@ -54,13 +74,34 @@ namespace QuanLyNhaHang.Models
                 .HasForeignKey(e => e.MaHoanTra_id)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<KhachHang>()
+                .Property(e => e.TaiKhoanKH)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<KhachHang>()
+                .Property(e => e.MatKhauKH)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<KhachHang>()
+                .Property(e => e.SoDienThoai)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<KhachHang>()
+                .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<KhachHang>()
+                .HasMany(e => e.DatBan)
+                .WithOptional(e => e.KhachHang)
+                .HasForeignKey(e => e.TaiKhoanKH_id);
+
             modelBuilder.Entity<LoaiMonAn>()
                 .HasMany(e => e.MonAn)
                 .WithOptional(e => e.LoaiMonAn)
                 .HasForeignKey(e => e.MaLMA_id);
 
             modelBuilder.Entity<LoaiNguyenLieu>()
-                .HasMany(e => e.NguyenLieux)
+                .HasMany(e => e.NguyenLieu)
                 .WithOptional(e => e.LoaiNguyenLieu)
                 .HasForeignKey(e => e.MaLNL_id);
 
@@ -75,6 +116,11 @@ namespace QuanLyNhaHang.Models
                 .WithRequired(e => e.MonAn)
                 .HasForeignKey(e => e.MaMonAn_id)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<MonAn>()
+                .HasMany(e => e.GoiMonTruoc)
+                .WithOptional(e => e.MonAn)
+                .HasForeignKey(e => e.MaMonAn_id);
 
             modelBuilder.Entity<MonAn>()
                 .HasMany(e => e.LichSuGoiMon)
@@ -94,13 +140,13 @@ namespace QuanLyNhaHang.Models
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<NguyenLieu>()
-                .HasMany(e => e.NguyenLieuXuat)
+                .HasMany(e => e.NguyenLieuTra)
                 .WithRequired(e => e.NguyenLieu)
                 .HasForeignKey(e => e.MaNguyenLieu_id)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<NguyenLieu>()
-                .HasMany(e => e.NguyenLieuTra)
+                .HasMany(e => e.NguyenLieuXuat)
                 .WithRequired(e => e.NguyenLieu)
                 .HasForeignKey(e => e.MaNguyenLieu_id)
                 .WillCascadeOnDelete(false);

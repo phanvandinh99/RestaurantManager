@@ -5,40 +5,44 @@ namespace QuanLyNhaHang.Models
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    [Table("NhanVien")]
-    public partial class NhanVien
+    [Table("KhachHang")]
+    public partial class KhachHang
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NhanVien()
+        public KhachHang()
         {
-            PhieuNhap = new HashSet<PhieuNhap>();
+            DatBan = new HashSet<DatBan>();
         }
 
         [Key]
         [StringLength(50)]
-        public string TaiKhoanNV { get; set; }
+        public string TaiKhoanKH { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string MatKhauNV { get; set; }
+        public string MatKhauKH { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string TenNhanVien { get; set; }
+        public string TenKhachHang { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? NgaySinh { get; set; }
 
+        [Required]
         [StringLength(10)]
         public string SoDienThoai { get; set; }
 
-        public int? MaQuyen_id { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string Email { get; set; }
 
-        public int? TrangThai { get; set; }
+        [StringLength(255)]
+        public string DiaChi { get; set; }
 
-        public virtual Quyen Quyen { get; set; }
+        public int TrangThai { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuNhap> PhieuNhap { get; set; }
+        public virtual ICollection<DatBan> DatBan { get; set; }
     }
 }

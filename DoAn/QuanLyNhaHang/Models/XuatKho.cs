@@ -17,8 +17,11 @@ namespace QuanLyNhaHang.Models
         [Key]
         public int MaXuatKho { get; set; }
 
+        public DateTime? NgayNhap { get; set; }
+
         public DateTime? NgayXuat { get; set; }
 
+        public double? TongTien { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NguyenLieuXuat> NguyenLieuXuat { get; set; }

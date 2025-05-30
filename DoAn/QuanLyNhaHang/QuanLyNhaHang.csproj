@@ -594,8 +594,11 @@
     <Compile Include="Models\ChiTietPhieuNhap.cs" />
     <Compile Include="Models\ChiTietSanPham.cs" />
     <Compile Include="Models\DatabaseQuanLyNhaHang.cs" />
+    <Compile Include="Models\DatBan.cs" />
+    <Compile Include="Models\GoiMonTruoc.cs" />
     <Compile Include="Models\HoaDon.cs" />
     <Compile Include="Models\HoanTra.cs" />
+    <Compile Include="Models\KhachHang.cs" />
     <Compile Include="Models\LichSuGoiMon.cs" />
     <Compile Include="Models\LoaiMonAn.cs" />
     <Compile Include="Models\LoaiNguyenLieu.cs" />

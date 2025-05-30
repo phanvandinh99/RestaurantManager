@@ -20,7 +20,7 @@ namespace QuanLyNhaHang.Models
         [StringLength(100)]
         public string TenLMA { get; set; }
 
-        public int? TongSoLuong{ get; set; }
+        public int? TongSoLuong { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonAn> MonAn { get; set; }

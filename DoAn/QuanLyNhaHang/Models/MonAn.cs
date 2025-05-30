@@ -13,6 +13,7 @@ namespace QuanLyNhaHang.Models
         {
             ChiTietHoaDon = new HashSet<ChiTietHoaDon>();
             ChiTietSanPham = new HashSet<ChiTietSanPham>();
+            GoiMonTruoc = new HashSet<GoiMonTruoc>();
             LichSuGoiMon = new HashSet<LichSuGoiMon>();
         }
 
@@ -46,6 +47,9 @@ namespace QuanLyNhaHang.Models
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietSanPham> ChiTietSanPham { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GoiMonTruoc> GoiMonTruoc { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LichSuGoiMon> LichSuGoiMon { get; set; }

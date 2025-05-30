@@ -10,7 +10,7 @@ namespace QuanLyNhaHang.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LoaiNguyenLieu()
         {
-            NguyenLieux = new HashSet<NguyenLieu>();
+            NguyenLieu = new HashSet<NguyenLieu>();
         }
 
         [Key]
@@ -23,6 +23,6 @@ namespace QuanLyNhaHang.Models
         public int? TongSoLuong { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NguyenLieu> NguyenLieux { get; set; }
+        public virtual ICollection<NguyenLieu> NguyenLieu { get; set; }
     }
 }

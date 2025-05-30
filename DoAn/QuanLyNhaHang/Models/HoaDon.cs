@@ -20,8 +20,12 @@ namespace QuanLyNhaHang.Models
 
         [StringLength(100)]
         public string TenKhachHang { get; set; }
+
+        [StringLength(10)]
         public string SDTKhachHang { get; set; }
+
         public int? TongHoaDon { get; set; }
+
         public DateTime? NgayTao { get; set; }
 
         public DateTime? NgayThanhToan { get; set; }
@@ -39,7 +43,6 @@ namespace QuanLyNhaHang.Models
         public string Code { get; set; }
 
         public DateTime? ThoiHan { get; set; }
-
 
         public virtual Ban Ban { get; set; }
 

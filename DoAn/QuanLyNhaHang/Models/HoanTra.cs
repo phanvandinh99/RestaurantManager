@@ -19,6 +19,8 @@ namespace QuanLyNhaHang.Models
 
         public DateTime? NgayHoanTra { get; set; }
 
+        public double? TongTien { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NguyenLieuTra> NguyenLieuTra { get; set; }
     }

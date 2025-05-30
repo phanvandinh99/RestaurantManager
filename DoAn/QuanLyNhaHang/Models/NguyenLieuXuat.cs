@@ -18,6 +18,10 @@ namespace QuanLyNhaHang.Models
 
         public double? SoLuongXuat { get; set; }
 
+        public double? DonGia { get; set; }
+
+        public double? ThanhTien { get; set; }
+
         public virtual NguyenLieu NguyenLieu { get; set; }
 
         public virtual XuatKho XuatKho { get; set; }

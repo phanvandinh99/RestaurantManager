@@ -18,6 +18,9 @@ namespace QuanLyNhaHang.Models
 
         public double? SoLuongTra { get; set; }
 
+        public double? DonGia { get; set; }
+
+        public double? ThanhTien { get; set; }
 
         public virtual HoanTra HoanTra { get; set; }
 
