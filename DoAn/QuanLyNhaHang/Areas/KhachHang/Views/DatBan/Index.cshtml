@@ -41,8 +41,9 @@
                                 <th scope="col">Giờ Kết Thúc (Dự Kiến)</th>
                                 <th scope="col">Số Người</th>
                                 <th scope="col">Tổng Tiền (Tạm Tính)</th>
-                                <th scope="col">Số Tiền Cọc</th>
+                                <th scope="col">YC Cọc</th>
                                 <th scope="col">Trạng Thái</th>
+                                <th scope="col">Món Đã Chọn</th>
                                 <th scope="col">Hành Động</th>
                             </tr>
                         </thead>
@@ -56,7 +57,30 @@
                                     <td>@item.SoNguoi</td>
                                     <td>@string.Format("{0:0,0}", item.TongTienTamTinh)</td>
                                     <td>@string.Format("{0:0,0}", item.SoTienCoc)</td>
-                                    <td>@item.TrangThai</td>
+                                    <td>
+                                        @switch (item.TrangThai)
+                                        {
+                                            case 0:<span class="status-pending">Chờ Xác Nhận</span>; break;
+                                            case 1: <span class="status-confirmed">Đã Xác Nhận</span>; break;
+                                            case 2: <span class="status-cancelled">Đã Hủy</span>; break;
+                                            default: <span>Không Xác Định</span>; break;
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.GoiMonTruoc != null && item.GoiMonTruoc.Any())
+                                        {
+                                            <ul>
+                                                @foreach (var mon in item.GoiMonTruoc)
+                                                {
+                                                    <li>@mon.MonAn.TenMonAn (@mon.SoLuong) - @string.Format("{0:0,0}", mon.SoLuong * mon.DonGia) VNĐ</li>
+                                                }
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                            <span>Chưa chọn món</span>
+                                        }
+                                    </td>
                                     <td>
                                         <a href="" class="btn btn-primary"><span class="icofont-pencil"></span></a>
                                         <a href="/KhachHang/DatBan/HuyDatBan?iMaDatBan=@item.MaDatBan" class="btn btn-danger"><span class="icofont-close"></span></a>
