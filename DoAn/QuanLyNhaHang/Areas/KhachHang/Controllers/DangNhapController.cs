@@ -18,10 +18,70 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
             _smsService = new SmsService();
         }
 
+        // Trang Đăng Ký
+        public ActionResult DangKy()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DangKy(QuanLyNhaHang.Models.KhachHang model)
+        {
+            try
+            {
+                var khachHang = db.KhachHang.Find(model.TaiKhoanKH);
+
+                if (khachHang != null)
+                {
+                    ModelState.AddModelError("", "Tài khoản đã tồn tại!");
+                    return View();
+                }
+
+                model.TrangThai = 0;
+                db.KhachHang.Add(model);
+                db.SaveChanges();
+
+                return RedirectToAction("DangNhap", "DangNhap", new { area = "NhanVien" });
+            }
+            catch (Exception)
+            {
+                ModelState.AddModelError("", "Đăng ký thất bại!");
+                return View();
+            }
+        }
+
         // Trang Đăng Nhập
         public ActionResult DangNhap()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DangNhap(string sTaiKhoan, string sMatKhau)
+        {
+            if (string.IsNullOrEmpty(sTaiKhoan) || string.IsNullOrEmpty(sMatKhau))
+            {
+                ModelState.AddModelError("", "Không được bỏ trống!");
+                return View();
+            }
+
+            var khachHang = db.KhachHang.Find(sTaiKhoan);
+
+            if (khachHang == null)
+            {
+                ModelState.AddModelError("", "Tài khoản không hợp lệ !");
+                return View();
+            }
+            else if (khachHang.TrangThai != 0)
+            {
+                ModelState.AddModelError("", "Tài khoản của bạn đã bị khóa!");
+                return View();
+            }
+
+            Session["TaiKhoanKH"] = khachHang;
+            return Redirect("/KhachHang/Home/Index");
         }
 
         // Thực Hiện Chức Năng Đăng Nhập

@@ -513,7 +513,6 @@
     <Content Include="Areas\NhanVienKho\Views\ThongKe\ThongKeTuan.cshtml" />
     <Content Include="Areas\NhanVienKho\Views\ThongKe\ThongKeQuy.cshtml" />
     <Content Include="Areas\NhanVien\Views\HoaDon\XoaHoaDons.cshtml" />
-    <Content Include="Areas\NhanVien\Views\DangNhap\DangNhaps.cshtml" />
     <Content Include="Areas\NhanVien\Views\NhanVien\DSNhanVienPhucVu.cshtml" />
     <Content Include="Areas\KhachHang\Views\web.config" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -540,6 +539,7 @@
     <Content Include="Areas\NhanVien\Views\Tang\ThemTang.cshtml" />
     <Content Include="Areas\NhanVien\Views\Tang\CapNhatTang.cshtml" />
     <Content Include="Areas\NhanVien\Views\Error\XoaTang.cshtml" />
+    <Content Include="Areas\KhachHang\Views\DangNhap\DangKy.cshtml" />
     <None Include="Assets\js\Ajax\jquery-1.8.0.intellisense.js" />
     <Content Include="Assets\js\Ajax\jquery-1.8.0.js" />
     <Content Include="Assets\js\Ajax\jquery-1.8.0.min.js" />

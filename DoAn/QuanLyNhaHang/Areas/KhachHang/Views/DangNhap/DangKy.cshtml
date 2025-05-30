@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng Ký</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="~/Assets/Login/fonts/material-icon/css/material-design-iconic-font.min.css">
+    <!-- Main css -->
+    <link rel="stylesheet" href="~/Assets/Login/css/style.css">
+</head>
+<body>
+    <div class="main">
+
+        <!-- Form Đăng Ký -->
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Đăng Ký</h2>
+                        @using (Ajax.BeginForm("DangKy", "DangNhap", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }, new { @class = "register-form", id = "register-form" }))
+                        {
+                            <div class="ThongBao" id="ThongBao">
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <label for="TaiKhoanKH"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="TaiKhoanKH" id="TaiKhoanKH" placeholder="Tài khoản" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="MatKhauKH"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="text" name="MatKhauKH" id="MatKhauKH" placeholder="Mật khẩu" />
+                            </div>
+                            <div class="form-group">
+                                <label for="TenKhachHang"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="TenKhachHang" id="TenKhachHang" placeholder="Họ và tên" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="SoDienThoai"><i class="zmdi zmdi-phone"></i></label>
+                                <input type="number" name="SoDienThoai" id="SoDienThoai" placeholder="Số điện thoại" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Email" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="DiaChi"><i class="zmdi zmdi-my-location"></i></label>
+                                <input type="text" name="DiaChi" id="DiaChi" placeholder="Địa chỉ" required />
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" checked />
+                                <label for="agree-term" class="label-agree-term">
+                                    <span>
+                                        <span>
+
+                                        </span>
+                                    </span>Tôi đồng ý với <a href="#" class="term-service">Điều Khoản</a>
+                                </label>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="Đăng Ký" />
+                            </div>
+                        }
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="~/Assets/Login/images/Regist_img.jpg" alt="sing up image"></figure>
+                        <a href="/KhachHang/DangNhap/DangNhap" class="signup-image-link">Tới trang đăng nhập</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src="~/Assets/Login/vendor/jquery/jquery.min.js"></script>
+</body>
+</html>

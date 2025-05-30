@@ -20,12 +20,12 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="~/Assets/Login/images/Login_img.jpg" alt="sing up image"></figure>
-                        <a href="#" class="signup-image-link">Tạo mới tài khoản</a>
+                        <a href="/KhachHang/DangNhap/DangKy" class="signup-image-link">Tạo mới tài khoản</a>
                     </div>
 
                     <div class="signin-form">
                         <h2 class="form-title">Đăng Nhập</h2>
-                        @using (Ajax.BeginForm("DangNhap", "DangNhap", new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }, new { @class = "register-form", id = "login-form" }))
+                        @using (Ajax.BeginForm("DangNhap", "DangNhap", new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "ThongBao" }, new { @class = "register-form", id = "login-form" }))
                         {
                             <div class="ThongBao" id="ThongBao">
                                 @Html.AntiForgeryToken()
