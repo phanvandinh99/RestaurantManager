@@ -46,13 +46,25 @@
                         {
                             @type = "datetime-local",
                             @class = "form-control",
+                            @style = "max-width: 300px;",
                             @value = Model?.ThoiGianBatDau.ToString("yyyy-MM-ddTHH:mm") ?? DateTime.Now.AddHours(1).ToString("yyyy-MM-ddTHH:mm")
                         })
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.SoNguoi, "Số Người", new { @class = "form-label" })
-                        @Html.TextBoxFor(model => model.SoNguoi, new { @type = "number", @class = "form-control", @min = "1", @max = "100", @value = Model?.SoNguoi ?? 1 })
+                        @Html.TextBoxFor(model => model.SoNguoi, new
+                        {
+                            @type = "number",
+                            @class = "form-control",
+                            @style = "max-width: 150px;",
+                            @min = "1",
+                            @max = "100",
+                            @value = Model?.SoNguoi ?? 1
+                        })
+
+                        <label class="form-label mt-2">Ghi chú</label>
+                        <textarea class="form-control" name="GhiChu" rows="3" placeholder="Yêu cầu của khách hàng. Ví dụ: bàn có view ngoài trời thoáng mát..."></textarea>
                     </div>
 
                     <h2>Chọn Món Ăn</h2>

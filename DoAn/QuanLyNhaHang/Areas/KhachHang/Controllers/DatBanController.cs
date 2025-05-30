@@ -21,10 +21,10 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
         public ActionResult DatBan()
         {
             // Kiểm tra đăng nhập
-            //if (Session["TaiKhoanKH"] == null)
-            //{
-            //    return RedirectToAction("DangNhap", "DangNhap");
-            //}
+            if (Session["TaiKhoanKH"] == null)
+            {
+                return RedirectToAction("DangNhap", "DangNhap");
+            }
 
             ViewBag.MonAn = db.MonAn.ToList();
 
