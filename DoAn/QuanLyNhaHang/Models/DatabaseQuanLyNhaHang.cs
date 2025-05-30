@@ -44,10 +44,10 @@ namespace QuanLyNhaHang.Models
                 .Property(e => e.TaiKhoanKH_id)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<GoiMonTruoc>()
-                .HasMany(e => e.DatBan)
-                .WithOptional(e => e.GoiMonTruoc)
-                .HasForeignKey(e => e.MaGoiMonTruoc_id);
+            modelBuilder.Entity<DatBan>()
+                .HasMany(e => e.GoiMonTruoc)
+                .WithOptional(e => e.DatBan)
+                .HasForeignKey(e => e.MaDatBan_id);
 
             modelBuilder.Entity<HoaDon>()
                 .Property(e => e.SDTKhachHang)
