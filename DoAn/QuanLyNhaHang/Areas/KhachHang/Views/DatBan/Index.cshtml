@@ -20,7 +20,6 @@
                         <a href="" class="page-route-link">Home</a>
                         <span class="devider">/</span>
                         <span>Đặt Bàn</span>
-
                     </div>
                 </div>
             </div>
@@ -44,30 +43,24 @@
                                 <th scope="col">Tổng Tiền (Tạm Tính)</th>
                                 <th scope="col">Số Tiền Cọc</th>
                                 <th scope="col">Trạng Thái</th>
-                                <th scope="col">Bàn (Dự Kiến)</th>
-                                <th scope="col">Giá Bán</th>
-                                @*<th scope="col">Hành Động</th>*@
+                                <th scope="col">Hành Động</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.MonAn.TenMonAn</td>
-                                    <td class="qty-td">
-                                        <form action="#">
-                                            <div class="input-group quantity">
-                                                @*<span class="qtyminus minus qt-btn">–</span>*@
-                                                <input class="qty form-control" type="text" value="@item.SoLuongMua" readonly>
-                                                @*<span class="qtyplus plus qt-btn">+</span>*@
-                                            </div>
-                                        </form>
-                                    <td>@string.Format("{0:0,0}", item.ThanhTien) vnđ</td>
-
+                                    <td>@item.MaDatBan</td>
+                                    <td>@item.ThoiGianBatDau</td>
+                                    <td>@item.ThoiGianKetThuc</td>
+                                    <td>@item.SoNguoi</td>
+                                    <td>@string.Format("{0:0,0}", item.TongTienTamTinh)</td>
+                                    <td>@string.Format("{0:0,0}", item.SoTienCoc)</td>
+                                    <td>@item.TrangThai</td>
+                                    <td>
+                                        <a href="" class="btn btn-primary"><span class="icofont-pencil"></span></a>
+                                        <a href="/KhachHang/DatBan/HuyDatBan?iMaDatBan=@item.MaDatBan" class="btn btn-danger"><span class="icofont-close"></span></a>
                                     </td>
-                                    @*<td>
-                                            <a href="" class="qt-btn"><span class="icofont-close"></span></a>
-                                        </td>*@
                                 </tr>
                             }
                         </tbody>
@@ -75,58 +68,11 @@
 
                 </div>
                 <div class="shopping-btn">
-                    <a href="/KhachHang/Home/Index" class="custom-btn">Tiếp Tục Xem Món</a>
-                    @*<a href="" class="custom-btn">Cập Nhật</a>*@
+                    <a href="/KhachHang/DatBan/DatBan" class="custom-btn">Yêu Cầu Đặt Bàn</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- ======================cart end================ -->
-    <!-- ===============================Coupon code and cart total============ -->
-    <section>
-        <div class="coupon-cart cmb-7">
-            <div class="container">
-                <div class="row justify-content-between">
-                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-duration="1000" style="display:none">
-                        <div class="coupon-inside">
-                            <h2>Mã Giảm Giá</h2>
-                            <p>Nhập mã giảm giá vào ô bên dưới để được giảm giá</p>
-                            <form action="#">
-                                <div class="coupon-form">
-                                    <input type="text" class="form-control coupon-input" placeholder="mã code">
-                                    <button class="custom-btn" type="submit">Xác nhận</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-duration="1500">
-                        <div class="cart-total">
-                            <h2>Tổng Tiền</h2>
-                            <table class="table table-borderless border-top border-bottom">
-                                <tbody>
-                                    <tr>
-                                        <td>Tổng cộng:</td>
-                                        <td class="cart-price">@string.Format("{0:0,0}", Model.TongTien) vnđ</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            @*<div class="total-sum">
-                                    <p>Tổng cộng:</p>
-                                    <p class="sum-price">@string.Format("{0:0,0}", Model.TongTien) vnđ</p>
-                                </div>*@
-                            <div class="submit-cart">
-                                <p class="multiple">
-                                    Quý khách vui lòng kiểm tra thông tin hóa đơn
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shopping-btn">
-                        <a href="/KhachHang/DangNhap/DangXuat" class="custom-btn">Đăng Xuất</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
 <!-- =======================body wrapper end========= -->

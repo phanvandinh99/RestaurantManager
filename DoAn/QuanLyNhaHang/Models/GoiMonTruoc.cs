@@ -7,7 +7,6 @@ namespace QuanLyNhaHang.Models
     public partial class GoiMonTruoc
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MaGoiMonTruoc { get; set; }
 
         public int SoLuong { get; set; }

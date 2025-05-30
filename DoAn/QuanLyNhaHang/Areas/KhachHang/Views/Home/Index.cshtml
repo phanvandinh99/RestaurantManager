@@ -1,6 +1,10 @@
 ﻿@using QuanLyNhaHang.Models
 @model List<MonAn>
 
+@{
+    var khachHang = Session["TaiKhoanKH"] as KhachHang;
+}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -193,27 +197,32 @@
                                             </ul>
                                         </li>
                                         <li><a href="#">Không Gian</a></li>
-                                        <li><a href="#">Đặt Bàn</a></li>
-                                        <li><a href="/KhachHang/About/SuKien">Sự Kiện</a></li>
+                                        @if (khachHang != null)
+                                        {
+                                            <li><a href="/KhachHang/DatBan/Index?sTaiKhoanKH=@khachHang.TaiKhoanKH ">Đặt Bàn</a></li>
+                                        }
                                         <li><a href="/KhachHang/About/LienHe">Liên Hệ</a></li>
+                                        @if (khachHang != null)
+                                        {
+                                            <li><a href="/KhachHang/DangNhap/DangXuat">Đăng Xuất</a></li>
+                                        }
                                     </ul>
                                 </nav>
                             </div>
 
                             <div class="header-right-search-phone d-none d-lg-block ml-35">
                                 <a href="#" class="header-search" id="search"><span class="icofont-search-1"></span></a>
-                                @if (Session["TaiKhoanKH"] != null)
+                                @if (khachHang != null)
                                 {
-                                    KhachHang KH = (KhachHang)Session["TaiKhoanKH"];
-                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@KH.SoDienThoai" class="header-phone">
-                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> @KH.TenKhachHang
+                                    <a href="/KhachHang/MonAn/HoaDon?phonenumber=@khachHang.SoDienThoai" class="header-phone">
+                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> @khachHang.TenKhachHang
                                     </a>
                                 }
                                 else
                                 {
-                                    <a href="/KhachHang/DangNhap/DangNhap" class="header-phone">
-                                        <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> Đăng Nhập
-                                    </a>
+                                <a href="/KhachHang/DangNhap/DangNhap" class="header-phone">
+                                    <img src="~/Assets/KhachHang/assets/img/icon/call.png" alt="Image not found" class="contact-icon"> Đăng Nhập
+                                </a>
                                 }
                             </div>
 
@@ -645,9 +654,9 @@
                                     <div class="col-md-6 col-xl-8 col-lg-7 my-2" data-aos="fade-right" data-aos-duration="1000">
                                         <div class="available-content">
                                             <h2 class="available-head">
-                                                NHÀ HÀNG TẠI CẦN THƠ
+                                                NHÀ HÀNG CAFEU
                                             </h2>
-                                            <p class="mb-0">Ẩm thực tại Cần Thơ là một trong những điểm đến ăn uống hấp dẫn tại thành phố. Với nhiều món ăn đặc trưng và đa dạng, ẩm thực tại Cần Thơ cung cấp cho khách hàng trải nghiệm ăn uống tuyệt vời. Nổi bật với những món ăn ngon, độc đáo và đầy màu sắc, ẩm thực tại Cần Thơ là điểm đến không thể bỏ qua cho những ai thích ăn uống tại đây.</p>
+                                            <p class="mb-0">Ẩm thực CAFEU là một trong những điểm đến ăn uống hấp dẫn tại thành phố. Với nhiều món ăn đặc trưng và đa dạng, ẩm thực CAFEU cung cấp cho khách hàng trải nghiệm ăn uống tuyệt vời. Nổi bật với những món ăn ngon, độc đáo và đầy màu sắc, ẩm thực CAFEU là điểm đến không thể bỏ qua cho những ai thích ăn uống tại đây.</p>
                                         </div>
                                     </div>
                                     <div class="col-md-6 col-xl-4 col-lg-5 my-2" data-aos="fade-left" data-aos-duration="1000">
@@ -689,7 +698,7 @@
 
                                                 <div class="note-footer">
                                                     <h4 class="note-footer-text">Liên Hệ</h4>
-                                                    <a class="note-footer-text" href="tel:+84346923002">0346.923.002</a>
+                                                    <a class="note-footer-text" href="tel:+84346923002">038.692.9370</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -865,20 +874,22 @@
                                     <ul class="address">
                                         <li>
                                             <span class="icofont-location-pin"></span>
-                                            <p class="address-info">3 Tháng 2, Xuân Khánh, Ninh Kiều, Cần Thơ</p>
+                                            <p class="address-info">
+                                                10/80c Song Hành Xa Lộ Hà Nội, Phường Tân Phú, Thủ Đức, Hồ Chí Minh
+                                            </p>
                                         </li>
 
                                         <li>
                                             <span class="icofont-email"></span>
                                             <div class="address-inner">
-                                                <p class="address-info"><a href="mailto:nfo@example.com">cafeu@gmail.com</a></p>
+                                                <p class="address-info"><a href="mailto:nfo@example.com">trucquynhhpt09988@gmail.com</a></p>
                                             </div>
                                         </li>
 
                                         <li>
                                             <span class="icofont-ui-call"> </span>
                                             <div class="address-inner">
-                                                <p class="address-info"><a href="tel:+123456679123">0346923002</a></p>
+                                                <p class="address-info"><a href="tel:+123456679123">0386929370</a></p>
                                                 @*<p class="address-info"><a href="tel:+123456789">+123 456 789</a></p>*@
                                             </div>
                                         </li>
@@ -895,7 +906,7 @@
                                         <li class="foot-list"><a href="#" class="footer-link">Trang Chủ</a></li>
                                         <li class="foot-list"><a href="#" class="footer-link">Không Gian</a></li>
                                         <li class="foot-list"><a href="#" class="footer-link">Đặt Bàn</a></li>
-                                        <li class="foot-list"><a href="/KhachHang/About/SuKien" class="footer-link">Sự Kiện</a></li>
+                                        @*<li class="foot-list"><a href="/KhachHang/About/SuKien" class="footer-link">Sự Kiện</a></li>*@
                                         <li class="foot-list"><a href="/KhachHang/About/LienHe" class="footer-link">Liên Hệ</a></li>
                                     </ul>
                                 </div>

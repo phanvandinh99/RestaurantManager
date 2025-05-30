@@ -1,4 +1,4 @@
-namespace QuanLyNhaHang.Models
+﻿namespace QuanLyNhaHang.Models
 {
     using System;
     using System.Collections.Generic;
@@ -15,7 +15,6 @@ namespace QuanLyNhaHang.Models
         }
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int MaDatBan { get; set; }
 
         public DateTime ThoiGianDat { get; set; }
@@ -31,6 +30,9 @@ namespace QuanLyNhaHang.Models
         public double? SoTienCoc { get; set; }
 
         public int? TrangThai { get; set; }
+
+        [StringLength(255)]
+        public string GhiChu { get; set; }
 
         public int? MaBan_id { get; set; }
 

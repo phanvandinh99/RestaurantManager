@@ -46,11 +46,13 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
         [HttpPost]
         public ActionResult CapNhatTang(Tang model)
         {
-            Tang tang = new Tang();
-            tang.TenTang= model.TenTang;
+            var tang = db.Tang.Find(model.MaTang);
+            if (tang != null)
+            {
+                tang.TenTang = model.TenTang;
+                db.SaveChanges();
+            }
 
-            db.Tang.Add(tang);
-            db.SaveChanges();
             return RedirectToAction("DanhSachTang", "Tang");
         }
 
@@ -61,7 +63,7 @@ namespace QuanLyNhaHang.Areas.NhanVien.Controllers
             {
                 db.Tang.Remove(db.Tang.Find(iMaTang));
                 db.SaveChanges();
-                return RedirectToAction("DanhSachTang", "Ban");
+                return RedirectToAction("DanhSachTang", "Tang");
             }
             catch
             {

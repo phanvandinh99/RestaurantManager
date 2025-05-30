@@ -143,7 +143,7 @@ namespace QuanLyNhaHang.Areas.KhachHang.Controllers
 
         public ActionResult DangXuat()
         {
-            Session["KhachHang"] = null;
+            Session["TaiKhoanKH"] = null;
             return RedirectToAction("Index", "Home");
         }
 

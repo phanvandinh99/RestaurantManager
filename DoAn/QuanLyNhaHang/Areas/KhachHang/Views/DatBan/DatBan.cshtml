@@ -1,32 +1,124 @@
-﻿
+﻿@model QuanLyNhaHang.Models.DatBan
 @{
-    ViewBag.Title = "Trang Đặt Bàn";
+    ViewBag.Title = "Đặt Bàn";
     Layout = "~/Areas/KhachHang/Views/Shared/_LayoutKhachHang.cshtml";
 }
 
+@{
+    var minTime = DateTime.Now.AddMinutes(30).ToString("yyyy-MM-ddTHH:mm");
+    var defaultTime = Model?.ThoiGianBatDau.ToString("yyyy-MM-ddTHH:mm")
+                      ?? DateTime.Now.AddHours(1).ToString("yyyy-MM-ddTHH:mm");
+}
+
 <div class="body-wrapper">
-    <!-- ===================page banner============ -->
     <div class="page-banner" data-background="/Assets/KhachHang/assets/img/page-ban-bg.png">
-        <!-- container  -->
         <div class="container">
-            <!-- row  -->
             <div class="row">
                 <div class="page-ban-content">
-                    <h1 class="page-head" data-aos="fade-up" data-aos-duration="1000">Trang Đặt Bàn</h1>
+                    <h1 class="page-head" data-aos="fade-up" data-aos-duration="1000">Đặt Bàn</h1>
                     <div class="breadcrumb-list" data-aos="fade-up" data-aos-duration="1500">
-                        <a href="index.html.htm" class="page-route-link">Home</a>
+                        <a href="/KhachHang/Home/Index" class="page-route-link">Home</a>
                         <span class="devider">/</span>
                         <span>Đặt Bàn</span>
-
                     </div>
                 </div>
             </div>
-            <!-- row end  -->
         </div>
-        <!-- container end -->
     </div>
-    <!-- ===================page banner end============ -->
-    <!-- ===========contact============ -->
-    <h1>Nội dung trang yêu cầu đặt bàn</h1>
-    <!-- ========================contact================== -->
+
+    <div class="cart-section cpy-8">
+        <div class="container">
+            <div class="row" data-aos="fade-up" data-aos-duration="1000">
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                    </div>
+                }
+
+                @using (Html.BeginForm("DatBan", "DatBan", FormMethod.Post, new { @class = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ThoiGianBatDau, "Thời Gian Bắt Đầu", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.ThoiGianBatDau, new
+                        {
+                            @type = "datetime-local",
+                            @class = "form-control",
+                            @value = Model?.ThoiGianBatDau.ToString("yyyy-MM-ddTHH:mm") ?? DateTime.Now.AddHours(1).ToString("yyyy-MM-ddTHH:mm")
+                        })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.SoNguoi, "Số Người", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.SoNguoi, new { @type = "number", @class = "form-control", @min = "1", @max = "100", @value = Model?.SoNguoi ?? 1 })
+                    </div>
+
+                    <h2>Chọn Món Ăn</h2>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="product-table">
+                                <tr>
+                                    <th>Hình Ảnh</th>
+                                    <th>Tên Món</th>
+                                    <th>Đơn Giá</th>
+                                    <th>Số Lượng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ var monAnList = ViewBag.MonAn as List<QuanLyNhaHang.Models.MonAn> ?? new List<QuanLyNhaHang.Models.MonAn>(); }
+                                @for (int i = 0; i < monAnList.Count; i++)
+                                {
+                                    var monAn = monAnList[i];
+                                    <tr>
+                                        <td>
+                                            <img src="~/Assets/img/AnhMonAn/@monAn.HinhAnh" alt="@monAn.TenMonAn" style="width: 80px; height: 80px;" />
+                                        </td>
+                                        <td>@monAn.TenMonAn</td>
+                                        <td>@string.Format("{0:0,0}", monAn.DonGia) VNĐ</td>
+                                        <td>
+                                            <input type="number" name="SoLuong[@i]" min="0" max="100" value="0" class="form-control quantity-input" style="width: 80px;" data-price="@monAn.DonGia" />
+                                            <input type="hidden" name="MaMonAn_id[@i]" value="@monAn.MaMonAn" />
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="total-sum">
+                        <p>Tổng Tiền (Tạm Tính): <span id="total-display">0 VNĐ</span></p>
+                        <p>Số Tiền Cọc (20%): <span id="deposit-display">0 VNĐ</span></p>
+                    </div>
+
+                    <div class="shopping-btn">
+                        <button type="submit" class="custom-btn">Xác Nhận Đặt Bàn</button>
+                        <a href="/KhachHang/Home/Index" class="custom-btn">Hủy</a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const updateTotal = () => {
+            let total = 0;
+            document.querySelectorAll('.quantity-input').forEach(inp => {
+                const qty = parseInt(inp.value) || 0;
+                const price = parseFloat(inp.getAttribute('data-price')) || 0;
+                total += qty * price;
+            });
+            document.getElementById('total-display').textContent = `${total.toLocaleString()} VNĐ`;
+            document.getElementById('deposit-display').textContent = `${(total * 0.2).toLocaleString()} VNĐ`;
+        };
+
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('input', updateTotal);
+        });
+
+        updateTotal();
+    });
+</script>
