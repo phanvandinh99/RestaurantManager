@@ -1,13 +1,19 @@
-﻿using System.Web.Mvc;
+﻿using QuanLyNhaHang.Models;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace QuanLyNhaHang.Areas.KhachHang.Controllers
 {
     public class DatBanController : Controller
     {
-        // GET: KhachHang/DatBan
-        public ActionResult Index()
+        DatabaseQuanLyNhaHang db = new DatabaseQuanLyNhaHang();
+
+
+        // Danh sách đặt bàn của bạn
+        public ActionResult Index(string sTaiKhoanKH)
         {
-            return View();
+            var datBan = db.DatBan.Where(n=>n.TaiKhoanKH_id == sTaiKhoanKH).ToList();
+            return View(datBan);
         }
 
         public ActionResult DatBan()
